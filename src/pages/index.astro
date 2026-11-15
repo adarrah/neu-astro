@@ -1,11 +1,847 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const focusAreasRow1 = [
+	{
+		title: 'Housing',
+		description:
+			'We support dense, mixed-income housing that makes room for more people to live near jobs, transit, and community life.',
+		theme: 'blue',
+	},
+	{
+		title: 'Transit',
+		boldTitle: true,
+		description:
+			'We push to prioritize public transit in our well-served neighborhoods and expand access where it’s most needed.',
+		theme: 'orange',
+	},
+	{
+		title: 'Neighbors',
+		description:
+			'We help members connect with their block clubs, meet new neighbors, and organize around shared issues.',
+		theme: 'blue',
+	},
+];
+
+const focusAreasRow2 = [
+	{
+		title: 'Businesses',
+		description:
+			'We work to support small and family-owned businesses, new and old, that make our neighborhoods unique and vibrant.',
+		theme: 'orange',
+	},
+	{
+		title: 'Public Services',
+		description:
+			'We use and advocate for the libraries, schools, parks, and other critical shared resources that make city life possible.',
+		theme: 'blue',
+	},
+	{
+		title: 'Civic Engagement',
+		description:
+			'We introduce neighbors to local politicians, advocacy groups, and the political process to build lasting civic power.',
+		theme: 'orange',
+	},
+];
+
+const instagramPosts = [
+	{
+		href: 'https://www.instagram.com/p/DfpiRVfmhQi/',
+		alt: 'Celebrating Broadway! 🏙️🍻',
+		src: 'https://scontent-dfw6-2.cdninstagram.com/v/t51.82787-15/889014135_17915471274544844_6918687536337439639_n.webp?stp=dst-jpg_e35_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=jbZJDygcp8kQ7kNvwGQ3iU2&_nc_oc=Adq9bgDiKeNZrPXMGGOCrThYyidNEOgc99B7s-HyfidIQCdVXqqLRBaMKPxTkL8ZzxkTF59XrFkcA00dF3LVRqwN&_nc_zt=23&_nc_ht=scontent-dfw6-2.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQJiiUJJsIgt9B7aCdt2jSfh6W4Bjjg1wGQnLdUP9xS_el0GnpyrrocYkX9Y3AFVs4V8tM8eqccN8Q&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQSl8hHmBSyZXkuRMOxcDh2GfFF51ycunkq97CWvB-xU5Q&oe=6AFD28DC',
+	},
+	{
+		href: 'https://www.instagram.com/p/DfftYjaGj_F/',
+		alt: 'Remember the fight for Broadway? Before the win, there was a LOT of organizing.',
+		src: 'https://scontent-dfw6-2.cdninstagram.com/v/t51.82787-15/881510243_17914838856544844_7986558928457424648_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=bo-wdgPJ3EEQ7kNvwHXr9Oa&_nc_oc=Adq3rwrpX2cPjMXDz2keYmGeii3G5my0IzE3TO6oeXxAxlJhb3e-baPqCrylT-XDh8BWp2FwcImH9n-xztADLCYE&_nc_zt=23&_nc_ht=scontent-dfw6-2.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQIi6daKetxuco4xVB-Rdj1EpxqrV_35_yMTOKQ5R6CEI-OaUjIawRvAxnn98vNOiLchS5HUQDlAcA&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQQXdu6tNTV2kS9zopdQ51bHwuuPsy4WM7A1uzyo4h6czA&oe=6AFD231E',
+	},
+	{
+		href: 'https://www.instagram.com/p/DffrDN4OWc6/',
+		alt: '‼️MEET THE CANDIDATES‼️',
+		src: 'https://scontent-dfw5-3.cdninstagram.com/v/t51.82787-15/892331622_17914836996544844_4869394685175386949_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=lN_spUJ-uPEQ7kNvwFwBzc0&_nc_oc=AdrjgpVBTaMe9pSFJ9do6KbT0mIV2mYLwFDHPx6GQ1k05VrM3hgKYe8uS_yGDPqs0kDEHDh-4rN-W_cT9XPwz6CL&_nc_zt=23&_nc_ht=scontent-dfw5-3.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQJiw_XT7gxWZDfj2I7l6QdA3FZ8QDPk84xS09KTB9g5j6NRMwjEOLvW9u5jdtwPGxpI8yb0V0Kuow&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQSkw6CozawZqgp6NmlZ84c4E88Vflrfjj1suAQoupTnNw&oe=6AFD408F',
+	},
+	{
+		href: 'https://www.instagram.com/p/DfaN6J1lIBC/',
+		alt: "🏙️ Broadway's future belongs to all of us!",
+		src: 'https://scontent-dfw5-2.cdninstagram.com/v/t51.82787-15/885491786_17914513188544844_3202813962069829819_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=actlQdmVipsQ7kNvwGCSK5E&_nc_oc=Adonip7GdH2Dq22HJiId0VMzEpMuQzfXMP3HaxRoTpP8ODA63t8XO0FaTbzybKyNMV1UojhFEsFt2vDdpsqxNxEp&_nc_zt=23&_nc_ht=scontent-dfw5-2.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQLImixvUBOBL-n6TSD0hAMHu6bDNycarj2k6aoJetu9z_Hft_4zr0Ar_RFkMALYQXDEBXLrzY4IsA&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQTurtW9g3AFFV6LO2QKoChOizD1SKwbiq0l3TLr3-7eEw&oe=6AFD1C3D',
+	},
+	{
+		href: 'https://www.instagram.com/p/DfXetMKGucm/',
+		alt: '🍻 SPECIAL GUEST SPEAKERS!',
+		src: 'https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-15/877679727_17914362858544844_1769340341384334606_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=6eRMVhhrPUYQ7kNvwFzvc5-&_nc_oc=Adrxm5kN4v1kUomNifMamoxAsM-Hto7tvSK1pjbik2dmpTDoTsNPju05H4ngF5Yvr4RQFK4_uilQcBb_EHQCL9Dt&_nc_zt=23&_nc_ht=scontent-dfw5-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQJxcMYjKEYCLFhZcKD2MjVhE9mqSp2uDp3ffvXhbAzJdbae6dgR2falvhCUuJdaJAmaHyox98oaAA&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQQE46fpZ81J5HyxEQhIDyR2JHtV4dG2DXINePA7F3YraQ&oe=6AFD465C',
+	},
+	{
+		href: 'https://www.instagram.com/p/DfVrDFRmuHk/',
+		alt: '🏈 BEARS WATCH PARTY + NEIGHBORHOOD SOCIAL! 🐻',
+		src: 'https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-15/883309437_17914257366544844_4962973145522211034_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=CmcoUH9SkksQ7kNvwF4I9ib&_nc_oc=AdoGvtTbB3MMjk3r7vMNg3m5u2GIg23doibl6_nUH_b6D9yfRTMF-EcaNomnyrj4g6ZR4lJvcAJ_ptyP6jPVippr&_nc_zt=23&_nc_ht=scontent-dfw5-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQIHsSplen7fMQmM6BJ9JtLbUXZmoHtZkwLLs4dsPWmJI2zP_yOS9oOfeSxVp7R0pZrv_DFbZhPa4w&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQSolZeJIaUIuBud8MQZqHG8jIL8o6uOi9SfKNSrniVvmw&oe=6AFD3FF1',
+	},
+	{
+		href: 'https://www.instagram.com/p/DfQBKP0mpvC/',
+		alt: '🗳️ TOMORROW IS ELECTION DAY!',
+		src: 'https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-15/878534020_17913920907544844_2455279545503448203_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=PcuQCWzcIMQQ7kNvwGdvRpS&_nc_oc=Adody0i9iBOHPc5bwRR-A7VEFDaf2BS_9wSQtjLdnXkPEOgP1X_ihQO9KPFd4Ld4HW4Q8gd-RZA_jV59oqQ0IEZk&_nc_zt=23&_nc_ht=scontent-dfw5-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQLYSlny5Y3tsnV6ranyoqQy0hR9SadiwAR6GeVZLjkqXQaePSYLEA9jor0QTrmUmIEnXhP9YJgzIg&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQRvE4wjrOnlEh9q5WlpL1pShRWWbKLsm7XfJ66VRKhlVA&oe=6AFD3FB8',
+	},
+	{
+		href: 'https://www.instagram.com/p/DfFubmumoar/',
+		alt: "Need a refresher on the Broadway Upzoning in 2025? Let's break it down:",
+		src: 'https://scontent-dfw5-3.cdninstagram.com/v/t51.82787-15/873924212_17913172419544844_5585847893626951024_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=d-59WNIpzkgQ7kNvwFUj8pw&_nc_oc=AdpaH3XjWUTs-2gSyerFQaMJbxt8x81jGNPyEhBtaFBepqWjbEvEqqnQsP2Ba-DqFWd16guNIiqiNNsz69GCcEce&_nc_zt=23&_nc_ht=scontent-dfw5-3.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQL-2kiNQWnjnSWi5tZwXQmwStHFmGPOpzn2tElJiHCrI7qFuHRi50SER498Uq_HhlzMrxadwa8czw&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQTjtVMazBuyARfbTfc_IqKtowBmw64IwQ3QXMPAyR7eZQ&oe=6AFD3FA8',
+	},
+	{
+		href: 'https://www.instagram.com/reel/DfFjbHKOvfm/',
+		alt: 'Congrats again to our Costume Contest Winners! 💀🏆 (and to all those who dressed up!🧛)',
+		src: 'https://scontent-dfw6-1.cdninstagram.com/v/t51.82787-15/871146236_17913160194544844_1475129393816470409_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=PhqNrAzC_GUQ7kNvwEWkk-7&_nc_oc=Adpp34TIv6524KQZMIw-T3BoBAT5EX0GUCy2MbzHOTlHNpYesDFztNxUasK_BrovT6tr2AWYY5VLz7lTQf3GO2vR&_nc_zt=23&_nc_ht=scontent-dfw6-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=GsY9HePvM_ST8x3mUG2sAw&_nc_tpa=Q5bMBQJjfv86_mXo3fLAKaaVFDPhOgmCPSabBEPtktj40bUegjE4BBj-GpMwElvLEz15F_UOrmnMiTwfwg&_nc_ct=RQosPBUKFQQAAAA&oh=00_AQTLqa52QB5qOIcUsZIAlb2zE40txAi8S8YLegjSkk96AA&oe=6AFD239E',
+	},
+];
 ---
 
 <Layout>
-	<Welcome />
+	<Header transparent={true} />
+
+	<main id="content" class="site-main">
+		<!-- Hero Section -->
+		<section class="hero-section">
+			<div class="hero-overlay"></div>
+			<div class="hero-inner">
+				<div class="hero-content">
+					<h1 class="hero-title">
+						Moving Our<br />Neighborhoods<br />Forward
+					</h1>
+					<p class="hero-desc">
+						<em>Join your neighbors in building a more walkable, transit-oriented, housing rich Far North Side</em>.
+					</p>
+					<div class="hero-cta-wrap">
+						<a href="https://neuchicago.org/newsletter-signup" class="hero-outline-btn">
+							Get Involved
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Main Body Container -->
+		<div class="main-body-container">
+			<div class="spacer"></div>
+
+			<!-- Who We Are Section -->
+			<section class="who-we-are-section">
+				<div class="who-col-left">
+					<h2 class="who-title">Who We Are</h2>
+					<div class="who-separator"></div>
+					<p class="who-desc">
+						Neighbors of Edgewater and Uptown (NEU) is a grassroots group of Uptown and Edgewater neighbors working to make our streets livelier, our housing more accessible, and our community stronger. Together, we take action to shape a neighborhood that welcomes everyone.
+					</p>
+					<a href="https://neuchicago.org/about" class="who-cta-link">
+						Learn more on “About us”
+					</a>
+				</div>
+				<div class="who-col-right">
+					<figure class="who-figure">
+						<img
+							src="/images/who-we-are.jpg"
+							alt="(c)dale fast 773 502 0455"
+							width="646"
+							height="466"
+							loading="lazy"
+						/>
+					</figure>
+				</div>
+			</section>
+
+			<div class="spacer"></div>
+
+			<!-- 6 Focus Areas Grid Section -->
+			<section class="focus-areas-section">
+				<div class="focus-row focus-row-1">
+					<div class="focus-row-inner">
+						{focusAreasRow1.map((item) => (
+							<div class:list={['focus-card', `focus-card-${item.theme}`]}>
+								<h3 class="focus-card-title">
+									{item.boldTitle ? <strong>{item.title}</strong> : item.title}
+								</h3>
+								<p class="focus-card-desc">{item.description}</p>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<div class="focus-row focus-row-2">
+					<div class="focus-row-inner">
+						{focusAreasRow2.map((item) => (
+							<div class:list={['focus-card', `focus-card-${item.theme}`]}>
+								<h3 class="focus-card-title">{item.title}</h3>
+								<p class="focus-card-desc">{item.description}</p>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<div class="spacer"></div>
+
+			<!-- How You Can Get Involved + Newsletter Section -->
+			<section class="get-involved-section">
+				<div class="get-involved-left">
+					<div class="get-involved-box">
+						<h2 class="get-involved-heading">
+							<strong>How You Can Get Involved</strong>
+						</h2>
+						<div class="get-involved-separator"></div>
+						<ul class="get-involved-list">
+							<li>Attend a monthly NEU meeting</li>
+							<li>Sign up for our Newsletter to receive local event reminders and updates</li>
+							<li>
+								<a
+									href="https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/zt-3oktvgk77-kDEgVtLqx3AieGVeSzcqMQ"
+									target="_blank"
+									rel="noopener"
+								>
+									Join our Slack community to volunteer on a project
+								</a>
+							</li>
+							<li>Connect with your Ward office and Block Club</li>
+							<li>Write letters to the editor or sign petitions</li>
+						</ul>
+						<div class="get-involved-btn-wrap">
+							<a
+								class="pill-button"
+								href="https://docs.google.com/document/d/131Fdmr3gRA7N2igFbJBBwc5aNdJ4sZcxrglVV1fcbbg/edit?usp=sharing"
+								target="_blank"
+								rel="noreferrer noopener"
+							>
+								Resources to Get Involved
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="get-involved-right">
+					<!-- Live Sender.net Form Embed (falls back gracefully if offline/blocked) -->
+					<div class="sender-form-field" data-sender-form-id="mfwtuktjegjyby5euvd"></div>
+				</div>
+			</section>
+
+			<div class="spacer"></div>
+
+			<!-- Connect With Us Online Section -->
+			<section class="connect-section">
+				<div class="connect-left">
+					<h2 class="connect-heading">Connect With Us Online</h2>
+					<ul class="connect-list">
+						<li>
+							<strong>
+								<a href="https://stats.sender.net/forms/egJyBY/view" target="_blank" rel="noreferrer noopener">
+									Newsletter:
+								</a>
+							</strong>{' '}
+							Sign up to get updates on events, projects, and neighborhood news straight to your inbox.
+						</li>
+						<li>
+							<strong>
+								<a href="https://www.instagram.com/neu_edgewateruptown/" target="_blank" rel="noreferrer noopener">
+									Instagram:
+								</a>
+							</strong>{' '}
+							Follow us for event highlights, local updates, and a peek into what we’re up to.
+						</li>
+						<li>
+							<strong>
+								<a
+									href="https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/zt-3oktvgk77-kDEgVtLqx3AieGVeSzcqMQ"
+									target="_blank"
+									rel="noopener"
+								>
+									Slack:
+								</a>
+							</strong>{' '}
+							Join our workspace to chat with neighbors, collaborate on projects, and help shape what we do behind the scenes.
+						</li>
+						<li>
+							<a href="mailto:info@neuchicago.org" target="_blank" rel="noopener">Email:</a>{' '}
+							Questions, ideas, or feedback? Email us at{' '}
+							<strong>
+								<a href="mailto:info@neuchicago.org" target="_blank" rel="noreferrer noopener">
+									info@neuchicago.org
+								</a>
+							</strong>
+						</li>
+						<li>
+							<strong>
+								<a href="https://www.linkedin.com/company/neu-chicago/" target="_blank" rel="noreferrer noopener">
+									LinkedIn:
+								</a>
+							</strong>{' '}
+							Connect with us professionally and see how urbanism, policy, and community action come together.
+						</li>
+					</ul>
+				</div>
+
+				<div class="connect-right">
+					<div class="instagram-grid">
+						{instagramPosts.map((post) => (
+							<a
+								href={post.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="instagram-item"
+								title="Home"
+							>
+								<img src={post.src} alt={post.alt} loading="lazy" />
+							</a>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<div class="spacer"></div>
+
+			<!-- Community Calendar Section -->
+			<section class="calendar-section">
+				<div class="calendar-left">
+					<div class="calendar-embed-wrap">
+						<iframe
+							src="https://calendar.google.com/calendar/embed?src=c_8b4163e88d24f07664a2f86afd84bef2394dc7ee792f1c7df63436549a9d15df%40group.calendar.google.com&ctz=America%2FChicago"
+							style="border: 0"
+							scrolling="no"
+							height="600"
+							width="100%"
+							title="NEU Community Calendar"
+							sandbox="allow-scripts allow-same-origin allow-popups"
+						></iframe>
+					</div>
+				</div>
+
+				<div class="calendar-right">
+					<h2>Community Calendar</h2>
+					<p>
+						We gather events from neighborhood groups, local organizations, and community members across the Far North Side. Anyone can request to add an event, making this a shared space for staying informed and getting involved. Use the calendar to connect with your neighbors and take part in the life of your community.
+					</p>
+				</div>
+			</section>
+
+			<div class="spacer"></div>
+		</div>
+	</main>
+
+	<Footer />
 </Layout>
+
+<style>
+	/* Hero Section */
+	.hero-section {
+		position: relative;
+		min-height: 100vh;
+		width: 100%;
+		background-image: url('/images/hero-uptown.jpg');
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		background-size: cover;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 10px;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: var(--ast-global-color-7);
+		opacity: 0.55;
+		pointer-events: none;
+	}
+
+	.hero-inner {
+		position: relative;
+		z-index: 1;
+		max-width: 1200px;
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	.hero-content {
+		margin: 7%;
+		text-align: center;
+	}
+
+	.hero-title {
+		font-family: 'Cormorant Garamond', serif;
+		font-size: 7em;
+		line-height: 1em;
+		color: #eda468;
+		margin: 0 0 10px 0;
+		font-weight: 600;
+	}
+
+	.hero-desc {
+		font-size: 2.4em;
+		line-height: 1.5em;
+		color: var(--ast-global-color-5);
+		margin: 0 0 20px 0;
+	}
+
+	.hero-cta-wrap {
+		line-height: 1;
+	}
+
+	.hero-outline-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background-color: var(--ast-global-color-8);
+		color: var(--ast-global-color-4);
+		font-family: Times, Georgia, serif;
+		font-weight: 700;
+		font-size: 0.875rem;
+		line-height: 1em;
+		text-transform: capitalize;
+		letter-spacing: 1px;
+		padding: 10px 20px;
+		border-radius: 30px;
+		text-decoration: none;
+		transition: opacity 0.2s ease, transform 0.2s ease;
+	}
+
+	.hero-outline-btn:hover {
+		color: var(--ast-global-color-4);
+		background-color: var(--ast-global-color-8);
+		opacity: 0.92;
+	}
+
+	@media (max-width: 976px) {
+		.hero-section {
+			min-height: 70vh;
+			padding: 0 25px;
+		}
+		.hero-title {
+			font-size: 6.1em;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.hero-section {
+			min-height: 90vh;
+			padding: 0 20px;
+		}
+		.hero-content {
+			margin: 5%;
+		}
+		.hero-title {
+			font-size: 13vw;
+			margin-top: 10%;
+			margin-bottom: 5%;
+		}
+		.hero-desc {
+			font-size: 7vw;
+		}
+	}
+
+	/* Main Body Container */
+	.main-body-container {
+		max-width: 80vw;
+		width: 100%;
+		margin: 0 auto;
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	@media (max-width: 976px) {
+		.main-body-container {
+			max-width: 1024px;
+			padding: 10px 20px;
+		}
+	}
+
+	.spacer {
+		height: 2vw;
+		width: 100%;
+	}
+
+	/* Who We Are Section */
+	.who-we-are-section {
+		display: flex;
+		gap: 24px;
+		align-items: normal;
+		width: 100%;
+	}
+
+	.who-col-left {
+		flex-basis: 33.33%;
+		text-align: left;
+	}
+
+	.who-title {
+		font-size: 61px;
+		line-height: 1em;
+		color: var(--ast-global-color-3);
+		margin: 0;
+	}
+
+	.who-separator {
+		display: inline-block;
+		width: 30%;
+		border-top: 2px solid #333333;
+		margin: 0 0 15px 0;
+	}
+
+	.who-desc {
+		font-size: 22px;
+		line-height: 1.65;
+		color: var(--ast-global-color-3);
+		margin: 0 0 40px 0;
+	}
+
+	.who-cta-link {
+		display: inline-flex;
+		text-transform: uppercase;
+		font-size: 14px;
+		letter-spacing: 2px;
+		color: var(--ast-global-color-3);
+		text-decoration: none;
+	}
+
+	.who-cta-link:hover {
+		color: var(--ast-global-color-1);
+	}
+
+	.who-col-right {
+		flex-basis: 66.66%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.who-figure {
+		margin: 0;
+		display: flex;
+		justify-content: center;
+	}
+
+	.who-figure img {
+		width: 646px;
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	@media (max-width: 781px) {
+		.who-we-are-section {
+			flex-direction: column;
+		}
+		.who-col-left,
+		.who-col-right {
+			flex-basis: 100%;
+		}
+	}
+
+	/* Focus Areas Section (6 Cards in 2 Tinted Rows) */
+	.focus-areas-section {
+		display: grid;
+		grid-template-columns: 1fr;
+		width: 100%;
+		padding: 10px 0;
+	}
+
+	.focus-row {
+		width: 100vw;
+		margin-left: calc(50% - 50vw);
+		margin-right: calc(50% - 50vw);
+		display: flex;
+		justify-content: center;
+	}
+
+	.focus-row-1 {
+		background-color: rgba(214, 146, 90, 0.51);
+	}
+
+	.focus-row-2 {
+		background-color: rgba(145, 181, 204, 0.49);
+	}
+
+	.focus-row-inner {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: stretch;
+	}
+
+	.focus-card {
+		max-width: 25%;
+		width: 100%;
+		padding: 5%;
+		border: 2px solid var(--ast-global-color-3);
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.focus-card-blue {
+		background-color: var(--ast-global-color-1);
+	}
+
+	.focus-card-orange {
+		background-color: var(--ast-global-color-0);
+	}
+
+	.focus-card-title {
+		color: var(--ast-global-color-5);
+		font-size: 2.25rem;
+		margin: 0 0 30px 0;
+	}
+
+	.focus-card-desc {
+		color: var(--ast-global-color-5);
+		font-size: 1rem;
+		margin: 0 0 50px 0;
+		line-height: 1.65;
+	}
+
+	@media (max-width: 976px) {
+		.focus-row {
+			padding: 0 25px;
+		}
+		.focus-card {
+			max-width: 50%;
+			padding: 28px;
+			border-width: 1px;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.focus-row-inner {
+			flex-direction: column;
+		}
+		.focus-card {
+			max-width: 100%;
+			padding: 5%;
+		}
+	}
+
+	/* How You Can Get Involved + Newsletter Section */
+	.get-involved-section {
+		max-width: 1200px;
+		width: 100%;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+	}
+
+	.get-involved-left {
+		width: 50%;
+	}
+
+	.get-involved-box {
+		background-color: var(--ast-global-color-5);
+		padding: 32px 0 61px 0;
+		display: flex;
+		flex-direction: column;
+		gap: 19px;
+	}
+
+	.get-involved-heading {
+		margin: 0;
+		padding-right: 19%;
+		font-size: 2.625rem;
+		color: var(--ast-global-color-2);
+	}
+
+	.get-involved-separator {
+		width: 73%;
+		border-top: 1px solid var(--ast-global-color-2);
+		margin: 5px 0;
+	}
+
+	.get-involved-list {
+		margin: 0 0 0 20px;
+		padding: 0;
+		font-size: 23px;
+		color: var(--ast-global-color-3);
+	}
+
+	.get-involved-list li {
+		margin-bottom: 8px;
+	}
+
+	.get-involved-btn-wrap {
+		display: flex;
+		justify-content: flex-start;
+		margin-top: 10px;
+	}
+
+	.pill-button {
+		display: inline-block;
+		width: 50%;
+		text-align: center;
+		background-color: var(--ast-global-color-8);
+		color: var(--ast-global-color-4);
+		font-family: 'Cormorant Garamond', serif;
+		font-size: 1.25rem;
+		font-weight: 400;
+		line-height: 1em;
+		letter-spacing: 1px;
+		padding: 10px 0;
+		border-radius: 30px;
+		text-decoration: none;
+	}
+
+	.pill-button:hover {
+		color: var(--ast-global-color-4);
+		background-color: var(--ast-global-color-8);
+		opacity: 0.92;
+	}
+
+	.get-involved-right {
+		width: 50%;
+		padding: 10px 10px 10px 85px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	@media (max-width: 976px) {
+		.get-involved-section {
+			flex-direction: column;
+		}
+		.get-involved-left,
+		.get-involved-right {
+			width: 100%;
+		}
+		.get-involved-right {
+			padding-left: 10px;
+		}
+		.pill-button {
+			width: auto;
+			padding: 12px 28px;
+		}
+	}
+
+	/* Connect With Us Online Section */
+	.connect-section {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+		width: 100%;
+	}
+
+	.connect-left {
+		flex-basis: 40%;
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+	}
+
+	.connect-heading {
+		margin: 0;
+		font-size: 2.625rem;
+		text-align: center;
+	}
+
+	.connect-list {
+		font-size: 23px;
+		margin: 0;
+		padding-left: 25px;
+		color: var(--ast-global-color-3);
+	}
+
+	.connect-list li {
+		margin-bottom: 10px;
+	}
+
+	.connect-right {
+		flex-basis: 60%;
+		padding: 10px;
+	}
+
+	.instagram-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0;
+	}
+
+	.instagram-item {
+		display: block;
+		aspect-ratio: 1 / 1;
+		overflow: hidden;
+		line-height: 0;
+	}
+
+	.instagram-item img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.25s ease;
+	}
+
+	.instagram-item:hover img {
+		transform: scale(1.03);
+	}
+
+	@media (max-width: 781px) {
+		.connect-section {
+			flex-direction: column;
+		}
+		.connect-left,
+		.connect-right {
+			flex-basis: 100%;
+			width: 100%;
+		}
+		.instagram-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	/* Community Calendar Section */
+	.calendar-section {
+		display: flex;
+		align-items: flex-start;
+		gap: 24px;
+		width: 100%;
+	}
+
+	.calendar-left {
+		flex-basis: 60%;
+	}
+
+	.calendar-embed-wrap {
+		width: 100%;
+		min-width: 300px;
+	}
+
+	.calendar-right {
+		flex-basis: 40%;
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.calendar-right h2 {
+		margin: 0 0 24px 0;
+		text-align: center;
+	}
+
+	.calendar-right p {
+		font-size: 23px;
+		margin: 0;
+		color: var(--ast-global-color-3);
+	}
+
+	@media (max-width: 781px) {
+		.calendar-section {
+			flex-direction: column;
+		}
+		.calendar-left,
+		.calendar-right {
+			flex-basis: 100%;
+			width: 100%;
+		}
+	}
+</style>

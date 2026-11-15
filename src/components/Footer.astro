@@ -1,0 +1,311 @@
+---
+const socialLinks = [
+	{
+		label: 'Instagram',
+		href: 'https://www.instagram.com/neu.chicago',
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224,202.66A53.34,53.34,0,1,0,277.36,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31,6.43a54,54,0,0,0-30.41,30.41c-8.28,21-6.43,71.05-6.43,94.33S91,329.26,99.32,350.33a54,54,0,0,0,30.41,30.41c21,8.29,71,6.43,94.31,6.43s73.24,1.93,94.3-6.43a54,54,0,0,0,30.41-30.41c8.35-21,6.43-71.05,6.43-94.33S357.1,182.74,348.75,161.67ZM224,338a82,82,0,1,1,82-82A81.9,81.9,0,0,1,224,338Zm85.38-148.3a19.14,19.14,0,1,1,19.13-19.14A19.1,19.1,0,0,1,309.42,189.74ZM400,32H48A48,48,0,0,0,0,80V432a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V80A48,48,0,0,0,400,32ZM382.88,322c-1.29,25.63-7.14,48.34-25.85,67s-41.4,24.63-67,25.85c-26.41,1.49-105.59,1.49-132,0-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61,0-132,1.29-25.63,7.07-48.34,25.85-67s41.47-24.56,67-25.78c26.41-1.49,105.59-1.49,132,0,25.63,1.29,48.33,7.15,67,25.85s24.63,41.42,25.85,67.05C384.37,216.44,384.37,295.56,382.88,322Z"></path></svg>`,
+	},
+	{
+		label: 'Bluesky',
+		href: 'https://bsky.app/profile/neuchicago.org',
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>`,
+	},
+	{
+		label: 'Facebook',
+		href: 'https://www.facebook.com/people/Neighbors-of-Edgewater-and-Uptown/61580935426591/',
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path></svg>`,
+	},
+	{
+		label: 'Slack',
+		href: 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/zt-3oktvgk77-kDEgVtLqx3AieGVeSzcqMQ',
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"></path></svg>`,
+	},
+	{
+		label: 'Linkedin',
+		href: 'https://www.linkedin.com/company/neu-chicago',
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>`,
+	},
+	{
+		label: 'Threads',
+		href: 'https://www.threads.com/@neu.chicago',
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105 0h302c57.75 0 105 47.25 105 105v302c0 57.75-47.25 105-105 105H105C47.25 512 0 464.75 0 407V105C0 47.25 47.25 0 105 0z M337.36 243.58c-1.46-.7-2.95-1.38-4.46-2.02-2.62-48.36-29.04-76.05-73.41-76.33-25.6-.17-48.52 10.27-62.8 31.94l24.4 16.74c10.15-15.4 26.08-18.68 37.81-18.68h.4c14.61.09 25.64 4.34 32.77 12.62 5.19 6.04 8.67 14.37 10.39 24.89-12.96-2.2-26.96-2.88-41.94-2.02-42.18 2.43-69.3 27.03-67.48 61.21.92 17.35 9.56 32.26 24.32 42.01 12.48 8.24 28.56 12.27 45.26 11.35 22.07-1.2 39.37-9.62 51.45-25.01 9.17-11.69 14.97-26.84 17.53-45.92 10.51 6.34 18.3 14.69 22.61 24.73 7.31 17.06 7.74 45.1-15.14 67.96-20.04 20.03-44.14 28.69-80.55 28.96-40.4-.3-70.95-13.26-90.81-38.51-18.6-23.64-28.21-57.79-28.57-101.5.36-43.71 9.97-77.86 28.57-101.5 19.86-25.25 50.41-38.21 90.81-38.51 40.68.3 71.76 13.32 92.39 38.69 10.11 12.44 17.73 28.09 22.76 46.33l28.59-7.63c-6.09-22.45-15.67-41.8-28.72-57.85-26.44-32.53-65.1-49.19-114.92-49.54h-.2c-49.72.35-87.96 17.08-113.64 49.73-22.86 29.05-34.65 69.48-35.04 120.16v.24c.39 50.68 12.18 91.11 35.04 120.16 25.68 32.65 63.92 49.39 113.64 49.73h.2c44.2-.31 75.36-11.88 101.03-37.53 33.58-33.55 32.57-75.6 21.5-101.42-7.94-18.51-23.08-33.55-43.79-43.48zm-76.32 71.76c-18.48 1.04-37.69-7.26-38.64-25.03-.7-13.18 9.38-27.89 39.78-29.64 3.48-.2 6.9-.3 10.25-.3 11.04 0 21.37 1.07 30.76 3.13-3.5 43.74-24.04 50.84-42.15 51.84z"/></svg>`,
+	},
+	{
+		label: 'Email',
+		href: 'mailto:info@neuchicago.org',
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>`,
+	},
+];
+---
+
+<footer class="site-footer" id="colophon">
+	<div class="site-primary-footer-wrap">
+		<div class="footer-primary-grid">
+			<div class="footer-col-1">
+				<h2>Neighbors of Edgewater and Uptown</h2>
+				<h4>
+					Creating community, empowering everyone, and acting as a resource for Edgewater and Uptown Community Area neighbors.
+				</h4>
+			</div>
+			<div class="footer-col-2">
+				<h2><a href="https://neuchicago.org/contact">Contact Us</a></h2>
+				<h4>
+					<br /><br />
+					Neighbors of Edgewater and Uptown is a registered 501(c)4 organization.<br />
+					<a href="mailto:info@neuchicago.org" class="underline-link">info@neuchicago.org</a>
+				</h4>
+			</div>
+		</div>
+	</div>
+
+	<div class="site-below-footer-wrap">
+		<div class="footer-below-grid">
+			<div class="footer-below-col-1">
+				<p>Copyright &copy; 2026 Neighbors of Edgewater and Uptown</p>
+			</div>
+			<div class="footer-below-col-2">
+				<a href="/">
+					<img
+						loading="lazy"
+						width="81"
+						height="81"
+						src="/images/neu-logo.png"
+						alt="Neighbors of Edgewater and Uptown"
+						class="footer-logo"
+					/>
+				</a>
+			</div>
+			<div class="footer-below-col-3">
+				<div class="footer-social-wrap">
+					{socialLinks.map((item) => (
+						<a
+							href={item.href}
+							aria-label={item.label}
+							target={item.href.startsWith('mailto:') ? undefined : '_blank'}
+							rel={item.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+							class="footer-social-item"
+						>
+							<span class="social-icon" aria-hidden="true" set:html={item.icon} />
+							<span class="social-label">{item.label}</span>
+						</a>
+					))}
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		background-color: var(--ast-global-color-0);
+		color: var(--ast-global-color-4);
+	}
+
+	@media (max-width: 921px) {
+		.site-footer {
+			padding-left: 25px;
+			padding-right: 25px;
+		}
+	}
+
+	.site-primary-footer-wrap {
+		padding-top: 5%;
+		padding-bottom: 0;
+	}
+
+	@media (max-width: 921px) {
+		.site-primary-footer-wrap {
+			padding-top: 60px;
+			padding-bottom: 60px;
+		}
+	}
+
+	.footer-primary-grid {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+		align-items: flex-start;
+	}
+
+	.footer-col-1 {
+		text-align: left;
+	}
+
+	.footer-col-1 h2,
+	.footer-col-1 h4 {
+		color: #ffffff;
+	}
+
+	.footer-col-1 h2 {
+		margin: 0 0 24px 0;
+		font-size: 2.625rem;
+		line-height: 1.3em;
+	}
+
+	.footer-col-1 h4,
+	.footer-col-2 h4 {
+		margin: 0;
+		font-size: 1.5625rem;
+		line-height: 1.2em;
+		font-weight: 600;
+	}
+
+	.footer-col-2 {
+		text-align: right;
+		color: var(--ast-global-color-5);
+	}
+
+	.footer-col-2 h2 {
+		margin: 0;
+		font-size: 2.625rem;
+		line-height: 1.3em;
+		color: var(--ast-global-color-4);
+	}
+
+	.footer-col-2 h4 {
+		color: var(--ast-global-color-4);
+	}
+
+	.footer-col-2 a {
+		color: var(--ast-global-color-5);
+		text-decoration: none;
+	}
+
+	.footer-col-2 a.underline-link {
+		text-decoration: underline;
+	}
+
+	@media (max-width: 921px) {
+		.footer-primary-grid {
+			gap: 50px;
+		}
+		.footer-col-2 {
+			text-align: left;
+		}
+		.footer-col-1 h2,
+		.footer-col-2 h2 {
+			font-size: 32px;
+		}
+		.footer-col-1 h4,
+		.footer-col-2 h4 {
+			font-size: 22px;
+		}
+	}
+
+	@media (max-width: 544px) {
+		.footer-primary-grid {
+			grid-template-columns: 1fr;
+		}
+		.footer-col-1,
+		.footer-col-2 {
+			text-align: center;
+		}
+	}
+
+	.site-below-footer-wrap {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		min-height: 40px;
+	}
+
+	.footer-below-grid {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		align-items: center;
+		gap: 20px;
+	}
+
+	.footer-below-col-1 {
+		text-align: left;
+		color: #f8f8f8;
+	}
+
+	.footer-below-col-1 p {
+		margin: 0;
+		font-size: 1rem;
+	}
+
+	.footer-below-col-2 {
+		text-align: center;
+	}
+
+	.footer-logo {
+		width: 81px;
+		height: auto;
+		display: inline-block;
+	}
+
+	.footer-below-col-3 {
+		text-align: right;
+	}
+
+	.footer-social-wrap {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.footer-social-item {
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+		color: #f8f8f8;
+		padding: 0 0.2em;
+		transition: color 0.15s ease;
+	}
+
+	.social-icon {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.social-icon :global(svg) {
+		width: 25px;
+		height: 25px;
+		fill: #f8f8f8;
+		transition: fill 0.15s ease;
+	}
+
+	.social-label {
+		padding-left: 6px;
+		color: #f8f8f8;
+		font-size: 1rem;
+		transition: color 0.15s ease;
+	}
+
+	.footer-social-item:hover .social-icon :global(svg) {
+		fill: var(--ast-global-color-3);
+	}
+
+	.footer-social-item:hover .social-label {
+		color: var(--ast-global-color-3);
+	}
+
+	@media (max-width: 921px) {
+		.footer-below-col-1 {
+			text-align: center;
+		}
+		.footer-social-wrap {
+			justify-content: flex-start;
+		}
+	}
+
+	@media (max-width: 544px) {
+		.footer-below-grid {
+			grid-template-columns: 1fr;
+			gap: 15px;
+		}
+		.footer-social-wrap {
+			justify-content: center;
+		}
+	}
+</style>
+
