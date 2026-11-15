@@ -1,0 +1,80 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MapboxMap from '../../components/MapboxMap.astro';
+---
+
+<Layout
+	title="Chambers of Commerce - Neighbors of Edgewater and Uptown"
+	description="Find the Chamber of Commerce nearest you in Edgewater and Uptown."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<section class="resource-subpage-hero">
+			<div class="resource-subpage-inner">
+				<div class="resource-header-grid">
+					<div class="resource-header-text">
+						<p class="eyebrow">Edgewater &amp; Uptown</p>
+						<h1>Chambers of Commerce</h1>
+						<p>
+							Chambers of Commerce are organizations that support local businesses, make improvements to commercial corridors, and put on street festivals. In many ways they are responsible for some of the most iconic events that define our neighborhoods.
+						</p>
+						<p>View the map of Chambers below to find the Chamber of Commerce nearest you.</p>
+					</div>
+					<div class="resource-header-map">
+						<MapboxMap mapId="4286" />
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.resource-subpage-hero {
+		background-color: var(--ast-global-color-4);
+		padding: 64px 24px 88px;
+	}
+
+	.resource-subpage-inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.resource-header-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.25fr;
+		gap: 48px;
+		align-items: center;
+	}
+
+	@media (max-width: 920px) {
+		.resource-header-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--ast-global-color-0);
+		margin: 0 0 8px 0;
+	}
+
+	.resource-header-text h1 {
+		margin: 0 0 16px 0;
+	}
+
+	.resource-header-text p {
+		font-size: 17px;
+		line-height: 1.65;
+		margin: 0 0 16px 0;
+	}
+</style>
+

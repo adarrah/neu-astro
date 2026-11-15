@@ -26,6 +26,8 @@ jobs:
 
       - name: Build Astro static site
         run: npm run build
+        env:
+          PUBLIC_MAPBOX_ACCESS_TOKEN: ${{ secrets.PUBLIC_MAPBOX_ACCESS_TOKEN }}
 
       - name: Deploy dist/ to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

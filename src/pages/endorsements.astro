@@ -1,0 +1,393 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Candidate {
+	name: string;
+	office: string;
+	photo: string;
+	bio: string[];
+	campaignUrl: string;
+}
+
+interface EndorsementGroup {
+	category: string;
+	candidates: Candidate[];
+	questionnaireTitle?: string;
+	questionnairePdf?: string;
+}
+
+const endorsementGroups: EndorsementGroup[] = [
+	{
+		category: 'Chicago Board of Education',
+		candidates: [
+			{
+				name: 'Debby Pope',
+				office: 'Board of Education District 2B',
+				photo: '/wp-content/uploads/2026/10/image3-e1791516526872-1024x1024.png',
+				bio: [
+					'Debby Pope is a dedicated public education advocate, community leader, and member of the School Board. A retired high school bilingual teacher, she brings decades of frontline classroom experience and a lifelong commitment to social justice across Chicago.',
+					'Her advocacy is both professional and personal: a Chicago Public School (CPS) parent to two daughters and now a proud CPS grandparent, Debby has spent years fighting for strong, equitable neighborhood schools. She is a longtime Chicago Teachers Union (CTU) activist and has served her local community as past president of West Andersonville Neighbors Together. Across every role, Debby continues to champion students, educators, and working families throughout Chicago.',
+				],
+				campaignUrl: 'https://www.debbyfordistrict2b.com/',
+			},
+			{
+				name: 'Karen Zaccor',
+				office: 'Board of Education District 4A',
+				photo: '/wp-content/uploads/2026/10/image6-e1791516329568-1024x1024.jpg',
+				bio: [
+					'Karen Zaccor has been involved in the education justice movement for decades, including the fight against school closures and privatization, the work over a decade to win the elected representative school board, and the effort to make the Sustainable Community Schools initiative a reality.',
+					'Her involvement with CPS includes being a parent, a Local School Council member, and a teacher for 29 years, during which she co-founded Uplift Community High School, the school she retired from in 2024.',
+				],
+				campaignUrl: 'https://neighborsforkarenzaccor.org/',
+			},
+		],
+		questionnaireTitle: 'Board of Education Candidate Questionnaire Responses',
+		questionnairePdf: '/wp-content/uploads/2026/10/NEU-Board-of-Education-Questionnaire-Responses-2026.pdf',
+	},
+	{
+		category: 'Chicago City Council',
+		candidates: [
+			{
+				name: 'Angela Clay',
+				office: 'Alderperson 46th Ward',
+				photo: '/wp-content/uploads/2026/10/2c7d3b13-cfbc-44ee-8df8-989ad939efde-ACheadshotbkgd-1024x1024.jpg',
+				bio: [
+					'Angela’s family has called the 46th Ward home for more than 80 years. Raised in a multiracial, multigenerational household, she attended local public schools, graduating from Uplift Community High School before earning her degree in Public Policy from DePaul University. Her dedication to public service began early as a founding member of Voices of Youth in Chicago Education (VOYCE), and at just 22, she became the youngest president in the history of Voice of the People in Uptown, advocating for affordable housing for working families and seniors. Whether organizing mutual aid during the COVID-19 pandemic or championing community-driven solutions, Angela has built her career on showing up for her neighbors.',
+					'Since taking office as Alderwoman of the 46th Ward in 2023, Angela has delivered tangible progress across the community. Her administration has invested over $2 million in neighborhood infrastructure, including repairing dozens of sidewalks, repaving streets, expanding transit options, and advancing CTA accessibility improvements, while modernizing zoning across roughly 450 parcels to encourage responsible housing and development. Alongside these investments, the ward has seen marked declines in homicides, shootings, and robberies, reflecting her ongoing commitment to public safety, collaborative decision-making, and an equitable future for all residents.',
+				],
+				campaignUrl: 'https://clayfor46.com/',
+			},
+			{
+				name: 'Leni Manaa-Hoppenworth',
+				office: 'Alderperson 48th Ward',
+				photo: '/wp-content/uploads/2026/10/image5-e1791518261222.jpg',
+				bio: [
+					'Alderwoman Leni Manaa-Hoppenworth is a community organizer, small-business owner, and long-time advocate for inclusive, community-centered leadership. A lifelong Chicagoan, Leni is the proud daughter of Filipino immigrants, a CPS alum, parent of three CPS graduates, and proud member of the LGBTQ+ community. She has been awarded the Kurt Mathiasson Award for community service by the Andersonville Chamber of Commerce and the Peggy A. Montes Unsung Heroine of Cook County award.',
+					'Over the past three years in City Hall, Leni has built a track record for delivering results for the 48th Ward. She is dedicated to the belief that housing, healthcare, and safety are human rights. She has sponsored and supported over 300 pieces of legislation to progress those values, including introducing and passing the Green Social Housing ordinance, the largest investment in affordable housing and economic development in the history of Chicago.',
+					'Before being elected, Leni served on her Local School Council and co-founded Indivisible Illinois, Indivisible IL9, and ILVOTE, organizing grassroots efforts to elect progressive Democrats and make voting more accessible across our state. She also served as Director of Operations for the Illinois Chapter of the Women’s March on Washington.',
+				],
+				campaignUrl: 'https://voteleni.com/',
+			},
+			{
+				name: 'Andre Vasquez',
+				office: 'Alderperson 40th Ward',
+				photo: '/wp-content/uploads/2026/10/andre_street2-1.jpg',
+				bio: [
+					'Born and raised in Chicago to immigrant parents who fled poverty and violence in Guatemala, Alderperson Andre Vasquez learned early the value of hard work, perseverance, and the critical need for stable communities. His working-class upbringing and frequent relocations across the city inspired his career in grassroots activism with Reclaim Chicago. Today, as the 40th Ward Alderperson, he has built a reputation as a transparent, responsive, and consensus-driven leader in City Hall, ensuring local government directly reflects and serves the needs of its residents.',
+					"Throughout his tenure, Vasquez has delivered significant, tangible results across key neighborhood priorities. He established participatory budgeting with the 40th Ward People's Budget, enacted community-driven zoning, and passed municipal transparency reforms to keep residents informed on city spending. On safety and infrastructure, he championed strong community police oversight, launched traffic-safety initiatives like the Smart Streets pilot, modernized tree-trimming and 311 services, and introduced weekly open-door Ward Nights. Additionally, as Chair of the Committee on Immigrant and Refugee Rights, he has consistently fought for everyday Chicagoans by defending the Welcoming City Ordinance, passing One Fair Wage, expanding accessibility permits, and advancing policies to fund public transit and double citywide affordable housing requirements.",
+				],
+				campaignUrl: 'https://www.andrefor40th.com/',
+			},
+			{
+				name: 'Matt Martin',
+				office: 'Alderperson 47th Ward',
+				photo: '/wp-content/uploads/2026/10/309438324_505462104728629_2360195399054485255_n-1024x1024.jpg',
+				bio: [
+					"Matt Martin is a lifelong progressive whose dedication to public service is rooted in both the courtroom and the community. Before his election to the City Council, he worked as a civil rights attorney in the Illinois Attorney General's Office, advocating for workers' rights, healthcare access, and immigrant protections while helping draft the federal consent decree to modernize the Chicago Police Department. Deeply invested in his neighborhood, Matt co-founded the Heart of Lincoln Square Neighbors Association, served on the local school council at McPherson Elementary, and contributed to former Alderman Pawar’s Zoning Advisory Council. He lives in Lincoln Square with his wife, Katelyn, and their two children, Isaac and Ameena.",
+					"Driven by the belief that every resident deserves a life of dignity and respect, Matt ran for office to stand up for hardworking families who continue to struggle. As Alderman of the 47th Ward, he focuses on tackling Chicago's most pressing challenges, including expanding affordable housing, fully funding public schools, and advancing comprehensive public safety solutions. Serving as an independent, community-first voice in City Hall, Matt remains accountable directly to the neighbors he represents rather than political insiders or special interests.",
+				],
+				campaignUrl: 'https://www.matt47.com/',
+			},
+		],
+		questionnaireTitle: 'City Council Candidate Questionnaire Responses',
+		questionnairePdf: '/wp-content/uploads/2026/10/NEU-Alderperson-Questionnaire-Responses-2026.pdf',
+	},
+	{
+		category: 'State and County Offices',
+		candidates: [
+			{
+				name: 'Drake Warren',
+				office: 'County Commissioner District 10',
+				photo: '/wp-content/uploads/2026/10/Headshot-CW050625-Drake-Warren-Headshot-at-Sunnyside-Mall-200284-1024x1024.jpg',
+				bio: [
+					"Drake Warren is an Industrial Engineer and a housing policy advocate. He is a renter, transit user, cyclist, and would be the first openly LGBTQ+ Commissioner to represent District 10. In office, his initial priorities will be community engagement, utilizing vacant land for the collective benefit of residents, and protecting Cook County's healthcare system from federal cuts.",
+				],
+				campaignUrl: 'http://drakefor10.com',
+			},
+			{
+				name: 'Demi Palecek',
+				office: 'State Representative 13th District',
+				photo: '/wp-content/uploads/2026/10/Demi-Headshot-Large-Square.jpeg',
+				bio: [
+					"Born in Edwardsville, Illinois, to a Mexican immigrant mother and a Vietnam veteran father, Demi overcame adversity from a young age, supported her family, and joined the military to build a better future. As a survivor and advocate, she has fought for survivors' rights, transgender soldiers, and fair treatment in the military. Back in Chicago, Demi has served as President of the 46th Ward Democrats and led progressive causes, while her communications expertise has powered major political campaigns and organizations. She has built bridges across communities, organized for social justice, and brought international leadership experience home to Illinois. Now, Demi is running for State Representative in the 13th District, ready to champion working families and serve as an effective voice for gun violence prevention, equity, and opportunity.",
+				],
+				campaignUrl: 'http://demiforillinois.com',
+			},
+		],
+	},
+];
+---
+
+<Layout
+	title="Endorsements - Neighbors of Edgewater and Uptown"
+	description="Candidates endorsed by Neighbors of Edgewater and Uptown and their questionnaire responses."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<div class="endorsements-container">
+			<section class="endorsements-intro">
+				<h1>Endorsements</h1>
+				<p>
+					Neighbors of Edgewater and Uptown is proud to endorse these candidates. The elected officials that represent us have an incredible power to do immense good in peoples lives and we believe these candidates will live up to that promise. Some of these candidates have a track record showing their dedication to their communities, while some of them are newer to public service; but all of them have earned our support through their actions and their commitments to our community.
+				</p>
+				<p>
+					As a part of our process to endorse these candidates, we asked them to tell us how they would work to support the four pillars of our organization: safer streets, better transit, more housing, and active community. Their answers informed the decision of our members to vote to endorse them and we are sharing them with you as well in the hopes they will convince you to vote for them as well.
+				</p>
+			</section>
+
+			{
+				endorsementGroups.map((group) => (
+					<section class="endorsement-category-section">
+						<h2 class="category-heading">{group.category}</h2>
+
+						<div class="candidates-grid">
+							{group.candidates.map((candidate) => (
+								<article class="candidate-card">
+									<div class="candidate-photo-wrap">
+										<img src={candidate.photo} alt={candidate.name} loading="lazy" />
+									</div>
+									<div class="candidate-header">
+										<h3 class="candidate-name">{candidate.name}</h3>
+										<p class="candidate-office">{candidate.office}</p>
+									</div>
+									<div class="candidate-divider" />
+									<div class="candidate-bio">
+										{candidate.bio.map((p) => (
+											<p>{p}</p>
+										))}
+									</div>
+									<div class="candidate-cta">
+										<a
+											href={candidate.campaignUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="campaign-link"
+										>
+											<span>Get involved with the campaign</span>
+											<svg viewBox="0 0 448 512" width="14" height="14" aria-hidden="true">
+												<path
+													fill="currentColor"
+													d="M256 64C256 46.33 270.3 32 288 32H415.1C420.3 32 424.5 32.86 428.2 34.43C431.1 35.98 435.5 38.27 438.6 41.3C444.9 47.66 447.1 55.78 448 63.9V192C448 209.7 433.7 224 416 224C398.3 224 384 209.7 384 192V141.3L214.6 310.6C202.1 323.1 181.9 323.1 169.4 310.6C156.9 298.1 156.9 277.9 169.4 265.4L338.7 96H288C270.3 96 256 81.67 256 64zM0 128C0 92.65 28.65 64 64 64H160C177.7 64 192 78.33 192 96C192 113.7 177.7 128 160 128H64V416H352V320C352 302.3 366.3 288 384 288C401.7 288 416 302.3 416 320V416C416 451.3 387.3 480 352 480H64C28.65 480 0 451.3 0 416V128z"
+												/>
+											</svg>
+										</a>
+									</div>
+								</article>
+							))}
+						</div>
+
+						{group.questionnairePdf && group.questionnaireTitle && (
+							<details class="questionnaire-accordion">
+								<summary class="questionnaire-summary">
+									<span>{group.questionnaireTitle}</span>
+									<span class="accordion-plus" aria-hidden="true" />
+								</summary>
+								<div class="questionnaire-panel">
+									<object
+										data={group.questionnairePdf}
+										type="application/pdf"
+										width="100%"
+										height="600"
+										aria-label={group.questionnaireTitle}
+									>
+										<p>
+											<a href={group.questionnairePdf} target="_blank" rel="noopener noreferrer">
+												Download {group.questionnaireTitle} (PDF)
+											</a>
+										</p>
+									</object>
+								</div>
+							</details>
+						)}
+					</section>
+				))
+			}
+		</div>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.endorsements-container {
+		max-width: 1180px;
+		margin: 0 auto;
+		padding: 64px 24px 96px;
+		display: flex;
+		flex-direction: column;
+		gap: 72px;
+	}
+
+	.endorsements-intro {
+		text-align: center;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.endorsements-intro h1 {
+		font-size: 64px;
+		margin: 0 0 24px 0;
+		color: var(--ast-global-color-3);
+	}
+
+	.endorsements-intro p {
+		font-size: 18px;
+		line-height: 1.7;
+		color: var(--ast-global-color-3);
+		margin: 0 0 18px 0;
+	}
+
+	.endorsement-category-section {
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	.category-heading {
+		text-align: center;
+		font-size: 40px;
+		margin: 0;
+		color: var(--ast-global-color-3);
+	}
+
+	.candidates-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 36px;
+		align-items: start;
+	}
+
+	@media (max-width: 860px) {
+		.candidates-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.candidate-card {
+		background: #fff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 8px;
+		padding: 32px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.candidate-photo-wrap {
+		width: 100%;
+		max-width: 340px;
+		aspect-ratio: 1 / 1;
+		border-radius: 8px;
+		overflow: hidden;
+		margin-bottom: 20px;
+	}
+
+	.candidate-photo-wrap img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.candidate-name {
+		font-size: 36px;
+		margin: 0 0 4px 0;
+		color: var(--ast-global-color-2);
+	}
+
+	.candidate-office {
+		font-family: var(--heading-font);
+		font-size: 20px;
+		font-weight: 500;
+		color: var(--ast-global-color-3);
+		margin: 0;
+	}
+
+	.candidate-divider {
+		width: 40%;
+		height: 1px;
+		background: var(--ast-global-color-3);
+		margin: 18px 0;
+	}
+
+	.candidate-bio {
+		text-align: left;
+		font-size: 16px;
+		line-height: 1.7;
+		color: var(--ast-global-color-3);
+		margin-bottom: 20px;
+	}
+
+	.candidate-bio p {
+		margin: 0 0 14px 0;
+	}
+
+	.candidate-bio p:last-child {
+		margin-bottom: 0;
+	}
+
+	.campaign-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-weight: 600;
+		color: var(--ast-global-color-0);
+		text-decoration: none;
+	}
+
+	.campaign-link:hover {
+		color: var(--ast-global-color-1);
+		text-decoration: underline;
+	}
+
+	.questionnaire-accordion {
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 6px;
+		background: #fff;
+		overflow: hidden;
+	}
+
+	.questionnaire-summary {
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 18px 24px;
+		cursor: pointer;
+		font-family: var(--heading-font);
+		font-size: 24px;
+		font-weight: 600;
+		color: var(--ast-global-color-3);
+		background: var(--ast-global-color-5);
+	}
+
+	.questionnaire-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.questionnaire-summary:hover {
+		background: var(--ast-global-color-4);
+		color: var(--ast-global-color-0);
+	}
+
+	.accordion-plus::before {
+		content: '+';
+		font-size: 26px;
+		font-weight: 700;
+		color: var(--ast-global-color-0);
+	}
+
+	.questionnaire-accordion[open] .accordion-plus::before {
+		content: '−';
+	}
+
+	.questionnaire-panel {
+		padding: 16px 24px 24px;
+		border-top: 1px solid var(--ast-global-color-6);
+	}
+</style>
+

@@ -1,0 +1,348 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MapboxMap from '../../components/MapboxMap.astro';
+
+const strategies = [
+	{
+		title: 'Lead From Within',
+		description:
+			'We show up in the rooms where neighborhood decisions actually happen — block clubs, chambers of commerce, ward meetings, zoning discussions. By participating directly, we build trust, strengthen relationships, and make sure pro-housing and pro-transit voices are consistently present at the local level.',
+	},
+	{
+		title: 'Structural Change',
+		description:
+			'Local support only goes so far without systems that back it up. We work with alders, state legislators, and citywide advocacy groups to push for broader reforms: zoning that allows more homes near transit, stable transit funding, safer streets, and policies that support vibrant, walkable neighborhoods.',
+	},
+	{
+		title: 'Our Future',
+		description:
+			'By combining everyday community involvement with meaningful policy change, we can create a Far North Side where people can afford to stay, move easily, support local businesses, and feel connected to their neighbors. This is the future we’re building toward — together.',
+	},
+];
+
+const communityConnections = [
+	'Linked commercial corridors (Broadway, Sheridan, Clark)',
+	'Shared Red Line stations and bus routes',
+	'Similar density, architecture, and housing patterns',
+	'Overlapping cultural institutions and services',
+	'Residents who move seamlessly between both',
+];
+---
+
+<Layout
+	title="About - Neighbors of Edgewater and Uptown"
+	description="We’re a grassroots group of neighbors building a community-wide block club that spans both Edgewater and Uptown."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<div class="about-container">
+			<!-- About Us Intro -->
+			<section class="about-intro">
+				<div class="about-intro-text">
+					<h1>About Us</h1>
+					<div class="title-separator"></div>
+					<p>
+						We’re a grassroots group of neighbors who kept running into each other at ward meetings, abundant housing meetups, Red &amp; Purple Modernization events, and every urbanist gathering in between. Over time, we realized we shared the same vision for Edgewater and Uptown—and that our neighborhoods deserved a group big enough and coordinated enough to turn that vision into action.
+					</p>
+					<p>
+						So in March 2025, a small group of founders came together to build something new: a community-wide block club that spans both Edgewater and Uptown. These two areas share history, transit, density, and energy, and we believe organizing across this shared fabric makes us stronger. Our goal is to bridge the gap between city and state-level advocacy groups and the hyper-local voices of block clubs, chambers of commerce, and our alders.
+					</p>
+				</div>
+				<div class="about-intro-image">
+					<figure>
+						<img
+							src="/wp-content/uploads/2025/11/Screenshot-2025-11-18-120755.png"
+							alt="Alderwoman Leni Manaa-Hoppenworth taking a selfie in front of NEU members holding signs demanding the state fund transit."
+							width="457"
+							height="610"
+							loading="lazy"
+						/>
+					</figure>
+				</div>
+			</section>
+
+			<!-- Mission Statement Blockquote -->
+			<section class="mission-section">
+				<blockquote class="mission-quote">
+					<p>
+						Creating community, empowering everyone and acting as a resource for the Edgewater and Uptown Community Area neighbors.
+					</p>
+					<footer>
+						<cite>NEU's Mission Statement</cite>
+					</footer>
+				</blockquote>
+			</section>
+
+			<!-- Our Strategy -->
+			<section class="strategy-section">
+				<div class="strategy-header">
+					<h2>Our Strategy</h2>
+					<div class="title-separator center"></div>
+				</div>
+				<div class="strategy-grid">
+					{
+						strategies.map((item) => (
+							<div class="strategy-card">
+								<h3>{item.title}</h3>
+								<p>{item.description}</p>
+							</div>
+						))
+					}
+				</div>
+				<figure class="strategy-banner">
+					<img
+						src="/wp-content/uploads/2025/11/Minimalistic-Creative-Agency-Business-Banner-3-1024x272.png"
+						alt="Graphic showing lead from within plus structural change equals the future we want and deserve."
+						loading="lazy"
+					/>
+				</figure>
+			</section>
+
+			<!-- Why Community Areas? -->
+			<section class="community-areas-section">
+				<div class="community-areas-text">
+					<h2>Why Community Areas?</h2>
+					<div class="title-separator"></div>
+					<p>
+						Chicago’s 77 community areas were created in the 1920s as fixed geographic zones for planning and long-term data analysis. Unlike neighborhoods, which shift and overlap, community areas stay the same, making them a reliable framework for understanding long-term trends and planning.
+					</p>
+					<p>
+						Originally, Edgewater was part of Uptown when community areas were first drawn. It wasn’t until 1980 that Edgewater officially became its own 77th community area. Despite that split, the two areas still function as one connected urban environment:
+					</p>
+					<ul class="community-list">
+						{communityConnections.map((item) => <li>{item}</li>)}
+					</ul>
+				</div>
+				<div class="community-areas-map">
+					<MapboxMap mapId="4534" />
+				</div>
+			</section>
+		</div>
+
+		<!-- Bottom CTA Banner -->
+		<section class="about-cta-banner">
+			<div class="about-cta-inner">
+				<h2>Join NEU and help build a better Edgewater and Uptown!</h2>
+				<a href="/newsletter-signup/" class="about-cta-btn">
+					Sign Up For Our Newsletter
+				</a>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.about-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 64px 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 72px;
+	}
+
+	.title-separator {
+		width: 80px;
+		height: 3px;
+		background-color: var(--ast-global-color-0);
+		margin: 12px 0 24px;
+	}
+
+	.title-separator.center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.about-intro {
+		display: grid;
+		grid-template-columns: 1.15fr 0.85fr;
+		gap: 48px;
+		align-items: center;
+	}
+
+	.about-intro-text h1 {
+		margin: 0;
+		color: var(--ast-global-color-2);
+	}
+
+	.about-intro-text p {
+		font-size: 18px;
+		line-height: 1.7;
+		margin-bottom: 1.2em;
+	}
+
+	.about-intro-image figure {
+		margin: 0;
+		display: flex;
+		justify-content: center;
+	}
+
+	.about-intro-image img {
+		max-width: 100%;
+		height: auto;
+		border-radius: 8px;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	}
+
+	@media (max-width: 860px) {
+		.about-intro {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.mission-section {
+		background-color: var(--ast-global-color-4);
+		border-left: 5px solid var(--ast-global-color-0);
+		padding: 36px 42px;
+		border-radius: 0 8px 8px 0;
+	}
+
+	.mission-quote {
+		margin: 0;
+	}
+
+	.mission-quote p {
+		font-family: var(--heading-font);
+		font-size: 32px;
+		line-height: 1.35;
+		color: var(--ast-global-color-2);
+		margin: 0 0 12px 0;
+		font-style: italic;
+	}
+
+	.mission-quote cite {
+		font-size: 16px;
+		font-weight: 700;
+		color: var(--ast-global-color-0);
+		font-style: normal;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.strategy-header {
+		text-align: center;
+		margin-bottom: 36px;
+	}
+
+	.strategy-header h2 {
+		font-size: 48px;
+		margin: 0;
+	}
+
+	.strategy-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 32px;
+		margin-bottom: 36px;
+	}
+
+	@media (max-width: 860px) {
+		.strategy-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.strategy-card {
+		background: #fff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 8px;
+		padding: 28px;
+	}
+
+	.strategy-card h3 {
+		margin: 0 0 12px 0;
+		color: var(--ast-global-color-0);
+	}
+
+	.strategy-card p {
+		margin: 0;
+		line-height: 1.65;
+	}
+
+	.strategy-banner {
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.strategy-banner img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.community-areas-section {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		gap: 48px;
+		align-items: center;
+	}
+
+	@media (max-width: 920px) {
+		.community-areas-section {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.community-areas-text h2 {
+		font-size: 48px;
+		margin: 0;
+	}
+
+	.community-areas-text p {
+		font-size: 18px;
+		line-height: 1.7;
+		margin-bottom: 1.1em;
+	}
+
+	.community-list {
+		font-size: 18px;
+		line-height: 1.7;
+		padding-left: 24px;
+		margin: 12px 0 0;
+	}
+
+	.community-list li {
+		margin-bottom: 6px;
+	}
+
+	.about-cta-banner {
+		background-color: var(--ast-global-color-4);
+		border-top: 1px solid var(--ast-global-color-6);
+		padding: 64px 24px;
+		text-align: center;
+	}
+
+	.about-cta-inner {
+		max-width: 800px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 24px;
+	}
+
+	.about-cta-inner h2 {
+		margin: 0;
+	}
+
+	.about-cta-btn {
+		display: inline-block;
+		padding: 14px 32px;
+		background-color: var(--ast-global-color-0);
+		color: #fff;
+		font-weight: 600;
+		border-radius: 30px;
+		text-decoration: none;
+		transition: background 0.2s ease;
+	}
+
+	.about-cta-btn:hover {
+		background-color: var(--ast-global-color-1);
+		color: #fff;
+	}
+</style>
+

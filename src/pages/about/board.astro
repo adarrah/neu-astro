@@ -1,0 +1,238 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const boardMembers = [
+	{
+		role: 'President',
+		name: 'Neville Hemming (Co-Founder)',
+		photo: '/wp-content/uploads/2026/09/IMG_1257-edited-1024x1024.jpg',
+		bio: [
+			'Neville is a part of NEU because he believes everyone should be able to afford to live in a walkable, transit-oriented community. Neville and his spouse live in the Edgewater community area, and his family has roots in South Shore. A lifelong transit rider, Neville grew up riding Metra and the Purple and Red Lines, helping shape his passion for public transit and walkable communities. Professionally, Neville works in strategy and operations in the mobility sector. He previously served on the board of Walk San Francisco, where he advocated for safer, more pedestrian-friendly streets.',
+		],
+		since: 'June 24th, 2026',
+		email: 'neville@neuchicago.org',
+		emailHref: 'mailto:neville@neuchicago.org',
+	},
+	{
+		role: 'Vice President',
+		name: 'Allison Darrahill (Co-Founder)',
+		photo: '/wp-content/uploads/2026/09/IMG_1262-edited-1024x1024.jpg',
+		bio: [
+			'Allison Darrahill has been a part of NEU since the beginning. She became involved in community activism as a member of KC Tenants fighting for tenants rights and housing security. In Chicago, she continued her activism and met other organizers at community meetings for the Broadway Upzoning, who came together to form NEU. She is a passionate advocate for transit, housing access, queer community building, and safe cycling. In her professional life, Allison develops Electronic Medical Records software with a focus on improving interoperability between health systems.',
+		],
+		since: 'June 24th, 2026',
+		email: 'allison@neuchicago.org',
+		emailHref: 'mailto:allison@neuchicago.org',
+	},
+	{
+		role: 'Secretary',
+		name: 'Sarah Hill',
+		photo: '/wp-content/uploads/2026/09/IMG_1273-edited-1024x1024.jpg',
+		bio: [
+			"Sarah Hill has been a part of NEU since September 2025, taking the lead on design, socials, and event planning. She's passionate about building community and caring for Chicagoans through better urban policy. Sarah is currently finishing her undergraduate degree in Psychology & Marketing, and is looking forward to a strong future in communications and public policy.",
+		],
+		since: 'June 24th, 2026',
+		email: 'sarah@neuchicago.com',
+		emailHref: 'mailto:hillsarah402@gmail.com',
+	},
+	{
+		role: 'Treasurer',
+		name: 'Noah Ayoub (Co-Founder)',
+		photo: '/wp-content/uploads/2026/09/profile_placeholder-1024x1024.png',
+		bio: [
+			'Noah Ayoub has been an active community member and resident of Uptown since moving to Chicago in 2023. He is passionate about good governance reforms and housing policy. Noah is currently pursuing his undergraduate degree in Economics at the University of Illinois at Chicago.',
+		],
+		since: 'June 24th, 2026',
+		email: 'noah@neuchicago.com',
+		emailHref: 'mailto:noahayoub1@gmail.com',
+	},
+	{
+		role: 'Events Chair',
+		name: "Sofia D'Errico",
+		photo: '/wp-content/uploads/2026/09/IMG_1269-edited-1024x1024.jpg',
+		bio: [
+			'Sofia D’Errico has been an active member of NEU since joining in January 2026, shortly after moving to Uptown in August 2025, drawn by the opportunity to build community and find meaningful ways to make an impact.',
+			'She has a passion for community organizing and creating opportunities for neighbors to connect and get involved. She is interested in the intersection of public policy, community development, and social impact- particularly in ways that can make neighborhoods more accessible and vibrant for all.',
+			'Sofia holds a Bachelor’s in Political Science as well as a Master’s in Public Administration, and is excited to help NEU grow and strengthen its community through impactful and engaging events. Outside of NEU, Sofia’s work focuses on the advancement of anti-poverty initiatives across the country.',
+		],
+		since: 'September 13th, 2026',
+		email: 'sofia@neuchicago.org',
+		emailHref: 'mailto:sofia@neuchicago.org',
+	},
+	{
+		role: 'Membership & Fundraising Chair',
+		name: 'Quillan Darrahill (Co-Founder)',
+		photo: '/wp-content/uploads/2026/09/IMG_1275-edited.jpg',
+		bio: [
+			"Quillan Darrahill joined the NEU board as Membership & Fundraising Chair, with the goal of growing community and strengthening NEU's capacity to advocate for more accessible, connected, and vibrant neighborhoods. They are passionate about building communities where infrastructure and policy better serve the people who rely on them. Outside of NEU, Quillan is a water resources engineer.",
+		],
+		since: 'August 30th, 2026',
+		email: 'quillan@neuchicago.org',
+		emailHref: 'mailto:quillan@neuchicago.org',
+	},
+	{
+		role: 'Advocacy Chair',
+		name: 'Vacant',
+		photo: '/wp-content/uploads/2026/09/profile_placeholder-1024x1024.png',
+		bio: [],
+		vacantNote: 'Contact Us if Interested',
+	},
+];
+---
+
+<Layout
+	title="Board Members - Neighbors of Edgewater and Uptown"
+	description="Meet the board members of Neighbors of Edgewater and Uptown (NEU)."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<div class="page-banner">
+			<h1>Meet the Board</h1>
+		</div>
+
+		<section class="board-container">
+			<div class="board-grid">
+				{
+					boardMembers.map((member) => (
+						<article class="board-card">
+							<figure class="board-photo-wrap">
+								<img
+									src={member.photo}
+									alt={member.name}
+									class="board-photo"
+									loading="lazy"
+								/>
+							</figure>
+							<h2 class="board-role">{member.role}</h2>
+							<hr class="board-divider" />
+							<p class="board-name">{member.name}</p>
+							{member.bio.map((paragraph) => (
+								<p class="board-bio">{paragraph}</p>
+							))}
+							{member.vacantNote && (
+								<p class="board-vacant">
+									<em>{member.vacantNote}</em>
+								</p>
+							)}
+							{member.since && (
+								<p class="board-meta">
+									<em>Board Member Since: {member.since}</em>
+									{member.email && (
+										<>
+											<br />
+											<br />
+											Contact Me at <a href={member.emailHref}>{member.email}</a>
+										</>
+									)}
+								</p>
+							)}
+						</article>
+					))
+				}
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.page-banner {
+		background-color: var(--ast-global-color-0);
+		padding: 36px 20px;
+		text-align: center;
+	}
+
+	.page-banner h1 {
+		margin: 0;
+		color: var(--ast-global-color-5);
+	}
+
+	.board-container {
+		max-width: 1140px;
+		margin: 0 auto;
+		padding: 64px 24px 88px;
+	}
+
+	.board-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 64px 48px;
+	}
+
+	@media (max-width: 780px) {
+		.board-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.board-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.board-photo-wrap {
+		margin: 0 0 24px 0;
+		width: 280px;
+		height: 280px;
+		border-radius: 50%;
+		overflow: hidden;
+		box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+	}
+
+	.board-photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.board-role {
+		margin: 0;
+		font-size: 40px;
+		color: var(--ast-global-color-2);
+	}
+
+	.board-divider {
+		width: 100%;
+		border: none;
+		border-top: 2px solid var(--ast-global-color-6);
+		margin: 16px 0;
+	}
+
+	.board-name {
+		font-size: 26px;
+		font-weight: 600;
+		color: var(--ast-global-color-2);
+		margin: 0 0 16px 0;
+	}
+
+	.board-bio {
+		font-size: 16px;
+		line-height: 1.7;
+		color: var(--ast-global-color-3);
+		margin: 0 0 12px 0;
+	}
+
+	.board-vacant {
+		font-size: 22px;
+		color: var(--ast-global-color-3);
+		margin: 0;
+	}
+
+	.board-meta {
+		margin-top: 12px;
+		font-size: 15px;
+		color: var(--ast-global-color-3);
+	}
+
+	.board-meta a {
+		color: var(--ast-global-color-0);
+	}
+</style>
+

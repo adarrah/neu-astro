@@ -1,0 +1,249 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface NavPost {
+	title: string;
+	permalink: string;
+}
+
+interface Props {
+	title: string;
+	pubDate: Date;
+	author: string;
+	category?: string;
+	excerpt?: string;
+	prevPost?: NavPost | null;
+	nextPost?: NavPost | null;
+}
+
+const {
+	title,
+	pubDate,
+	author,
+	category = 'Letters to the Editor',
+	excerpt,
+	prevPost,
+	nextPost,
+} = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+	timeZone: 'UTC',
+});
+---
+
+<Layout title={`${title} - Neighbors of Edgewater and Uptown`} description={excerpt}>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main neu-single-post-main">
+		<article class="neu-single-post">
+			<header class="neu-single-post-header">
+				<div class="neu-single-post-tax">
+					<a href="/blog/">{category}</a>
+				</div>
+				<h1 class="neu-single-post-title">{title}</h1>
+				<div class="neu-single-post-meta">
+					<span>By {author}</span> &bull; <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+				</div>
+			</header>
+
+			<div class="neu-single-post-content">
+				<slot />
+			</div>
+
+			<nav class="neu-post-navigation" aria-label="Post navigation">
+				<div class="neu-post-nav-links">
+					<div class="neu-post-nav-prev">
+						{
+							prevPost && (
+								<a href={prevPost.permalink}>
+									<span class="nav-subtitle">&larr; Previous Letter</span>
+									<span class="nav-title">{prevPost.title}</span>
+								</a>
+							)
+						}
+					</div>
+					<div class="neu-post-nav-all">
+						<a href="/blog/" class="neu-back-to-blog">All Letters</a>
+					</div>
+					<div class="neu-post-nav-next">
+						{
+							nextPost && (
+								<a href={nextPost.permalink}>
+									<span class="nav-subtitle">Next Letter &rarr;</span>
+									<span class="nav-title">{nextPost.title}</span>
+								</a>
+							)
+						}
+					</div>
+				</div>
+			</nav>
+		</article>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.neu-single-post-main {
+		background: var(--ast-global-color-4);
+		padding: 64px 20px 88px;
+	}
+
+	.neu-single-post {
+		max-width: 820px;
+		margin: 0 auto;
+		background: #fff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 8px;
+		padding: 48px 56px;
+		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+	}
+
+	@media (max-width: 768px) {
+		.neu-single-post {
+			padding: 32px 24px;
+		}
+	}
+
+	.neu-single-post-header {
+		margin-bottom: 32px;
+		padding-bottom: 24px;
+		border-bottom: 1px solid var(--ast-global-color-6);
+	}
+
+	.neu-single-post-tax a {
+		display: inline-block;
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--ast-global-color-0);
+		text-decoration: none;
+		margin-bottom: 10px;
+	}
+
+	.neu-single-post-tax a:hover {
+		color: var(--ast-global-color-1);
+	}
+
+	.neu-single-post-title {
+		margin: 0 0 12px 0;
+		font-size: 42px;
+		line-height: 1.2;
+		color: var(--ast-global-color-2);
+	}
+
+	@media (max-width: 640px) {
+		.neu-single-post-title {
+			font-size: 32px;
+		}
+	}
+
+	.neu-single-post-meta {
+		font-size: 14px;
+		color: var(--ast-global-color-3);
+	}
+
+	.neu-single-post-content :global(p) {
+		margin-bottom: 1.35em;
+		font-size: 17px;
+		line-height: 1.75;
+		color: var(--ast-global-color-3);
+		word-break: break-word;
+	}
+
+	.neu-single-post-content :global(hr) {
+		border: none;
+		border-top: 2px solid var(--ast-global-color-3);
+		margin: 28px 0;
+	}
+
+	.neu-single-post-content :global(a) {
+		color: var(--ast-global-color-0);
+		text-decoration: underline;
+	}
+
+	.neu-single-post-content :global(a:hover) {
+		color: var(--ast-global-color-1);
+	}
+
+	.neu-post-navigation {
+		margin-top: 48px;
+		padding-top: 28px;
+		border-top: 1px solid var(--ast-global-color-6);
+	}
+
+	.neu-post-nav-links {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		gap: 16px;
+		align-items: center;
+	}
+
+	@media (max-width: 640px) {
+		.neu-post-nav-links {
+			grid-template-columns: 1fr;
+			text-align: center;
+		}
+	}
+
+	.neu-post-nav-prev a,
+	.neu-post-nav-next a {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		text-decoration: none;
+	}
+
+	.neu-post-nav-next {
+		text-align: right;
+	}
+
+	@media (max-width: 640px) {
+		.neu-post-nav-next {
+			text-align: center;
+		}
+	}
+
+	.nav-subtitle {
+		font-size: 12px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--ast-global-color-0);
+	}
+
+	.nav-title {
+		font-family: var(--heading-font);
+		font-size: 19px;
+		font-weight: 600;
+		color: var(--ast-global-color-2);
+	}
+
+	.neu-post-nav-prev a:hover .nav-title,
+	.neu-post-nav-next a:hover .nav-title {
+		color: var(--ast-global-color-0);
+	}
+
+	.neu-back-to-blog {
+		display: inline-block;
+		padding: 8px 16px;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 4px;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--ast-global-color-3);
+		text-decoration: none;
+	}
+
+	.neu-back-to-blog:hover {
+		border-color: var(--ast-global-color-0);
+		color: var(--ast-global-color-0);
+	}
+</style>
+

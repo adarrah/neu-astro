@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+	title="Community Calendar - Neighbors of Edgewater and Uptown"
+	description="Events from neighborhood groups, local organizations, and community members across Edgewater and Uptown."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<div class="page-banner">
+			<h1>Community Calendar</h1>
+		</div>
+
+		<section class="calendar-page-container">
+			<div class="calendar-grid">
+				<div class="calendar-embed-col">
+					<iframe
+						src="https://calendar.google.com/calendar/embed?src=c_8b4163e88d24f07664a2f86afd84bef2394dc7ee792f1c7df63436549a9d15df%40group.calendar.google.com&ctz=America%2FChicago"
+						style="border: 0"
+						scrolling="no"
+						height="600"
+						width="100%"
+						title="NEU Community Calendar"
+						sandbox="allow-scripts allow-same-origin allow-popups"
+					></iframe>
+				</div>
+
+				<div class="calendar-info-col">
+					<p>
+						We gather events from neighborhood groups, local organizations, and community members across the Far North Side. Anyone can request to add an event, making this a shared space for staying informed and getting involved. Use the calendar to connect with your neighbors and take part in the life of your community.
+					</p>
+					<p>
+						<strong>
+							Either view the calendar from this website page or add it to your own Google Calendar by clicking the link in the bottom right corner.
+						</strong>
+					</p>
+					<div class="calendar-cta">
+						<a
+							class="add-event-btn"
+							href="https://docs.google.com/forms/d/e/1FAIpQLSc1IAKGtPZs2i4z7GaCXz3Z8gu0a7u37CUxDyizlQsKzzADGg/viewform"
+							target="_blank"
+							rel="noreferrer noopener"
+						>
+							Add Event to calendar
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.page-banner {
+		background-color: var(--ast-global-color-0);
+		padding: 36px 20px;
+		text-align: center;
+	}
+
+	.page-banner h1 {
+		margin: 0;
+		color: var(--ast-global-color-5);
+	}
+
+	.calendar-page-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 64px 24px 100px;
+	}
+
+	.calendar-grid {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		gap: 48px;
+		align-items: center;
+	}
+
+	@media (max-width: 900px) {
+		.calendar-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.calendar-info-col p {
+		font-size: 22px;
+		line-height: 1.6;
+		color: var(--ast-global-color-3);
+		margin: 0 0 20px 0;
+	}
+
+	.add-event-btn {
+		display: inline-block;
+		padding: 12px 28px;
+		background-color: var(--ast-global-color-0);
+		color: #fff;
+		border-radius: 30px;
+		font-family: var(--heading-font);
+		font-size: 20px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.2s ease;
+	}
+
+	.add-event-btn:hover {
+		background-color: var(--ast-global-color-1);
+		color: #fff;
+	}
+</style>
+

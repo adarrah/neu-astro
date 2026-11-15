@@ -1,0 +1,192 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MapboxMap from '../../components/MapboxMap.astro';
+
+const wards = [
+	{
+		ward: '40th Ward',
+		alderperson: 'Andre Vasquez, Alderman 40th Ward',
+		address: '5620 N Western Ave, Chicago, IL 60659',
+		phone: '(773) 654-1867',
+		email: 'info@40thward.org',
+		website: 'http://40thward.org/',
+	},
+	{
+		ward: '47th Ward',
+		alderperson: 'Matt Martin, Alderman 47th Ward',
+		address: '4243 N Lincoln Ave, Chicago, IL 60618',
+		phone: '(773) 868-4747',
+		email: 'info@aldermanmartin.com',
+		website: 'http://www.aldermanmartin.com/',
+	},
+	{
+		ward: '46th Ward',
+		alderperson: 'Angela Clay, Alderwoman 46th Ward',
+		address: '4544 N Broadway, Chicago, IL 60640',
+		phone: '(773) 878-4646',
+		email: 'info@46thward.com',
+		website: 'https://www.46thward.com/',
+	},
+	{
+		ward: '48th Ward',
+		alderperson: 'Leni Manaa-Hoppenworth, Alderwoman 48th Ward',
+		address: '1129 W Bryn Mawr Ave, Chicago, IL 60660',
+		phone: '(773) 784-5277',
+		email: 'info@the48thward.org',
+		website: 'https://the48thward.org/',
+	},
+];
+---
+
+<Layout
+	title="Wards - Neighbors of Edgewater and Uptown"
+	description="Find your Edgewater & Uptown Ward office and Alderman/Alderwoman contact information."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<section class="resource-subpage-hero">
+			<div class="resource-subpage-inner">
+				<div class="resource-header-grid">
+					<div class="resource-header-text">
+						<p class="eyebrow">Edgewater &amp; Uptown</p>
+						<h1>Wards</h1>
+						<p>
+							Wards are our most local elected representatives. They represent our communities at city council and in turn strive to hear from their communities as much as possible. They are a hub for community resources, a well-spring of local knowledge, and the people who will fight on our behalf to get stuff done.
+						</p>
+						<p>View the map of Wards below to find your ward and get involved today.</p>
+					</div>
+					<div class="resource-header-map">
+						<MapboxMap mapId="4276" />
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="directory-section">
+			<div class="directory-grid">
+				{
+					wards.map((item) => (
+						<div class="directory-card">
+							<h3>{item.ward}</h3>
+							<p class="office-details">
+								<strong>{item.alderperson}</strong>
+								<br />
+								<em>{item.address}</em>
+								<br />
+								{item.phone}
+								<br />
+								<a href={`mailto:${item.email}`}>{item.email}</a>
+								<br />
+								<a href={item.website} target="_blank" rel="noopener noreferrer">
+									{item.website} <span class="ext-arrow">↗</span>
+								</a>
+							</p>
+						</div>
+					))
+				}
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.resource-subpage-hero {
+		background-color: var(--ast-global-color-4);
+		padding: 64px 24px;
+		border-bottom: 1px solid var(--ast-global-color-6);
+	}
+
+	.resource-subpage-inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.resource-header-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.25fr;
+		gap: 48px;
+		align-items: center;
+	}
+
+	@media (max-width: 920px) {
+		.resource-header-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--ast-global-color-0);
+		margin: 0 0 8px 0;
+	}
+
+	.resource-header-text h1 {
+		margin: 0 0 16px 0;
+	}
+
+	.resource-header-text p {
+		font-size: 17px;
+		line-height: 1.65;
+		margin: 0 0 16px 0;
+	}
+
+	.directory-section {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 64px 24px 88px;
+	}
+
+	.directory-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 32px;
+	}
+
+	@media (max-width: 780px) {
+		.directory-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.directory-card {
+		background: #fff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 8px;
+		padding: 32px;
+	}
+
+	.directory-card h3 {
+		margin: 0 0 16px 0;
+		padding-bottom: 12px;
+		border-bottom: 2px solid var(--ast-global-color-0);
+		color: var(--ast-global-color-2);
+	}
+
+	.office-details {
+		margin: 0;
+		line-height: 1.8;
+		font-size: 16px;
+	}
+
+	.office-details a {
+		color: var(--ast-global-color-0);
+	}
+
+	.ext-arrow {
+		font-family: monospace;
+		font-size: 14px;
+		background: var(--ast-global-color-4);
+		padding: 1px 5px;
+		border-radius: 4px;
+		color: var(--ast-global-color-3);
+	}
+</style>
+

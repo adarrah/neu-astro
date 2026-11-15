@@ -4,39 +4,47 @@ interface Props {
 }
 
 const { transparent = true } = Astro.props;
+const currentPath = Astro.url.pathname;
 
 const navItems = [
-	{ label: 'Home', href: '/', active: true },
+	{ label: 'Home', href: '/' },
 	{
 		label: 'About',
-		href: 'https://neuchicago.org/about/',
+		href: '/about/',
 		children: [
-			{ label: 'Board Members', href: 'https://neuchicago.org/about/board/' },
+			{ label: 'Board Members', href: '/about/board/' },
 		],
 	},
 	{
 		label: 'Resources',
-		href: 'https://neuchicago.org/resources/',
+		href: '/resources/',
 		children: [
-			{ label: 'Block Clubs', href: 'https://neuchicago.org/resources/block-clubs/' },
-			{ label: 'Chambers of Commerce', href: 'https://neuchicago.org/resources/chambers/' },
-			{ label: 'Community Calendar', href: 'https://neuchicago.org/calendar/' },
-			{ label: 'School Board Districts', href: 'https://neuchicago.org/resources/school-board/' },
-			{ label: 'State House Districts', href: 'https://neuchicago.org/resources/house-districts/' },
-			{ label: 'Wards', href: 'https://neuchicago.org/resources/wards/' },
+			{ label: 'Block Clubs', href: '/resources/block-clubs/' },
+			{ label: 'Chambers of Commerce', href: '/resources/chambers/' },
+			{ label: 'Community Calendar', href: '/calendar/' },
+			{ label: 'School Board Districts', href: '/resources/school-board/' },
+			{ label: 'State House Districts', href: '/resources/house-districts/' },
+			{ label: 'Wards', href: '/resources/wards/' },
 		],
 	},
 	{
 		label: 'Projects',
-		href: 'https://neuchicago.org/projects/',
+		href: '/projects/',
 		children: [
-			{ label: 'Emanuel Congregation', href: 'https://neuchicago.org/projects/emanuel-congregation/' },
+			{ label: 'Emanuel Congregation', href: '/projects/emanuel-congregation/' },
 		],
 	},
-	{ label: 'Endorsements', href: 'https://neuchicago.org/endorsements/' },
-	{ label: 'Blog', href: 'https://neuchicago.org/blog/' },
-	{ label: 'Contact', href: 'https://neuchicago.org/contact/' },
-];
+	{ label: 'Endorsements', href: '/endorsements/' },
+	{ label: 'Blog', href: '/blog/' },
+	{ label: 'Contact', href: '/contact/' },
+].map((item) => ({
+	...item,
+	active:
+		item.href === '/'
+			? currentPath === '/'
+			: currentPath.startsWith(item.href) ||
+			  (item.children?.some((c) => currentPath.startsWith(c.href)) ?? false),
+}));
 
 const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/zt-3oktvgk77-kDEgVtLqx3AieGVeSzcqMQ';
 ---

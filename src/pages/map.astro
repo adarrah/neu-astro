@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MapboxMap from '../components/MapboxMap.astro';
+---
+
+<Layout
+	title="NEU Everything Map - Neighbors of Edgewater and Uptown"
+	description="Interactive map of Edgewater & Uptown political and administrative boundaries."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<div class="page-banner">
+			<h1>
+				Edgewater &amp; Uptown<br />
+				Political and Administrative Boundaries
+			</h1>
+		</div>
+
+		<section class="everything-map-container">
+			<MapboxMap mapId="4060" />
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.page-banner {
+		background-color: var(--ast-global-color-0);
+		padding: 32px 20px;
+		text-align: center;
+	}
+
+	.page-banner h1 {
+		margin: 0;
+		color: var(--ast-global-color-5);
+		font-size: 48px;
+	}
+
+	.everything-map-container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 24px 20px 64px;
+	}
+</style>
+

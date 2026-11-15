@@ -1,0 +1,248 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Slideshow from '../../components/Slideshow.astro';
+
+const resourceCards = [
+	{
+		title: 'Ward Office Information',
+		image: '/wp-content/uploads/2025/12/edgewater_office-1024x780.webp',
+		alt: 'Edgewater ward office',
+		description:
+			'Engaging with your ward office is one of the most direct ways to shape local decisions. These offices are a place to raise concerns, ask questions, find resources, and hold elected officials accountable.',
+		href: '/resources/wards/',
+	},
+	{
+		title: 'Block Club Websites',
+		image: '/wp-content/uploads/2025/12/Screenshot-2025-12-16-115437-edited.png',
+		alt: 'Block clubs map preview',
+		description:
+			'Community starts on your block. Block clubs are where neighbors share info, organize events, solve problems together, and turn casual hellos into real relationships.',
+		href: '/resources/block-clubs/',
+	},
+	{
+		title: 'Chambers of Commerce',
+		image: '/wp-content/uploads/2025/12/Untitled-design-41-2-1024x1024.png',
+		alt: 'Chambers of Commerce',
+		description:
+			'Support local businesses while shaping the future of your neighborhood. These groups help connect residents, entrepreneurs, and community organizations around shared economic goals.',
+		href: '/resources/chambers/',
+	},
+];
+
+const slides = [
+	{
+		src: '/wp-content/uploads/2026/01/CW100925-Lakeview-East-Rush-Hour-Protest-215606-1024x683.jpg',
+		alt: 'Broadway Upzoning Rally',
+	},
+	{
+		src: '/wp-content/uploads/2026/01/DEF8473b-1-1024x618.jpg',
+		alt: '(C)Dale Fast 773-502-0455',
+		caption: '(C)Dale Fast 773-502-0455',
+	},
+	{
+		src: '/wp-content/uploads/2026/01/IMG_0164-1-1024x768.jpg',
+		alt: 'NEU community event',
+	},
+	{
+		src: '/wp-content/uploads/2026/01/IMG_3486-771x1024.png',
+		alt: 'NEU members organizing',
+	},
+];
+---
+
+<Layout
+	title="Resource Guide - Neighbors of Edgewater and Uptown"
+	description="A collection of local resources, groups, and spaces that help Edgewater and Uptown neighbors get involved and stay connected."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<section class="resources-hero">
+			<div class="resources-container">
+				<div class="resources-intro">
+					<h1>Local Resources to Get Involved</h1>
+					<p>
+						A collection of local resources, groups, and spaces that help neighbors get involved and stay connected. Whether you’re new to the area or have lived here for years, this guide is an invitation to meet people, support one another, and be part of the community around you.
+					</p>
+				</div>
+
+				<div class="resources-grid">
+					{
+						resourceCards.map((card) => (
+							<article class="resource-card">
+								<figure class="resource-card-img">
+									<img src={card.image} alt={card.alt} loading="lazy" />
+								</figure>
+								<div class="resource-card-body">
+									<h3>{card.title}</h3>
+									<p>{card.description}</p>
+									<a href={card.href} class="resource-card-btn">
+										<span>Learn More</span>
+										<svg viewBox="0 0 320 512" width="12" height="12" aria-hidden="true">
+											<path
+												fill="currentColor"
+												d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"
+											/>
+										</svg>
+									</a>
+								</div>
+							</article>
+						))
+					}
+				</div>
+
+				<div class="build-community-section">
+					<div class="build-community-text">
+						<h2>Build Community With Us</h2>
+						<p>
+							Joining NEU is the easiest way to turn your passion into action. Whether you want to learn, volunteer, organize, or just connect with neighbors who care, we’re here to support you every step of the way. Our group welcomes all levels of experience and interest—there’s no pressure, just opportunity. Use our resource guide, join events, and take part in projects that matter to you. Together, we can make real change in our community while building connections that last.
+						</p>
+					</div>
+					<div class="build-community-slideshow">
+						<Slideshow slides={slides} aspectRatio="1024 / 683" />
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.resources-hero {
+		background-color: var(--ast-global-color-4);
+		padding: 80px 24px;
+	}
+
+	.resources-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 64px;
+	}
+
+	.resources-intro {
+		text-align: center;
+		max-width: 820px;
+		margin: 0 auto;
+	}
+
+	.resources-intro h1 {
+		margin: 0 0 16px 0;
+		color: var(--ast-global-color-2);
+	}
+
+	.resources-intro p {
+		font-size: 19px;
+		line-height: 1.65;
+		color: var(--ast-global-color-3);
+		margin: 0;
+	}
+
+	.resources-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 32px;
+	}
+
+	@media (max-width: 920px) {
+		.resources-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.resource-card {
+		background: #fff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 8px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+	}
+
+	.resource-card-img {
+		margin: 0;
+		height: 240px;
+		overflow: hidden;
+	}
+
+	.resource-card-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.resource-card-body {
+		padding: 28px;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+
+	.resource-card-body h3 {
+		margin: 0 0 12px 0;
+		color: var(--ast-global-color-2);
+	}
+
+	.resource-card-body p {
+		margin: 0 0 24px 0;
+		line-height: 1.65;
+		color: var(--ast-global-color-3);
+		flex-grow: 1;
+	}
+
+	.resource-card-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		align-self: flex-start;
+		padding: 10px 22px;
+		background-color: var(--ast-global-color-0);
+		color: #fff;
+		border-radius: 30px;
+		font-weight: 600;
+		font-size: 15px;
+		text-decoration: none;
+		transition: background 0.2s ease;
+	}
+
+	.resource-card-btn:hover {
+		background-color: var(--ast-global-color-1);
+		color: #fff;
+	}
+
+	.build-community-section {
+		display: grid;
+		grid-template-columns: 1fr 1.2fr;
+		gap: 48px;
+		align-items: center;
+		background: #fff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 10px;
+		padding: 48px;
+	}
+
+	@media (max-width: 920px) {
+		.build-community-section {
+			grid-template-columns: 1fr;
+			padding: 32px 24px;
+		}
+	}
+
+	.build-community-text h2 {
+		margin: 0 0 16px 0;
+	}
+
+	.build-community-text p {
+		font-size: 17px;
+		line-height: 1.7;
+		margin: 0;
+	}
+</style>
+

@@ -1,0 +1,307 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Slideshow from '../../components/Slideshow.astro';
+
+const slides = [
+	{
+		src: '/wp-content/uploads/2026/07/unnamed-4.png',
+		alt: 'Emanuel Congregation project rendering 1',
+	},
+	{
+		src: '/wp-content/uploads/2026/07/unnamed-3.png',
+		alt: 'Emanuel Congregation project rendering 2',
+	},
+	{
+		src: '/wp-content/uploads/2026/07/Screenshot-2026-07-17-110615.png',
+		alt: 'Emanuel Congregation project plan overview',
+	},
+	{
+		src: '/wp-content/uploads/2026/07/Screenshot-2026-07-11-174547.png',
+		alt: 'Emanuel Congregation site massing',
+	},
+	{
+		src: '/wp-content/uploads/2026/07/Screenshot-2026-07-11-174433.png',
+		alt: 'Emanuel Congregation community hub details',
+	},
+];
+
+const faqs = [
+	{
+		question: 'What is the Emanuel Congregation Project?',
+		answer: `<p><a href="https://www.emanuelcong.org/">Emanuel Congregation</a>, a Reform synagogue located in Edgewater, is partnering with Chicago-based developer <a href="https://fernhillcompany.com">Fern Hill</a> to <a href="https://www.emanuelcong.org/building-project">build a new synagogue</a> that meets their needs and allows for the congregation to remain at its home. Emanuel Congregation has been a member of the Edgewater community for more than 70 years and was founded in Chicago in 1880. In exchange for building a new synagogue and publicly accessible community facilities, Fern Hill will build, own, and manage 3 residential buildings containing 603 new homes.</p><p>On the west-side of Sheridan (<a href="https://maps.app.goo.gl/hoMvMPBNDTpZrQyf9">5948</a>), there will be a 5-story residential building. On the east-side of Sheridan (<a href="https://maps.app.goo.gl/qzbGDjtSuWDZuu9u5">5959</a>), there will be a 25-story and a 12-story residential building (not including mechanical penthouses), the new synagogue, and a 4-story parking structure with a community hub featuring fitness, recreation, and social spaces on the roof.</p>`,
+	},
+	{
+		question: 'What is the current status of the project?',
+		answer: `<p>On July 14, Alderwoman Manaa-Hoppenworth <a href="https://the48thward.org/blog/emanuel-fern-hill-faq">announced</a> that the Emanuel Congregation Project will proceed to the next step of the Planned Development process: submitting an application with the City and going before the <a href="https://www.chicago.gov/city/en/depts/dcd/chicago-plan-commission.html">Chicago Plan Commission</a> for <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/admin/svcs/lakefront_protectionapplication.html">Lakefront Protection</a> and <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/admin/svcs/planned_developmentdesignations.html">Planned Development</a> reviews.</p><p>Fern Hill also agreed to several changes and additions to the project plans, including increasing the percentage of family-sized homes, guaranteeing public access to the lakefront, implementing sustainability measures, and investing in nearby park and pedestrian/bike infrastructure. To see the specific additions and changes, details on the next steps for the project, and more information, see the 48th Ward’s <a href="https://the48thward.org/blog/emanuel-fern-hill-faq">Emanuel Congregation FAQ</a> page.</p><p>The project previously went through the 48th Ward’s <a href="https://the48thward.org/development-process">Zoning Change Request Process</a> and multiple design revisions based on feedback from Emanuel Congregation, neighborhood groups, the community, and Alderwoman Manaa-Hoppenworth and her staff. This included 3 community meetings, online feedback, and numerous meetings with other neighborhood groups.</p>`,
+	},
+	{
+		question: 'Why do we support this project?',
+		answer: `<p><strong>Emanuel Congregation Should Stay in Edgewater:</strong> We are very supportive of the Congregation’s desire to remain at its home and build a synagogue that meets its current and future needs, while simultaneously addressing Edgewater’s urgent housing shortage.</p><p><strong>More (Affordable!) Housing:</strong> This project is an extraordinary opportunity to add 603 new homes in one of the most transit and amenity-rich locations in the city. Of the 603 homes, ~121 will be deed-restricted as affordable. At least 25% of planned residences will be two-, three- and four-bedroom homes, allowing families to either remain in the area or for new ones to move in. The inclusion of affordable housing in this project is essential to stabilizing Edgewater’s rising cost of living and preventing displacement of long-time residents.</p><p><strong>Transit-Rich Location + Nearby Bike Infrastructure:</strong> Emanuel Congregation is next to the 151, 147, and 136 Sheridan buses, a quick walk to both the Thorndale Red Line Station and 36 Broadway bus, and Divvy stations, the Lakefront Trail, and other bike paths are only a few blocks away. This project will place housing exactly where it’s needed: close to rich transit options and in a walkable community where residents can choose to live without a car. The project is also designed to help manage and mitigate vehicle traffic.</p><p><strong>More Lakefront Space for All:</strong> This project activates the lakefront through two retail spaces, new pedestrian walkways (including access along the lakefront), and other community amenities that will strengthen the block. The project will also develop a lot on the west side of Sheridan that has sat vacant for more than 30 years. The proposed community hub will feature fitness spaces, an indoor basketball court, outdoor tennis courts, and other social and work spaces. Fern Hill will record a written, binding Public Access Easement to permanently preserve lakefront access.</p>`,
+	},
+	{
+		question: 'Will this project add affordable housing and housing for families?',
+		answer: `<p>Yes! There are approximately 603 homes planned, with 20% (~121) to be affordable for 30 years to households that make <a href="https://www.chicago.gov/city/en/depts/doh/provdrs/renters/svcs/ami_chart.html">60% of the area median income</a> (AMI). The latest version of the project adds more homes for families (including four-bedroom residences) and limits the amount of studios.</p><p>For example, a household of two that makes 60% of the AMI ($58,320) would be eligible for an affordable home in this development, and their rent can not exceed more than 30% of their annual combined income.</p>`,
+	},
+	{
+		question: 'Why does the project need a zoning change?',
+		answer: `<p>In 2000, the zoning of Emanuel Congregation’s property was changed to <a href="https://secondcityzoning.org/zone/rs-1/">RS-1</a>, meaning only a single-family home can be built on the property. The west-side property is a vacant lot (and has been for 30+ years) zoned <a href="https://secondcityzoning.org/zone/rm-5.5/">RM-5.5</a>. Changing the zoning allows for housing, retail, and a new synagogue to be built.</p><p>The project proposes changing the zoning to <a href="https://secondcityzoning.org/zone/b3-5/">B3-5</a>, which prioritizes housing over density. This type of zoning allows for a 5.0 floor-to-area ratio (FAR), which is a measure of density (it is the total floor area divided by the size of land). For comparison, on the east-side of Sheridan, north of Hollywood, the average FAR is 9.5, <strong>making this proposal very modest compared to nearby existing properties</strong>.</p>`,
+	},
+	{
+		question: 'What is the Lakefront Protection Ordinance (LPO)? How does this project comply with the LPO?',
+		answer: `<p>In 1973, the <a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-48045">Lake Michigan and Chicago Lakefront Protection Ordinance (LPO)</a> was enacted by city council <em>“to insure the preservation and protection of [Lake Michigan and the Lakefront] and of every aspect of its interest and value.”</em> The LPO does not prohibit development; it creates a higher standard and process for reviewing developments.</p><p>The ordinance divides the lakefront into three zones: the off-shore zone, the public use zone, and the private use zone. The private use zone, which includes Emanuel Congregation’s property, is governed under the Chicago Zoning Ordinance, just like any other privately owned property, except when in substantial conflict with the <a href="https://www.chicago.gov/content/dam/city/depts/zlup/Planning_and_Policy/Publications/Development%20Manual%20for%20Plan%20Commission%20Projects/Plan_Commission_Manual_FINAL_for_web.pdf#page=23">Thirteen Purposes of the LPO or Fourteen Basic Policies of the Lakefront Plan</a>.</p><p>These purposes and policies focus on preserving and strengthening the lakefront through ecological health, parks and recreation, pedestrian and public transit access, and coordinating development, while banning private development east of DuSable Lake Shore Drive. Notably, the Congregation’s property is west of the previously planned expansion of DuSable Lake Shore Drive. Development along the lakefront is evaluated based on these purposes and policies; nowhere do they forbid the development of housing at any height within the permitted zones.</p><p>To ensure these purposes and policies are met, the project will undergo the <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/admin/svcs/lakefront_protectionapplication.html">Lakefront Protection Review</a>, just like <a href="https://www.arcgis.com/apps/dashboards/c85f1e44134143f0a523363caa043979">many other projects</a> have done, including the Obama Presidential Center and a nearby project at <a href="https://chicagoyimby.com/2025/11/plan-commission-approves-residential-development-in-edgewater.html">6150 N Sheridan Rd</a>.</p><p>Additionally, the Emanuel Congregation Project will adhere to the city’s <a href="https://www.chicago.gov/city/en/sites/sustainable-development-policy/home.html">Sustainable Development Policy</a> for sustainable construction design elements.</p>`,
+	},
+	{
+		question: 'Why can’t Emanuel Congregation sell their property to the Chicago Park District instead?',
+		answer: `<p>A group opposed to the Emanuel Congregation Project has suggested that the Chicago Park District should purchase the Congregation's property and turn it into a park to prevent housing from being built on the site. This proposal misses the mark, both practically and factually.</p><p><strong>Emanuel Congregation shouldn’t have to negotiate to remain on its own property:</strong> Emanuel Congregation has owned the land at 5959 N Sheridan Road since 1944 and seeks to remain there by building a new synagogue to meet its current needs. By contrast, the park proposal does nothing to ensure Emanuel Congregation can stay at its current location. Instead, the park proposal says Emanuel Congregation should have “the opportunity to either negotiate to rebuild on a portion of the property (consistent with the Lakefront Protection Ordinance) or relocate elsewhere within Edgewater.” It also claims that Emanuel Congregation’s own project to build a synagogue and ensure its long-term sustainability “would put the Congregation on the wrong side of the law and history.”</p><p><strong>Without key details, the park proposal is not viable:</strong> Beyond stating “the City and/or Chicago Park District would acquire the Emanuel Congregation Property at fair market value,” the park proposal does not provide any details how such a proposal would be funded, actually acquired, or meet Emanuel Congregation’s needs, and even states “It is not our place to tell the Congregation and the City what that transaction should look like.” Additionally, it provides no estimate of the “fair market value” (which, given the current, single-family zoning of the property, is minimal). The proposal calls on the City and the Congregation to assume all risk in order to achieve the goals of a third party that assumes none and has no financial stake.</p><p><strong>The park proposal misrepresents the Lakefront Protection Ordinance (LPO):</strong> The LPO <em>does not</em> prohibit all development near the lakefront. The proposal ignores distinctions in the LPO between off-shore, public use, and private use <a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2680251">zones</a> and how the LPO established a <a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2680267">process for reviewing development</a>. Development in the <a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2680212">private use zone</a> (which includes Emanuel Congregation) is governed by the Zoning Ordinance and undergoes a <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/admin/svcs/lakefront_protectionapplication.html">specific review process</a> to ensure it isn’t in substantial conflict with the purposes of the LPO or the Fourteen Basic Policies of the Lakefront Plan of Chicago. The proposal also significantly misconstrues the “exemptions” in the LPO, stating the Emanuel Congregation Project “would significantly exceed the LPO’s narrow exceptions [sic] for private structures on the lakefront.” This flips the LPO on its head; the <a href="https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2680301">exemptions in the LPO</a> are the types of projects that do not require approval from the Chicago Plan Commission, not “exceptions [sic] for private structures on the lakefront.”</p><p><strong>The City is not required to purchase the Congregation’s property:</strong> While the LPO discusses public acquisition of lakefront property to achieve the purposes of the LPO (“as may be necessary and desirable”), the City is not mandated to do so because the existing property is in the private use zone under the LPO.</p><p><strong>Emanuel Congregation was not “grandfathered” under the LPO:</strong> Emanuel Congregation, like all of the other high-rise condominiums surrounding it, has always been a part of the private use zone (which is governed by the Zoning Ordinance). The LPO does not restrict properties in the private use zone to the same uses or zoning they had in 1973. In fact, at the time of the LPO, the Emanuel Congregation property was zoned R6 (roughly equivalent to <a href="https://secondcityzoning.org/zone/RM-6">RM-6</a>), which allows for significantly denser development than the Emanuel Congregation Project.</p><p><strong>Edgewater isn’t “park poor”:</strong> While access to parks and natural spaces is desirable, the park proposal incorrectly claims that Edgewater is “one of Chicago’s most [...] park-deficient neighborhoods.” It says, citing a report from almost 8 years ago, that Edgewater has “less Park District capital investment than any other lakefront community” (in 2018, Edgewater’s park capital funding was in the same range as Kenwood and greater than 26 other community areas). Outdated data on Park District capital investment does not mean that, today, Edgewater is “park poor.” In fact, Chicago has a <a href="https://www.tpl.org/city/chicago-illinois">top 10 park system</a> and 98% of Chicagoans, and 100% of Edgewater residents, live within a 10-minute walk of a park. Additionally, the Chicago Parks District plans to invest more than <a href="https://files.chicagoparkdistrict.com/2025-12/2026%20Budget%20Appropriations.pdf?VersionId=4S4MZxZ1Cut5r1bdwmTOgGBFF4mHJbmq">$681 million</a> in parks through its <a href="https://www.chicagoparkdistrict.com/capital-improvement-plan">Capital Improvement Plan</a>, including <a href="https://www.chicagoparkdistrict.com/capital-improvement-project-map">many projects in Edgewater</a>. Emanuel Congregation is immediately next to Lane Beach, Lane (George) Beach Park, and Interfaith Park, and is also a short walk to four other parks (including the Lakefront Trail/beach) and the Broadway Armory. Additionally, the Emanuel Congregation Project will add new lakefront access via pedestrian walkways.</p><p><strong>The park proposal tries to go around responsible, community development processes:</strong> Chicago has existing and robust processes for reviewing development projects. The Emanuel Congregation Project has and will continue to go through the 48th Ward’s <a href="https://the48thward.org/development-process">Zoning Change Request Process</a>, numerous community meetings and formal public hearings, the <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/admin/svcs/planned_developmentdesignations.html">planned development process</a>, and <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/admin/svcs/lakefront_protectionapplication.html">Lakefront Protection Review</a>, which collectively involves the input of the community, the Alderwoman’s office, numerous city departments (DPD, CDOT, CFD, MOPD, Parks, Buildings, Law), the Plan Commission, Zoning Administrator, Committee on Zoning, and City Council. Sounds complicated? It is (read <a href="https://metroplanning.org/in-the-zone-a-chicagoans-guide-to-zoning-and-land-use/">In the Zone: A Chicagoan’s Guide to Zoning and Land Use</a> and learn about the <a href="https://www.chicago.gov/city/en/sites/cut-the-tape/home.html">Cut the Tape Initiative</a>). The park proposal says that “the choice is clear for [...] those who believe in responsible development and the rule of law.” We agree; the rule of law means following the process for reviewing development projects, not preventing that process from taking place.</p><p>Finally (and ironically) in 2008, <a href="https://app.chicagoelections.gov/documents/proclamations/Proc-2008-11-04.pdf">60% of voters</a> from 54 precincts in the 48th Ward <a href="https://activerain.com/blogsview/782544/edgewater-votes-on-chicago-lakefront-expansion">supported a nonbinding referendum</a> prohibiting <a href="https://www.wbez.org/eight-forty-eight/2009/06/30/residents-debate-best-use-of-land-along-chicagos-lakefront">expansion of the lakefront</a> north of <a href="https://www.chicagotribune.com/2008/03/21/lakefront-park-plan-opposed/">Hollywood Beach to Evanston</a>. Perhaps a better path forward is to expand and complete the lakefront in front of the high-rise condominiums along Sheridan Road.</p>`,
+	},
+	{
+		question: 'Won’t this project prevent expanded public access to the lakefront?',
+		answer: `<p>On the contrary, this project will expand public access to the lakefront that currently doesn't exist. The 48th Ward has reported that Fern Hill will record a written, binding Public Access Easement across the east-west pedestrian mews to the lakefront, as well as along the lakefront setback, to permanently preserve lakefront access.</p><p>Additionally, a private development doesn't foreclose future lakefront expansion. The majority of Chicago's lakefront as it exists today was created through landfill, extending the shoreline well beyond its original edge. Almost the entire shoreline of Lake Michigan within city limits has been expanded through lakefill, and this filled land totals more than 5.5 square miles. Neighborhoods and parks up and down the lakefront, from Streeterville to Grant Park to Burnham Park, were built this way, and the pattern continued well into the 20th century: Foster Beach itself sits on landfill completed in the 1950s, when Lincoln Park's final landfill extension between Foster and Ardmore Avenues added a new beach at Foster Avenue.</p><p>We can build more housing along the lakefront and still complete the last four miles of expanded public access through landfill, just as we have done historically.</p><p>Sources:<br /><a href="https://www.whoselakefront.com/lakefill">Whose Lakefront: Lakefill</a><br /><a href="https://www.chicagoparkdistrict.com/parks-facilities/foster-beach">Chicago Park District: Foster Beach</a></p>`,
+	},
+	{
+		question: 'Isn’t there a height limit on Sheridan Road?',
+		answer: `<p>No, there is no blanket 6-story height limit on Sheridan Road. In 2006, small parts of Sheridan in the 48th Ward were downzoned from <a href="https://secondcityzoning.org/zone/RM-6">RM-6</a> to <a href="https://secondcityzoning.org/zone/RM-5.5">RM-5.5</a>. The Emanuel Congregation’s property was not part of this downzoning, and it had no impact on existing high-rise condominiums. Apart from the current zoning on certain properties, there is no other specific ordinance that limits the development of buildings over 6-stories on Sheridan.</p><p>Today, only 14% of properties on the east side of Sheridan, north of Hollywood, have zoning designations that restrict development above 6 stories. The average building height on the east side of Sheridan, north of Hollywood Ave, is 28 stories, higher than this planned development.</p>`,
+	},
+	{
+		question: 'How will the project address existing traffic challenges on Sheridan?',
+		answer: `<p>This project addresses traffic congestion and parking in several ways:</p><p>– All traffic will be reoriented to the existing lighted intersection at Thorndale and Sheridan, improving congestion.<br />– The existing curb cut on the east side of Sheridan, just north of Thorndale, will be eliminated. Vehicles will no longer be forced to make unprotected left-turns onto Sheridan.<br />– All deliveries, trash/recycling pickup, and emergency response vehicles will arrive and depart through the lighted intersection and planned courtyard drive (aka the Thorndale Thumb) on the south side of the property, so these vehicles will not stop or idle illegally on Sheridan, further improving congestion and safety issues.<br />– No curb cuts will be built on either side of Sheridan, which will improve safety for pedestrians, cyclists, and transit riders. Frequent curb cuts is one reason why Sheridan generally feels uncomfortable and unsafe to traverse outside of a car.<br />– For the smaller building on the west-side of Sheridan, all vehicles will be routed through the Kenmore alley (instead of creating a new curb cut on Sheridan).<br />– Fern Hill will conduct a traffic impact study, and a traffic demand management plan will be completed and reviewed by CDOT. Traffic counts have already been conducted during standard rush-hour periods.<br />– The project takes advantage of excellent transit access. It is directly adjacent to the 151, 147, and 136 Sheridan buses, is a 5-minute walk (0.2 miles) to the Thorndale Red Line Station, a 7-minute walk (0.3 miles) to the 36 Broadway bus, and a 12-minute walk (0.5 miles) to the 84 bus. The site is also one block north of the start of the Lakefront Trail and close to the Winthrop, Kenmore, and Granville bike lanes.<br />– Fern Hill will donate $50,000 towards bike and pedestrian improvements along Thorndale.</p><p>Concerns have been raised about the amount of on-site parking (250 spaces on the east-side and 20-spaces on the west-side). There is no need (or requirement by the City) for the development to build one parking space per home because of its proximity to transit and doing so would only further exacerbate congestion on Sheridan. The amount of parking for the project is in alignment with similar projects, and no other buildings on Sheridan have parking for every home. Additionally, <a href="https://cmap.illinois.gov/wp-content/uploads/dlm_uploads/Edgewater.pdf">38.5% of households in Edgewater do not even own a personal vehicle</a>. Given the site’s proximity to transit, parks, grocery stores, and the lakefront, this project will naturally attract residents who want to live car-light or car-free lifestyles.</p>`,
+	},
+	{
+		question: 'How has community feedback influenced the project’s design?',
+		answer: `<p>Since the project was first publicly discussed in June 2025, there have been several public meetings, numerous other meetings with Emanuel Congregation, block clubs, and other community groups, and online feedback collected by Emanuel Congregation and the 48th Ward Office.</p><p>The project plans have been continuously updated in response to feedback by opening up sightlines, ensuring synagogue independence and security, and increasing setbacks. In the third version of the plans, the furthest north building (closest to Malibu Condominiums) was entirely eliminated and replaced with a parking structure and a new community hub with recreational and social amenities.</p><p>On July 14, Alderwoman Manaa-Hoppenworth <a href="https://the48thward.org/blog/emanuel-fern-hill-faq">announced</a> several new additions and changes to the project:</p><p>– <strong>A larger percentage of family-sized (2-, 3-, and 4-bedroom) units!</strong><br />– <strong>Guaranteed public access to the lakefront!</strong> Fern Hill will record a written, binding Public Access Easement to permanently preserve lakefront access.<br />– <strong>Park improvements!</strong> Fern Hill will provide on-site public restrooms, storage facilities for the Chicago Park District and/or the Interfaith Park Advisory Council, and a donation of $150,000 for Lane Beach Park and Interfaith Park improvements.<br />– <strong>Commitment to sustainability measures!</strong> The final plans will include bird-friendly designs and green infrastructure solutions aligned with the <a href="https://the48thward.org/development-process">48th Ward Sustainable Development Priorities</a>.</p><p>We are very pleased with Fern Hill and Emanuel Congregation’s transparency and active engagement of the community throughout this process. There will be additional opportunities for community engagement as the project moves forward.</p><p>Check out these slides from Fern Hill to see how the project has evolved after several rounds of community feedback:<br />– <a href="https://drive.google.com/file/d/1_BQBdKATxdrk5yNiZ_3bU8V2KJAtgI4T/view">Version 1.0</a> (January 26, 2026)<br />– <a href="https://drive.google.com/file/d/188qiGlftdOhadp2MmyHdKtMaPAZis5I-/view">Version 2.0</a> (May 28, 2026)<br />– <a href="https://drive.google.com/file/d/1gJtUM3482Pkref5PShKF2DjjD0tm3tlz/view">Version 3.0</a> (June 24, 2026)</p>`,
+	},
+	{
+		question: 'How can I support the Emanuel Congregation Project, and where can I learn more?',
+		answer: `<p><strong>Here’s how you can help!</strong><br />– Email your support to the 48th Ward at <a href="mailto:info@the48thward.org">info@the48thward.org</a>.<br />– <a href="https://stats.sender.net/forms/egJyBY/view">Sign up for our newsletter</a> for updates on the Emanuel Congregation Project and ways to get involved.<br />– Talk to your friends and neighbors about Emanuel Congregation and why you support the project.</p><p><strong>Here’s where you can learn more!</strong><br />The 48th Ward’s <a href="https://the48thward.org/blog/emanuel-fern-hill-faq">Emanuel Congregation FAQ</a> page details the new changes and additions to the project, outlines the next steps in the development process, and answers other questions.</p><p>You can find more information on <a href="https://www.emanuelcong.org/building-project">Emanuel Congregation’s website</a>. The slides (<a href="https://drive.google.com/file/d/15Q5Ca8kw34QHIAbGLFFvqfZO-fzQIX4T/view">part 1</a> and <a href="https://drive.google.com/file/d/1gJtUM3482Pkref5PShKF2DjjD0tm3tlz/view">part 2</a>) and <a href="https://www.youtube.com/watch?v=Sus0cH30rZE">recording</a> from the most recent community meeting (June 24, 2026) are publicly available.</p><p>Emanuel Congregation also has a detailed <a href="https://www.emanuelcong.org/faqs">Frequently Asked Questions</a> page on their website regarding:<br />– Financial Structure, Ownership, and Funding<br />– Accessibility and Mobility<br />– Zoning, Density, and Building Massing<br />– Traffic, Parking, and Transportation<br />– Environmental Impact, Climate, and Infrastructure<br />– Design, Architecture, and Visibility<br />– Security and Safety<br />– Housing Mix and Affordability<br />– Process, Communication, and Governance</p><p>Want to learn more about zoning? See the 48th Ward’s <a href="https://the48thward.org/development-process">Zoning Change Request Process</a> and read the Metropolitan Planning Council’s <a href="https://metroplanning.org/in-the-zone-a-chicagoans-guide-to-zoning-and-land-use/">In the Zone: A Chicagoan’s Guide to Zoning and Land Use</a>.</p>`,
+	},
+];
+---
+
+<Layout
+	title="Emanuel Congregation - Neighbors of Edgewater and Uptown"
+	description="Information and FAQs about the Emanuel Congregation redevelopment project in Edgewater."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<div class="page-banner">
+			<h1>Emanuel Congregation</h1>
+		</div>
+
+		<div class="project-detail-container">
+			<section class="project-slideshow-section">
+				<Slideshow slides={slides} aspectRatio="800 / 450" />
+			</section>
+
+			<section class="project-update-cta">
+				<div class="cta-text">
+					<h3>Project Update (7/14/2026)</h3>
+					<p>
+						After six months of gathering feedback from the community and revising the project plans,{' '}
+						<strong>
+							Alderwoman Leni Manaa-Hoppenworth is allowing the project to move forward to the next step of the development process!
+						</strong>
+					</p>
+					<p>
+						For more information, see the 48th Ward’s{' '}
+						<a href="https://the48thward.org/blog/emanuel-fern-hill-faq" target="_blank" rel="noopener noreferrer">
+							<strong>Emanuel Congregation FAQ</strong>
+						</a>{' '}
+						page. While official feedback forms are closed at this time,{' '}
+						<strong>you can still share your support for the project via email to the 48th Ward Office!</strong>
+					</p>
+				</div>
+				<div class="cta-action">
+					<a href="mailto:info@the48thward.org" class="cta-email-btn">
+						<span>Send an email</span>
+						<svg viewBox="0 0 512 512" width="16" height="16" aria-hidden="true">
+							<path
+								fill="currentColor"
+								d="M504.3 273.6l-112.1 104c-6.992 6.484-17.18 8.218-25.94 4.406c-8.758-3.812-14.42-12.45-14.42-21.1L351.9 288H32C14.33 288 .0002 273.7 .0002 255.1S14.33 224 32 224h319.9l0-72c0-9.547 5.66-18.19 14.42-22c8.754-3.809 18.95-2.075 25.94 4.41l112.1 104C514.6 247.9 514.6 264.1 504.3 273.6z"
+							/>
+						</svg>
+					</a>
+				</div>
+			</section>
+
+			<section class="faq-section">
+				<h2>Frequently Asked Questions</h2>
+				<div class="faq-accordion">
+					{
+						faqs.map((faq, idx) => (
+							<details class="faq-item" open={idx === 0}>
+								<summary class="faq-question">
+									<span>{faq.question}</span>
+									<svg
+										class="faq-chevron"
+										viewBox="0 0 448 512"
+										width="16"
+										height="16"
+										aria-hidden="true"
+									>
+										<path
+											fill="currentColor"
+											d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+										/>
+									</svg>
+								</summary>
+								<div class="faq-answer" set:html={faq.answer} />
+							</details>
+						))
+					}
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.page-banner {
+		background-color: var(--ast-global-color-0);
+		padding: 36px 20px;
+		text-align: center;
+	}
+
+	.page-banner h1 {
+		margin: 0;
+		color: var(--ast-global-color-5);
+	}
+
+	.project-detail-container {
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 48px 24px 88px;
+		display: flex;
+		flex-direction: column;
+		gap: 48px;
+	}
+
+	.project-update-cta {
+		background: var(--ast-global-color-4);
+		border: 1px solid var(--ast-global-color-6);
+		border-left: 5px solid var(--ast-global-color-0);
+		border-radius: 8px;
+		padding: 32px;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+	}
+
+	.cta-text {
+		flex: 1 1 560px;
+	}
+
+	.cta-text h3 {
+		margin: 0 0 12px 0;
+		color: var(--ast-global-color-2);
+	}
+
+	.cta-text p {
+		margin: 0 0 12px 0;
+		line-height: 1.65;
+	}
+
+	.cta-text p:last-child {
+		margin-bottom: 0;
+	}
+
+	.cta-text a {
+		color: var(--ast-global-color-0);
+	}
+
+	.cta-email-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 12px 26px;
+		background-color: var(--ast-global-color-0);
+		color: #fff;
+		border-radius: 30px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.2s ease;
+	}
+
+	.cta-email-btn:hover {
+		background-color: var(--ast-global-color-1);
+		color: #fff;
+	}
+
+	.faq-section h2 {
+		text-align: center;
+		margin: 0 0 28px 0;
+	}
+
+	.faq-accordion {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.faq-item {
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 6px;
+		background: #fff;
+		overflow: hidden;
+	}
+
+	.faq-question {
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 18px 22px;
+		background: var(--ast-global-color-4);
+		cursor: pointer;
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--ast-global-color-2);
+	}
+
+	.faq-question::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-chevron {
+		flex-shrink: 0;
+		transition: transform 0.25s ease;
+		color: var(--ast-global-color-2);
+	}
+
+	.faq-item[open] .faq-question {
+		color: var(--ast-global-color-0);
+	}
+
+	.faq-item[open] .faq-chevron {
+		transform: rotate(180deg);
+		color: var(--ast-global-color-0);
+	}
+
+	.faq-answer {
+		padding: 20px 24px;
+		border-top: 1px solid var(--ast-global-color-6);
+		line-height: 1.7;
+		color: var(--ast-global-color-3);
+	}
+
+	.faq-answer :global(p) {
+		margin: 0 0 1em 0;
+	}
+
+	.faq-answer :global(p:last-child) {
+		margin-bottom: 0;
+	}
+
+	.faq-answer :global(a) {
+		color: var(--ast-global-color-0);
+		text-decoration: underline;
+	}
+</style>
+

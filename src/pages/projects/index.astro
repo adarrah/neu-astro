@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const projects = [
+	{
+		title: 'Emanuel Congregation',
+		date: 'June 18, 2026',
+		href: '/projects/emanuel-congregation/',
+		image: '/wp-content/uploads/2026/06/image-15.png',
+		alt: 'Emanuel Congregation redevelopment rendering',
+	},
+];
+---
+
+<Layout
+	title="Projects - Neighbors of Edgewater and Uptown"
+	description="Neighborhood development and advocacy projects supported by Neighbors of Edgewater and Uptown."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<div class="page-banner">
+			<h1>Projects</h1>
+		</div>
+
+		<section class="projects-container">
+			<div class="projects-grid">
+				{
+					projects.map((proj) => (
+						<article class="project-card">
+							<a href={proj.href} class="project-img-link">
+								<img src={proj.image} alt={proj.alt} loading="lazy" />
+							</a>
+							<div class="project-body">
+								<h3>
+									<a href={proj.href}>{proj.title}</a>
+								</h3>
+								<time class="project-date">{proj.date}</time>
+								<div class="project-cta">
+									<a href={proj.href} class="project-btn">
+										Read More
+									</a>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.page-banner {
+		background-color: var(--ast-global-color-0);
+		padding: 36px 20px;
+		text-align: center;
+	}
+
+	.page-banner h1 {
+		margin: 0;
+		color: var(--ast-global-color-5);
+	}
+
+	.projects-container {
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 64px 24px 96px;
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 420px));
+		justify-content: center;
+		gap: 32px;
+	}
+
+	.project-card {
+		background: #fff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 8px;
+		overflow: hidden;
+		text-align: center;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.project-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+	}
+
+	.project-img-link img {
+		width: 100%;
+		aspect-ratio: 3 / 2;
+		object-fit: cover;
+		display: block;
+	}
+
+	.project-body {
+		padding: 28px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.project-body h3 {
+		margin: 0;
+		font-size: 28px;
+	}
+
+	.project-body h3 a {
+		color: var(--ast-global-color-3);
+		text-decoration: none;
+	}
+
+	.project-body h3 a:hover {
+		color: var(--ast-global-color-0);
+	}
+
+	.project-date {
+		font-size: 14px;
+		color: var(--ast-global-color-1);
+	}
+
+	.project-cta {
+		margin-top: 12px;
+	}
+
+	.project-btn {
+		display: inline-block;
+		padding: 10px 26px;
+		background-color: var(--ast-global-color-0);
+		color: var(--ast-global-color-5);
+		border-radius: 4px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.2s ease;
+	}
+
+	.project-btn:hover {
+		background-color: var(--ast-global-color-1);
+		color: #fff;
+	}
+</style>
+

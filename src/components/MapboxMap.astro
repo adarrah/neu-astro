@@ -1,0 +1,346 @@
+---
+import mapsData from '../data/maps.json';
+
+interface Props {
+  mapId: string;
+}
+
+const { mapId } = Astro.props;
+const rawConfig = (mapsData as Record<string, any>)[mapId];
+const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
+const mapConfig = rawConfig ? { ...rawConfig, accessToken: mapboxToken } : null;
+---
+
+{mapConfig && (
+  <div class="neu-map-wrapper" style={`height: ${mapConfig.height || '550px'}; min-height: 400px;`}>
+    {mapConfig.categoryFilter && mapConfig.categories && mapConfig.categories.length > 0 && (
+      <div class="neu-map-filter" id={`map-filter-${mapId}`}>
+        <div class="neu-map-filter-header">
+          <span>Layers</span>
+          <div class="neu-map-filter-actions">
+            <button type="button" class="filter-btn-all" data-action="all">All</button>
+            <button type="button" class="filter-btn-none" data-action="none">None</button>
+          </div>
+        </div>
+        <div class="neu-map-filter-list">
+          {mapConfig.categories.map((cat: any, idx: number) => (
+            <label class="neu-map-filter-item">
+              <input
+                type="checkbox"
+                value={cat.slug}
+                checked={idx < 2}
+              />
+              <span>{cat.name}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+    )}
+    <div
+      id={`mapbox-container-${mapId}`}
+      class="neu-mapbox-canvas"
+      data-map-config={JSON.stringify(mapConfig)}
+    ></div>
+  </div>
+)}
+
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" />
+<script is:inline src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+
+<script is:inline>
+  (function () {
+    function initMaps() {
+      if (typeof window.mapboxgl === 'undefined') {
+        setTimeout(initMaps, 100);
+        return;
+      }
+      var containers = document.querySelectorAll('.neu-mapbox-canvas:not([data-initialized])');
+      containers.forEach(function (container) {
+        container.setAttribute('data-initialized', 'true');
+        var cfg = JSON.parse(container.getAttribute('data-map-config'));
+        window.mapboxgl.accessToken = cfg.accessToken;
+
+        var mapStyle = 'mapbox://styles/mapbox/streets-v12';
+        var map = new window.mapboxgl.Map({
+          container: container.id,
+          style: mapStyle,
+          center: cfg.center,
+          zoom: cfg.zoom,
+          scrollZoom: cfg.scrollZoom !== false,
+        });
+
+        if (cfg.zoomControl !== false) {
+          map.addControl(new window.mapboxgl.NavigationControl(), 'top-right');
+          map.addControl(new window.mapboxgl.FullscreenControl(), 'top-right');
+        }
+
+        var markersByCat = [];
+
+        map.on('load', function () {
+          // 1. Add Polygon layers
+          (cfg.polygons || []).forEach(function (poly) {
+            var sourceId = 'poly-src-' + poly.id;
+            var fillId = 'poly-fill-' + poly.id;
+            var borderId = 'poly-line-' + poly.id;
+
+            map.addSource(sourceId, {
+              type: 'geojson',
+              data: poly.geojson,
+            });
+
+            map.addLayer({
+              id: fillId,
+              type: 'fill',
+              source: sourceId,
+              paint: {
+                'fill-color': poly.color || '#3FB1CE',
+                'fill-opacity': typeof poly.opacity === 'number' ? poly.opacity : 0.35,
+              },
+            });
+
+            map.addLayer({
+              id: borderId,
+              type: 'line',
+              source: sourceId,
+              paint: {
+                'line-color': poly.borderColor || '#000000',
+                'line-opacity': typeof poly.borderOpacity === 'number' ? poly.borderOpacity : 0.8,
+                'line-width': poly.borderWidth || 2,
+              },
+            });
+
+            if (poly.enablePopup && (poly.popupHeader || poly.popupBody)) {
+              map.on('click', fillId, function (e) {
+                var bodyHtml = (poly.popupBody || '').replace(/\r?\n/g, '<br>');
+                var html =
+                  '<div class="neu-map-popup">' +
+                  (poly.popupHeader ? '<h4>' + poly.popupHeader + '</h4>' : '') +
+                  '<div class="neu-map-popup-body">' +
+                  bodyHtml +
+                  '</div></div>';
+                new window.mapboxgl.Popup({ maxWidth: '320px' })
+                  .setLngLat(e.lngLat)
+                  .setHTML(html)
+                  .addTo(map);
+              });
+
+              map.on('mouseenter', fillId, function () {
+                map.getCanvas().style.cursor = 'pointer';
+              });
+              map.on('mouseleave', fillId, function () {
+                map.getCanvas().style.cursor = '';
+              });
+            }
+          });
+
+          // 2. Add Boundary Line layers (always visible)
+          (cfg.lines || []).forEach(function (ln) {
+            var sourceId = 'line-src-' + ln.id;
+            var layerId = 'line-lyr-' + ln.id;
+            map.addSource(sourceId, {
+              type: 'geojson',
+              data: ln.geojson,
+            });
+            map.addLayer({
+              id: layerId,
+              type: 'line',
+              source: sourceId,
+              paint: {
+                'line-color': ln.color || '#4c4c4c',
+                'line-opacity': typeof ln.opacity === 'number' ? ln.opacity : 1,
+                'line-width': ln.width || 2.5,
+              },
+            });
+          });
+
+          // 3. Add Locations (Labels or Markers)
+          (cfg.locations || []).forEach(function (loc) {
+            var feat = loc.geojson && loc.geojson.features && loc.geojson.features[0];
+            if (!feat || !feat.geometry || !feat.geometry.coordinates) return;
+            var coords = feat.geometry.coordinates;
+
+            if (loc.style === 'label') {
+              var srcId = 'loc-lbl-src-' + loc.id;
+              var lyrId = 'loc-lbl-lyr-' + loc.id;
+              map.addSource(srcId, {
+                type: 'geojson',
+                data: loc.geojson,
+              });
+              map.addLayer({
+                id: lyrId,
+                type: 'symbol',
+                source: srcId,
+                layout: {
+                  'text-field': loc.labelText || loc.title,
+                  'text-size': loc.labelSize || 26,
+                  'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                },
+                paint: {
+                  'text-color': loc.labelColor || '#ffffff',
+                  'text-halo-color': loc.labelHaloColor || '#000000',
+                  'text-halo-width': 2,
+                },
+              });
+            } else {
+              var markerOpts = { color: loc.markerColor || '#d7935b' };
+              var marker = new window.mapboxgl.Marker(markerOpts).setLngLat(coords);
+              if (loc.enablePopup && (loc.popupHeader || loc.popupBody)) {
+                var bodyHtml = (loc.popupBody || '').replace(/\r?\n/g, '<br>');
+                var html =
+                  '<div class="neu-map-popup">' +
+                  (loc.popupHeader ? '<h4>' + loc.popupHeader + '</h4>' : '') +
+                  '<div class="neu-map-popup-body">' +
+                  bodyHtml +
+                  '</div></div>';
+                marker.setPopup(new window.mapboxgl.Popup({ offset: 25, maxWidth: '320px' }).setHTML(html));
+              }
+              marker.addTo(map);
+              markersByCat.push({ marker: marker, categories: loc.categories || [] });
+            }
+          });
+
+          // 4. Hook up Category Filter if enabled
+          var filterEl = document.getElementById('map-filter-' + cfg.id);
+          if (filterEl) {
+            function applyFilter() {
+              var checked = Array.from(filterEl.querySelectorAll('input[type="checkbox"]:checked')).map(function (cb) {
+                return cb.value;
+              });
+
+              (cfg.polygons || []).forEach(function (poly) {
+                var isVis = (poly.categories || []).some(function (c) {
+                  return checked.indexOf(c) !== -1;
+                });
+                var visVal = isVis ? 'visible' : 'none';
+                if (map.getLayer('poly-fill-' + poly.id)) {
+                  map.setLayoutProperty('poly-fill-' + poly.id, 'visibility', visVal);
+                }
+                if (map.getLayer('poly-line-' + poly.id)) {
+                  map.setLayoutProperty('poly-line-' + poly.id, 'visibility', visVal);
+                }
+              });
+
+              markersByCat.forEach(function (item) {
+                var isVis = item.categories.some(function (c) {
+                  return checked.indexOf(c) !== -1;
+                });
+                item.marker.getElement().style.display = isVis ? '' : 'none';
+              });
+            }
+
+            filterEl.addEventListener('change', applyFilter);
+            filterEl.querySelectorAll('button[data-action]').forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                var checkAll = btn.getAttribute('data-action') === 'all';
+                filterEl.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+                  cb.checked = checkAll;
+                });
+                applyFilter();
+              });
+            });
+            applyFilter();
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMaps);
+    } else {
+      initMaps();
+    }
+  })();
+</script>
+
+<style is:global>
+  .neu-map-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 24px 0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+  .neu-mapbox-canvas {
+    width: 100%;
+    height: 100%;
+  }
+  .neu-map-filter {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 6px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    max-height: calc(100% - 24px);
+    overflow-y: auto;
+    min-width: 220px;
+    max-width: 280px;
+    font-family: var(--body-font);
+    font-size: 13px;
+  }
+  .neu-map-filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e2e8f0;
+    color: var(--ast-global-color-2);
+  }
+  .neu-map-filter-actions {
+    display: flex;
+    gap: 6px;
+  }
+  .neu-map-filter-actions button {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    color: var(--ast-global-color-3);
+  }
+  .neu-map-filter-actions button:hover {
+    background: var(--ast-global-color-0);
+    color: #fff;
+    border-color: var(--ast-global-color-0);
+  }
+  .neu-map-filter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .neu-map-filter-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--ast-global-color-3);
+    line-height: 1.3;
+  }
+  .neu-map-filter-item input {
+    accent-color: var(--ast-global-color-0);
+    cursor: pointer;
+  }
+  .neu-map-popup h4 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    color: var(--ast-global-color-2);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+  }
+  .neu-map-popup-body {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ast-global-color-3);
+  }
+  .neu-map-popup-body a {
+    color: var(--ast-global-color-0);
+    text-decoration: underline;
+  }
+</style>
+

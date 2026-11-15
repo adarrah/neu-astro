@@ -1,0 +1,342 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MapboxMap from '../../components/MapboxMap.astro';
+
+const blockClubsByWard = [
+	{
+		ward: '40th Ward',
+		clubs: [
+			{ name: 'West Andersonville Neighbors Together', href: 'https://www.westandersonville.com/' },
+			{ name: 'West Edgewater Area Residents (WEAR)', href: 'https://wearchicago.org/' },
+			{
+				name: 'Neighbors of Edgewater West (NEW)',
+				href: 'https://www.facebook.com/groups/HighlandsofEdgewater/',
+			},
+		],
+	},
+	{
+		ward: '47th Ward',
+		clubs: [
+			{ name: 'Ravenswood Neighbors Association', href: 'https://myravenswoodneighbors.org/' },
+			{
+				name: 'Winona Foster Carmen Winnemac (WFCW) Block Club',
+				href: 'https://www.facebook.com/wfcwblockclub/',
+			},
+			{
+				name: 'North Uptown Neighbors Association (NUNA)',
+				href: 'https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2Fnunablockclub%2Fdirectory%2F',
+			},
+		],
+	},
+	{
+		ward: '46th Ward',
+		clubs: [
+			{ name: 'Ainslie Winmore Block Club', href: 'https://sites.google.com/view/ainsliewinmore/home' },
+			{ name: 'Buena Park Neighbors', href: 'https://buenaparkneighbors.org/' },
+			{
+				name: 'Clarendon Park Neighborhood Association',
+				href: 'https://www.facebook.com/share/16Nk7DvHRh/',
+			},
+			{ name: 'Graceland-Wilson Neighbors Association', href: 'https://gwna.wordpress.com' },
+			{
+				name: 'Gunnison Street Block Club',
+				href: 'https://www.facebook.com/people/Gunnison-Block-Club/61591791852637/',
+			},
+			{
+				name: 'Dover Street Neighbors Association',
+				href: 'https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F147588861990185%2F',
+			},
+			{
+				name: 'Beacon Street Block Club',
+				href: 'https://partners.exploreuptown.org/list/member/beacon-street-block-club-1118',
+			},
+			{
+				name: 'Magnolia Malden Block Club',
+				href: 'https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F29483192829%2F',
+			},
+			{ name: 'Truman Square Neighbors', href: 'https://www.facebook.com/TrumanSquareNeighbors' },
+			{
+				name: 'Lakeside Area Neighbors Association (LANA)',
+				href: 'https://lakesideneighbors46.weebly.com/',
+			},
+		],
+	},
+	{
+		ward: '48th Ward',
+		clubs: [
+			{
+				name: 'Winona Winmore Block Club',
+				href: 'https://www.facebook.com/people/Winona-Winmore-Block-Club/61591904917052/',
+			},
+			{ name: 'Edgewater Beach Neighborhood Association', href: 'https://www.ebnachicago.org/' },
+			{ name: 'Lakewood Balmoral Resident’s Council', href: 'https://lakewoodbalmoral.org/' },
+			{ name: 'East Andersonville Resident’s Council', href: 'http://www.eastandersonville.org/' },
+			{ name: 'Carmen-Winona Block Club', href: 'https://sites.google.com/view/carmenwinonabc' },
+			{
+				name: 'Margate Park Block Club',
+				href: 'https://www.facebook.com/photo.php?fbid=1182100593958242&id=100064749364552&set=a.464287639072878',
+			},
+			{
+				name: 'Edgewater North Neighbors (ENN)',
+				href: 'https://edgewaternorthneighbors.blogspot.com/',
+			},
+			{ name: 'North Edgewater Beach Association (NEBA)', href: 'https://nebablockclub.org/' },
+			{ name: 'Edgewater Glen Association (EGA)', href: 'https://edgeglen.com/' },
+			{
+				name: 'Neighbors on Elmdale and Thorndale (NET)',
+				href: 'https://www.facebook.com/groups/228846120546623/posts/245972538833981/',
+			},
+			{
+				name: 'Broadway-Ardmore-Ridge-Glenwood-Early (BARGE)',
+				href: 'http://bargeneighborhood.com/',
+			},
+			{
+				name: 'Edgewater Triangle Neighbors Association (ETNA)',
+				href: 'https://www.facebook.com/etnablockclub/',
+			},
+		],
+	},
+];
+---
+
+<Layout
+	title="Block Clubs - Neighbors of Edgewater and Uptown"
+	description="Explore the map and directory of Edgewater & Uptown Block Clubs by Ward."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<section class="resource-subpage-hero">
+			<div class="resource-subpage-inner">
+				<div class="resource-header-grid">
+					<div class="resource-header-text">
+						<p class="eyebrow">Edgewater &amp; Uptown</p>
+						<h1>Block Clubs</h1>
+						<p>
+							Community starts on your block. Block clubs are where neighbors share info, organize events, solve problems together, and turn casual hellos into real relationships.
+						</p>
+						<p>View the map of Block Clubs or use the links below to find more information.</p>
+						<a
+							href="https://www.google.com/maps/d/u/2/edit?mid=1aO4CthkejJeIhdTUlOBH_UuZOkiNxQw&usp=sharing"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="map-external-btn"
+						>
+							Block Club Map
+						</a>
+					</div>
+					<div class="resource-header-map">
+						<MapboxMap mapId="4138" />
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="directory-section">
+			<div class="directory-grid">
+				{
+					blockClubsByWard.map((group) => (
+						<div class="directory-card">
+							<h3>{group.ward}</h3>
+							<ul class="club-list">
+								{group.clubs.map((club) => (
+									<li>
+										<a href={club.href} target="_blank" rel="noopener noreferrer">
+											<strong>{club.name}</strong>
+											<span class="ext-arrow" aria-hidden="true">
+												↗
+											</span>
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="submit-club-cta">
+			<div class="submit-club-inner">
+				<h2>Have a Block Club to Add?</h2>
+				<p>
+					This is a non-exhaustive list of Block Clubs and their resources. Please use the form link to submit an additional Block Club to be added to our list.
+				</p>
+				<a
+					href="https://forms.gle/dv4LfBnUhkuL7tgy9"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="submit-club-btn"
+				>
+					Fill out the form
+				</a>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.resource-subpage-hero {
+		background-color: var(--ast-global-color-4);
+		padding: 64px 24px;
+		border-bottom: 1px solid var(--ast-global-color-6);
+	}
+
+	.resource-subpage-inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.resource-header-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.25fr;
+		gap: 48px;
+		align-items: center;
+	}
+
+	@media (max-width: 920px) {
+		.resource-header-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--ast-global-color-0);
+		margin: 0 0 8px 0;
+	}
+
+	.resource-header-text h1 {
+		margin: 0 0 16px 0;
+	}
+
+	.resource-header-text p {
+		font-size: 17px;
+		line-height: 1.65;
+		margin: 0 0 16px 0;
+	}
+
+	.map-external-btn {
+		display: inline-block;
+		margin-top: 8px;
+		padding: 12px 26px;
+		background-color: var(--ast-global-color-0);
+		color: #fff;
+		border-radius: 30px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.2s ease;
+	}
+
+	.map-external-btn:hover {
+		background-color: var(--ast-global-color-1);
+		color: #fff;
+	}
+
+	.directory-section {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 64px 24px;
+	}
+
+	.directory-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 32px;
+	}
+
+	@media (max-width: 780px) {
+		.directory-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.directory-card {
+		background: #fff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 8px;
+		padding: 32px;
+	}
+
+	.directory-card h3 {
+		margin: 0 0 20px 0;
+		padding-bottom: 12px;
+		border-bottom: 2px solid var(--ast-global-color-0);
+		color: var(--ast-global-color-2);
+	}
+
+	.club-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.club-list a {
+		color: var(--ast-global-color-0);
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.club-list a:hover {
+		color: var(--ast-global-color-1);
+		text-decoration: underline;
+	}
+
+	.ext-arrow {
+		font-family: monospace;
+		font-size: 14px;
+		background: var(--ast-global-color-4);
+		padding: 1px 5px;
+		border-radius: 4px;
+		color: var(--ast-global-color-3);
+	}
+
+	.submit-club-cta {
+		background-color: var(--ast-global-color-4);
+		border-top: 1px solid var(--ast-global-color-6);
+		padding: 64px 24px;
+		text-align: center;
+	}
+
+	.submit-club-inner {
+		max-width: 720px;
+		margin: 0 auto;
+	}
+
+	.submit-club-inner h2 {
+		margin: 0 0 12px 0;
+	}
+
+	.submit-club-inner p {
+		font-size: 17px;
+		margin: 0 0 24px 0;
+	}
+
+	.submit-club-btn {
+		display: inline-block;
+		padding: 12px 28px;
+		background-color: var(--ast-global-color-0);
+		color: #fff;
+		border-radius: 30px;
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.submit-club-btn:hover {
+		background-color: var(--ast-global-color-1);
+		color: #fff;
+	}
+</style>
+
