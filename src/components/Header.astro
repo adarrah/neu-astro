@@ -7,49 +7,62 @@ const { transparent = true } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-	{ label: 'Home', href: '/' },
+	{ label: "Home", href: "/" },
 	{
-		label: 'About',
-		href: '/about/',
+		label: "About",
+		href: "/about/",
+		children: [{ label: "Board Members", href: "/about/board/" }],
+	},
+	{
+		label: "Resources",
+		href: "/resources/",
 		children: [
-			{ label: 'Board Members', href: '/about/board/' },
+			{ label: "Block Clubs", href: "/resources/block-clubs/" },
+			{ label: "Complete Streets", href: "/resources/complete-streets/" },
+			{ label: "Chambers of Commerce", href: "/resources/chambers/" },
+			{ label: "Community Calendar", href: "/calendar/" },
+			{
+				label: "School Board Districts",
+				href: "/resources/school-board/",
+			},
+			{
+				label: "State House Districts",
+				href: "/resources/house-districts/",
+			},
+			{ label: "Wards", href: "/resources/wards/" },
 		],
 	},
 	{
-		label: 'Resources',
-		href: '/resources/',
+		label: "Projects",
+		href: "/projects/",
 		children: [
-			{ label: 'Block Clubs', href: '/resources/block-clubs/' },
-			{ label: 'Chambers of Commerce', href: '/resources/chambers/' },
-			{ label: 'Community Calendar', href: '/calendar/' },
-			{ label: 'School Board Districts', href: '/resources/school-board/' },
-			{ label: 'State House Districts', href: '/resources/house-districts/' },
-			{ label: 'Wards', href: '/resources/wards/' },
+			{
+				label: "Emanuel Congregation",
+				href: "/projects/emanuel-congregation/",
+			},
 		],
 	},
-	{
-		label: 'Projects',
-		href: '/projects/',
-		children: [
-			{ label: 'Emanuel Congregation', href: '/projects/emanuel-congregation/' },
-		],
-	},
-	{ label: 'Endorsements', href: '/endorsements/' },
-	{ label: 'Blog', href: '/blog/' },
-	{ label: 'Contact', href: '/contact/' },
+	{ label: "Endorsements", href: "/endorsements/" },
+	{ label: "Blog", href: "/blog/" },
+	{ label: "Contact", href: "/contact/" },
 ].map((item) => ({
 	...item,
 	active:
-		item.href === '/'
-			? currentPath === '/'
+		item.href === "/"
+			? currentPath === "/"
 			: currentPath.startsWith(item.href) ||
-			  (item.children?.some((c) => currentPath.startsWith(c.href)) ?? false),
+				(item.children?.some((c) => currentPath.startsWith(c.href)) ??
+					false),
 }));
 
-const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/zt-3oktvgk77-kDEgVtLqx3AieGVeSzcqMQ';
+const slackUrl =
+	"https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/zt-3oktvgk77-kDEgVtLqx3AieGVeSzcqMQ";
 ---
 
-<header class:list={['site-header', { 'is-transparent': transparent }]} id="masthead">
+<header
+	class:list={["site-header", { "is-transparent": transparent }]}
+	id="masthead"
+>
 	<div class="header-container">
 		<div class="site-branding">
 			<a href="/" class="custom-logo-link" rel="home" aria-current="page">
@@ -68,13 +81,35 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 			<nav class="site-navigation" aria-label="Primary Site Navigation">
 				<ul class="main-header-menu">
 					{navItems.map((item) => (
-						<li class:list={['menu-item', { 'current-menu-item': item.active, 'menu-item-has-children': !!item.children }]}>
-							<a href={item.href} class="menu-link" aria-current={item.active ? 'page' : undefined}>
+						<li
+							class:list={[
+								"menu-item",
+								{
+									"current-menu-item": item.active,
+									"menu-item-has-children": !!item.children,
+								},
+							]}
+						>
+							<a
+								href={item.href}
+								class="menu-link"
+								aria-current={item.active ? "page" : undefined}
+							>
 								{item.label}
 								{item.children && (
-									<span class="dropdown-arrow" aria-hidden="true">
-										<svg viewBox="57 35.171 26 16.043" width="12" height="12">
-											<path d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z" fill="currentColor" />
+									<span
+										class="dropdown-arrow"
+										aria-hidden="true"
+									>
+										<svg
+											viewBox="57 35.171 26 16.043"
+											width="12"
+											height="12"
+										>
+											<path
+												d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z"
+												fill="currentColor"
+											/>
 										</svg>
 									</span>
 								)}
@@ -83,10 +118,23 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 								<ul class="sub-menu">
 									{item.children.map((sub) => (
 										<li class="sub-menu-item">
-											<a href={sub.href} class="sub-menu-link">
-												<span class="sub-arrow" aria-hidden="true">
-													<svg viewBox="57 35.171 26 16.043" width="10" height="10">
-														<path d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z" fill="currentColor" />
+											<a
+												href={sub.href}
+												class="sub-menu-link"
+											>
+												<span
+													class="sub-arrow"
+													aria-hidden="true"
+												>
+													<svg
+														viewBox="57 35.171 26 16.043"
+														width="10"
+														height="10"
+													>
+														<path
+															d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z"
+															fill="currentColor"
+														/>
 													</svg>
 												</span>
 												{sub.label}
@@ -101,7 +149,12 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 			</nav>
 
 			<div class="header-cta-wrap">
-				<a class="header-cta-button" href={slackUrl} role="button" aria-label="Join Our Slack">
+				<a
+					class="header-cta-button"
+					href={slackUrl}
+					role="button"
+					aria-label="Join Our Slack"
+				>
 					Join Our Slack
 				</a>
 			</div>
@@ -116,7 +169,12 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 				aria-expanded="false"
 				aria-label="Main menu toggle"
 			>
-				<svg fill="currentColor" width="24" height="28" viewBox="0 0 24 28">
+				<svg
+					fill="currentColor"
+					width="24"
+					height="28"
+					viewBox="0 0 24 28"
+				>
 					<path d="M24 21v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1zM24 13v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1zM24 5v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1z"></path>
 				</svg>
 			</button>
@@ -128,8 +186,18 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 		<div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
 		<div class="mobile-drawer-inner">
 			<div class="mobile-drawer-header">
-				<button type="button" id="mobile-menu-close" class="mobile-menu-close" aria-label="Close menu">
-					<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+				<button
+					type="button"
+					id="mobile-menu-close"
+					class="mobile-menu-close"
+					aria-label="Close menu"
+				>
+					<svg
+						fill="currentColor"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+					>
 						<path d="M5.293 6.707l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5.293-5.293 5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"></path>
 					</svg>
 				</button>
@@ -139,13 +207,30 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 					{navItems.map((item) => (
 						<li class="mobile-menu-item">
 							<div class="mobile-menu-row">
-								<a href={item.href} class:list={['mobile-menu-link', { active: item.active }]}>
+								<a
+									href={item.href}
+									class:list={[
+										"mobile-menu-link",
+										{ active: item.active },
+									]}
+								>
 									{item.label}
 								</a>
 								{item.children && (
-									<button type="button" class="mobile-submenu-toggle" aria-label={`Toggle ${item.label} submenu`}>
-										<svg viewBox="57 35.171 26 16.043" width="14" height="14">
-											<path d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z" fill="currentColor" />
+									<button
+										type="button"
+										class="mobile-submenu-toggle"
+										aria-label={`Toggle ${item.label} submenu`}
+									>
+										<svg
+											viewBox="57 35.171 26 16.043"
+											width="14"
+											height="14"
+										>
+											<path
+												d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z"
+												fill="currentColor"
+											/>
 										</svg>
 									</button>
 								)}
@@ -154,8 +239,16 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 								<ul class="mobile-sub-menu">
 									{item.children.map((sub) => (
 										<li>
-											<a href={sub.href} class="mobile-sub-link">
-												<span class="sub-arrow" aria-hidden="true">›</span>
+											<a
+												href={sub.href}
+												class="mobile-sub-link"
+											>
+												<span
+													class="sub-arrow"
+													aria-hidden="true"
+												>
+													›
+												</span>
 												{sub.label}
 											</a>
 										</li>
@@ -176,27 +269,27 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 </header>
 
 <script>
-	const openBtn = document.getElementById('mobile-menu-open');
-	const closeBtn = document.getElementById('mobile-menu-close');
-	const overlay = document.getElementById('mobile-drawer-overlay');
-	const drawer = document.getElementById('mobile-drawer');
+	const openBtn = document.getElementById("mobile-menu-open");
+	const closeBtn = document.getElementById("mobile-menu-close");
+	const overlay = document.getElementById("mobile-drawer-overlay");
+	const drawer = document.getElementById("mobile-drawer");
 
 	function setDrawer(open: boolean) {
 		if (!drawer || !openBtn) return;
-		drawer.classList.toggle('active', open);
-		drawer.setAttribute('aria-hidden', String(!open));
-		openBtn.setAttribute('aria-expanded', String(open));
-		document.body.style.overflow = open ? 'hidden' : '';
+		drawer.classList.toggle("active", open);
+		drawer.setAttribute("aria-hidden", String(!open));
+		openBtn.setAttribute("aria-expanded", String(open));
+		document.body.style.overflow = open ? "hidden" : "";
 	}
 
-	openBtn?.addEventListener('click', () => setDrawer(true));
-	closeBtn?.addEventListener('click', () => setDrawer(false));
-	overlay?.addEventListener('click', () => setDrawer(false));
+	openBtn?.addEventListener("click", () => setDrawer(true));
+	closeBtn?.addEventListener("click", () => setDrawer(false));
+	overlay?.addEventListener("click", () => setDrawer(false));
 
-	document.querySelectorAll('.mobile-submenu-toggle').forEach((btn) => {
-		btn.addEventListener('click', () => {
-			const parent = btn.closest('.mobile-menu-item');
-			parent?.classList.toggle('open');
+	document.querySelectorAll(".mobile-submenu-toggle").forEach((btn) => {
+		btn.addEventListener("click", () => {
+			const parent = btn.closest(".mobile-menu-item");
+			parent?.classList.toggle("open");
 		});
 	});
 </script>
@@ -277,7 +370,7 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 		line-height: 70px;
 		color: #ffffff;
 		text-decoration: none;
-		font-family: 'Open Sans', sans-serif;
+		font-family: "Open Sans", sans-serif;
 		font-size: 1rem;
 		font-weight: 400;
 		transition: color 0.2s ease;
@@ -307,7 +400,10 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 		opacity: 0;
 		visibility: hidden;
 		transform: translateY(-5px);
-		transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease,
+			visibility 0.2s;
 		z-index: 999;
 	}
 
@@ -348,7 +444,7 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 		display: inline-block;
 		background-color: var(--ast-global-color-3);
 		color: var(--ast-global-color-4);
-		font-family: 'Cormorant Garamond', serif;
+		font-family: "Cormorant Garamond", serif;
 		font-size: 1.25rem;
 		font-weight: 400;
 		line-height: 1em;
@@ -356,7 +452,9 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 		padding: 10px 20px;
 		border-radius: 30px;
 		text-decoration: none;
-		transition: background-color 0.2s ease, color 0.2s ease;
+		transition:
+			background-color 0.2s ease,
+			color 0.2s ease;
 	}
 
 	.header-cta-button:hover {
@@ -395,7 +493,9 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 		z-index: 100000;
 		visibility: hidden;
 		opacity: 0;
-		transition: opacity 0.25s ease, visibility 0.25s;
+		transition:
+			opacity 0.25s ease,
+			visibility 0.25s;
 	}
 
 	.mobile-drawer.active {
@@ -513,4 +613,3 @@ const slackUrl = 'https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/z
 		justify-content: flex-end;
 	}
 </style>
-

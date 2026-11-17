@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CompleteStreetsPlanner from '../../components/CompleteStreetsPlanner.astro';
+---
+
+<Layout
+	title="Complete Streets - Neighbors of Edgewater and Uptown"
+	description="Explore CDOT Complete Streets Design Guide standard cross-sections and continuous corridor designs across Edgewater, Uptown, and Chicago."
+>
+	<Header transparent={false} />
+
+	<main id="content" class="site-main">
+		<CompleteStreetsPlanner
+			geojsonUrl="/chicago_curb_widths.geojson"
+			initialCorridor="N CLARK ST"
+		/>
+	</main>
+
+	<Footer />
+</Layout>

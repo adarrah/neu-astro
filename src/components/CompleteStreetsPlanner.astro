@@ -1,0 +1,3527 @@
+---
+/**
+ * CompleteStreetsPlanner.astro
+ *
+ * Full-bleed application layout for the CDOT Complete Streets Design Guide (Oct 2026)
+ * corridor design selector & geometric lane overlay, styled with the neu-astro
+ * brand palette & typography and powered by Mapbox GL JS (`PUBLIC_MAPBOX_ACCESS_TOKEN`).
+ */
+interface Props {
+	geojsonUrl?: string;
+	initialCorridor?: string;
+}
+
+const {
+	geojsonUrl = "/chicago_curb_widths.geojson",
+	initialCorridor = "N CLARK ST",
+} = Astro.props;
+
+const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
+---
+
+<link
+	rel="stylesheet"
+	href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+/>
+<script
+	is:inline
+	src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"
+></script>
+
+<section
+	class="cs-planner-root"
+	aria-label="Complete Streets Corridor Designer Application"
+	data-geojson-url={geojsonUrl}
+	data-initial-corridor={initialCorridor}
+	data-mapbox-token={mapboxToken}
+>
+	<!-- Left App Sidebar: Header, Controls, Cross-Section Blueprint, Continuity Profile, Legend -->
+	<aside class="cs-sidebar">
+		<header class="cs-app-header">
+			<div class="cs-badge-row">
+				<span class="cs-eyebrow">
+					Edgewater &amp; Uptown • CDOT Oct 2026 Guide
+				</span>
+				<span class="cs-status-badge" id="cs-status-pill">
+					Loading…
+				</span>
+			</div>
+			<h1 class="cs-app-title">Complete Streets Corridor Designer</h1>
+			<p class="cs-app-subtitle">
+				Selects standard CDOT Complete Streets cross-sections for actual
+				curb-to-curb street widths, prioritizing continuous corridor
+				designs and locking transitions to major intersections.
+			</p>
+		</header>
+
+		<!-- 1. Design Selector Controls -->
+		<div class="cs-card">
+			<div class="cs-card-title-row">
+				<h3>1. Corridor &amp; Design Controls</h3>
+			</div>
+
+			<div class="cs-control-group">
+				<label class="cs-label" for="cs-corridor-search">
+					Search or Select Corridor
+				</label>
+				<div class="cs-search-row">
+					<input
+						id="cs-corridor-search"
+						type="text"
+						list="cs-corridor-list"
+						placeholder="e.g. N CLARK ST, N BROADWAY, W FOSTER AVE…"
+						class="cs-input"
+					/>
+					<datalist id="cs-corridor-list"></datalist>
+					<button
+						id="cs-clear-corridor"
+						type="button"
+						class="cs-btn-outline"
+						title="Show all corridors"
+					>
+						All
+					</button>
+				</div>
+				<div class="cs-quick-corridors">
+					<button
+						type="button"
+						class="cs-chip-btn"
+						data-corridor="N CLARK ST"
+					>
+						N Clark St
+					</button>
+					<button
+						type="button"
+						class="cs-chip-btn"
+						data-corridor="N BROADWAY"
+					>
+						N Broadway
+					</button>
+					<button
+						type="button"
+						class="cs-chip-btn"
+						data-corridor="N SHERIDAN RD"
+					>
+						N Sheridan Rd
+					</button>
+					<button
+						type="button"
+						class="cs-chip-btn"
+						data-corridor="W FOSTER AVE"
+					>
+						W Foster Ave
+					</button>
+					<button
+						type="button"
+						class="cs-chip-btn"
+						data-corridor="W LAWRENCE AVE"
+					>
+						W Lawrence Ave
+					</button>
+					<button
+						type="button"
+						class="cs-chip-btn"
+						data-corridor="W MONTROSE AVE"
+					>
+						W Montrose Ave
+					</button>
+					<button
+						type="button"
+						class="cs-chip-btn"
+						data-corridor="W BRYN MAWR AVE"
+					>
+						W Bryn Mawr
+					</button>
+					<button
+						type="button"
+						class="cs-chip-btn"
+						data-corridor="W IRVING PARK RD"
+					>
+						W Irving Park
+					</button>
+				</div>
+			</div>
+
+			<div class="cs-grid-2">
+				<div class="cs-control-group">
+					<label class="cs-label" for="cs-parking-mode">
+						Bike / Parking Priority
+					</label>
+					<select id="cs-parking-mode" class="cs-select">
+						<option value="protected" selected>
+							Protected Bike (1-Side Parking)
+						</option>
+						<option value="two-way-protected">
+							2-Way Protected Bike (Both-Sides Parking)
+						</option>
+						<option value="both-parking">
+							Conventional Bike (Both-Sides Parking)
+						</option>
+					</select>
+				</div>
+				<div class="cs-control-group">
+					<label class="cs-label" for="cs-cta-mode">
+						Transit Context (CS-2-2)
+					</label>
+					<select id="cs-cta-mode" class="cs-select">
+						<option value="non-cta" selected>
+							Standard Route (10' Lanes)
+						</option>
+						<option value="cta">CTA Bus / Truck (11' Lanes)</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="cs-control-group">
+				<div class="cs-label-flex">
+					<label class="cs-label" for="cs-continuity-slider">
+						Corridor Continuity Priority
+					</label>
+					<span class="cs-val-tag" id="cs-continuity-val">
+						75% (Intersection-Locked)
+					</span>
+				</div>
+				<input
+					id="cs-continuity-slider"
+					type="range"
+					min="0"
+					max="100"
+					step="5"
+					value="75"
+					class="cs-range"
+				/>
+				<div class="cs-range-ticks">
+					<span>0% (Block-by-Block)</span>
+					<span>75% (Intersection-Locked)</span>
+					<span>100% (Max Uniform)</span>
+				</div>
+			</div>
+
+			<div class="cs-control-group">
+				<div class="cs-label-flex">
+					<span class="cs-label">Street Lane Overlay Scale</span>
+					<span class="cs-val-tag" id="cs-scale-val">
+						1× True Scale
+					</span>
+				</div>
+				<div class="cs-btn-group" id="cs-scale-buttons">
+					<button
+						type="button"
+						class="cs-seg-btn active"
+						data-scale="1"
+					>
+						1× True Scale
+					</button>
+					<button type="button" class="cs-seg-btn" data-scale="2">
+						2× Enhanced
+					</button>
+					<button type="button" class="cs-seg-btn" data-scale="3.5">
+						3.5× Diagram
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- 2. Active Segment Cross-Section Blueprint -->
+		<div class="cs-card" id="cs-inspector-card">
+			<div class="cs-card-title-row">
+				<div>
+					<h3 id="cs-active-street">Select a Street Segment</h3>
+					<p class="cs-card-subtitle" id="cs-active-meta">
+						Click any road on the map or choose a corridor above
+					</p>
+				</div>
+				<span class="cs-sheet-badge" id="cs-active-sheet">
+					CS-3-3
+				</span>
+			</div>
+
+			<div class="cs-xsec-container" id="cs-xsec-svg-wrap"></div>
+			<div class="cs-lane-breakdown" id="cs-lane-breakdown"></div>
+		</div>
+
+		<!-- 3. Corridor Continuity & Intersection Transitions -->
+		<div class="cs-card">
+			<div class="cs-card-title-row">
+				<h3>Corridor Continuity Profile</h3>
+				<span class="cs-savings-pill" id="cs-continuity-savings">
+					—
+				</span>
+			</div>
+
+			<div class="cs-stats-grid">
+				<div class="cs-stat-box">
+					<span class="cs-stat-num" id="stat-raw-flips">
+						—
+					</span>
+					<span class="cs-stat-lbl">Raw Block Flips</span>
+				</div>
+				<div class="cs-stat-box">
+					<span class="cs-stat-num" id="stat-opt-flips">
+						—
+					</span>
+					<span class="cs-stat-lbl">Optimized Changes</span>
+				</div>
+				<div class="cs-stat-box">
+					<span class="cs-stat-num" id="stat-int-pct">
+						—
+					</span>
+					<span class="cs-stat-lbl">At Major Intersections</span>
+				</div>
+			</div>
+
+			<div class="cs-strip-wrap">
+				<div class="cs-strip-label">
+					Block-by-Block Profile (Top: Raw Width | Bottom: Continuous
+					Design):
+				</div>
+				<div
+					class="cs-strip-bar"
+					id="cs-strip-raw"
+					title="Raw Block-by-Block Design"
+				></div>
+				<div
+					class="cs-strip-bar cs-strip-opt"
+					id="cs-strip-opt"
+					title="Continuous Optimized Design"
+				></div>
+			</div>
+
+			<div class="cs-transitions-list" id="cs-transitions-list"></div>
+		</div>
+
+		<!-- 4. CDOT Standard Configurations Legend -->
+		<div class="cs-card">
+			<div class="cs-card-title-row">
+				<h3>CDOT Standard Designs (Oct 2026)</h3>
+			</div>
+			<div class="cs-legend-list" id="cs-design-legend"></div>
+		</div>
+	</aside>
+
+	<!-- Right Full-Height App Map Container -->
+	<div
+		class="cs-map-pane"
+		role="region"
+		aria-label="Interactive Complete Streets Map"
+	>
+		<div id="cs-mapbox-container" class="cs-mapbox-canvas"></div>
+		<div class="cs-map-hint-bar" aria-live="polite">
+			<span id="cs-zoom-hint">
+				Zoom in or select a corridor to inspect true-scale CDOT Complete
+				Streets lane overlays &amp; intersection transitions.
+			</span>
+		</div>
+	</div>
+</section>
+
+<style>
+	.cs-planner-root {
+		display: grid;
+		grid-template-columns: 440px 1fr;
+		height: calc(100vh - 80px);
+		min-height: 720px;
+		width: 100%;
+		background-color: var(--ast-global-color-4);
+		color: var(--ast-global-color-3);
+		font-family: "Open Sans", sans-serif;
+		border-bottom: 1px solid var(--ast-global-color-6);
+		overflow: hidden;
+	}
+
+	@media (max-width: 980px) {
+		.cs-planner-root {
+			grid-template-columns: 1fr;
+			grid-template-rows: 52vh 56vh;
+			height: auto;
+			overflow: visible;
+		}
+	}
+
+	.cs-sidebar {
+		background-color: var(--ast-global-color-4);
+		border-right: 1px solid var(--ast-global-color-6);
+		padding: 20px;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.cs-app-header {
+		padding-bottom: 12px;
+		border-bottom: 2px solid var(--ast-global-color-0);
+	}
+
+	.cs-badge-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		margin-bottom: 6px;
+	}
+
+	.cs-eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--ast-global-color-0);
+	}
+
+	.cs-status-badge {
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		padding: 3px 9px;
+		border-radius: 20px;
+		background: #ffffff;
+		color: var(--ast-global-color-3);
+		border: 1px solid var(--ast-border-color);
+		white-space: nowrap;
+	}
+
+	.cs-app-title {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 2rem;
+		font-weight: 700;
+		line-height: 1.15;
+		color: var(--ast-global-color-2);
+		margin: 0 0 6px 0;
+	}
+
+	.cs-app-subtitle {
+		font-size: 0.84rem;
+		line-height: 1.5;
+		color: var(--ast-global-color-3);
+		margin: 0;
+	}
+
+	.cs-card {
+		background: #ffffff;
+		border: 1px solid var(--ast-global-color-6);
+		border-radius: 8px;
+		padding: 16px 18px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.cs-card-title-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 10px;
+		padding-bottom: 8px;
+		border-bottom: 2px solid var(--ast-global-color-0);
+	}
+
+	.cs-card-title-row h3 {
+		margin: 0;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.35rem;
+		font-weight: 600;
+		line-height: 1.2;
+		color: var(--ast-global-color-2);
+	}
+
+	.cs-card-subtitle {
+		margin: 3px 0 0 0;
+		font-size: 0.78rem;
+		color: var(--ast-global-color-3);
+		line-height: 1.35;
+	}
+
+	.cs-sheet-badge {
+		background: var(--ast-global-color-3);
+		color: #ffffff;
+		font-size: 0.74rem;
+		font-weight: 700;
+		padding: 3px 9px;
+		border-radius: 5px;
+		white-space: nowrap;
+	}
+
+	.cs-control-group {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
+
+	.cs-grid-2 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cs-label {
+		font-size: 0.76rem;
+		font-weight: 700;
+		color: var(--ast-global-color-2);
+	}
+
+	.cs-label-flex {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.cs-val-tag {
+		font-size: 0.73rem;
+		font-weight: 700;
+		color: var(--ast-global-color-0);
+	}
+
+	.cs-search-row {
+		display: flex;
+		gap: 6px;
+	}
+
+	.cs-input,
+	.cs-select {
+		width: 100%;
+		background: #ffffff;
+		border: 1px solid #cbd5e1;
+		color: var(--ast-global-color-2);
+		padding: 7px 10px;
+		border-radius: 6px;
+		font-family: "Open Sans", sans-serif;
+		font-size: 0.8rem;
+		transition: border-color 0.15s ease;
+	}
+
+	.cs-input:focus,
+	.cs-select:focus {
+		outline: none;
+		border-color: var(--ast-global-color-0);
+	}
+
+	.cs-btn-outline {
+		padding: 7px 12px;
+		border-radius: 6px;
+		font-family: "Open Sans", sans-serif;
+		font-size: 0.78rem;
+		font-weight: 600;
+		cursor: pointer;
+		border: 1px solid var(--ast-global-color-3);
+		background: #ffffff;
+		color: var(--ast-global-color-3);
+		white-space: nowrap;
+		transition: all 0.15s ease;
+	}
+
+	.cs-btn-outline:hover {
+		background: var(--ast-global-color-3);
+		color: #ffffff;
+	}
+
+	.cs-quick-corridors {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+		margin-top: 2px;
+	}
+
+	.cs-chip-btn {
+		background: var(--ast-global-color-4);
+		border: 1px solid #d1d5db;
+		color: var(--ast-global-color-3);
+		border-radius: 20px;
+		padding: 2px 8px;
+		font-size: 0.7rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.cs-chip-btn:hover,
+	.cs-chip-btn.active {
+		background: var(--ast-global-color-0);
+		border-color: var(--ast-global-color-0);
+		color: #ffffff;
+	}
+
+	.cs-range {
+		width: 100%;
+		accent-color: var(--ast-global-color-0);
+		cursor: pointer;
+	}
+
+	.cs-range-ticks {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.66rem;
+		color: #64748b;
+	}
+
+	.cs-btn-group {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 5px;
+	}
+
+	.cs-seg-btn {
+		background: var(--ast-global-color-4);
+		border: 1px solid #cbd5e1;
+		color: var(--ast-global-color-3);
+		padding: 5px 6px;
+		border-radius: 5px;
+		font-family: "Open Sans", sans-serif;
+		font-size: 0.73rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.cs-seg-btn:hover {
+		border-color: var(--ast-global-color-0);
+	}
+
+	.cs-seg-btn.active {
+		background: var(--ast-global-color-0);
+		border-color: var(--ast-global-color-0);
+		color: #ffffff;
+	}
+
+	.cs-xsec-container {
+		background: var(--ast-global-color-4);
+		border: 1px solid #e2e8f0;
+		border-radius: 6px;
+		padding: 8px;
+		min-height: 118px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.cs-lane-breakdown {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 5px;
+	}
+
+	.cs-savings-pill {
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: #ffffff;
+		background: var(--ast-global-color-3);
+		padding: 2px 9px;
+		border-radius: 999px;
+		white-space: nowrap;
+	}
+
+	.cs-stats-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+	}
+
+	.cs-stat-box {
+		background: var(--ast-global-color-4);
+		border: 1px solid #e2e8f0;
+		border-radius: 6px;
+		padding: 8px 6px;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.cs-stat-num {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.4rem;
+		font-weight: 700;
+		line-height: 1.1;
+		color: var(--ast-global-color-2);
+	}
+
+	.cs-stat-lbl {
+		font-size: 0.66rem;
+		color: var(--ast-global-color-3);
+		margin-top: 2px;
+	}
+
+	.cs-strip-wrap {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.cs-strip-label {
+		font-size: 0.7rem;
+		font-weight: 600;
+		color: var(--ast-global-color-2);
+	}
+
+	.cs-strip-bar {
+		height: 11px;
+		border-radius: 4px;
+		background: var(--ast-global-color-4);
+		display: flex;
+		overflow: hidden;
+		border: 1px solid #cbd5e1;
+	}
+
+	.cs-strip-opt {
+		height: 15px;
+	}
+
+	.cs-transitions-list {
+		max-height: 145px;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		font-size: 0.74rem;
+	}
+
+	.cs-legend-list {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.cs-map-pane {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 520px;
+	}
+
+	.cs-mapbox-canvas {
+		width: 100%;
+		height: 100%;
+	}
+
+	.cs-map-hint-bar {
+		position: absolute;
+		bottom: 16px;
+		left: 16px;
+		right: 48px;
+		z-index: 5;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(8px);
+		border: 1px solid var(--ast-global-color-6);
+		color: var(--ast-global-color-2);
+		padding: 8px 14px;
+		border-radius: 6px;
+		font-size: 0.8rem;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+		pointer-events: none;
+	}
+
+	.cs-input:focus-visible,
+	.cs-select:focus-visible,
+	.cs-btn-outline:focus-visible,
+	.cs-chip-btn:focus-visible,
+	.cs-seg-btn:focus-visible,
+	.cs-range:focus-visible {
+		outline: 2px solid var(--ast-global-color-3);
+		outline-offset: 2px;
+	}
+</style>
+
+<style is:global>
+	.mapboxgl-popup.neu-mapbox-popup {
+		z-index: 30;
+	}
+
+	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-content {
+		padding: 0;
+		background: #ffffff;
+		border-radius: 10px;
+		border: 1px solid var(--ast-global-color-6);
+		box-shadow:
+			0 14px 34px rgba(35, 31, 32, 0.18),
+			0 3px 10px rgba(35, 31, 32, 0.08);
+		overflow: hidden;
+		font-family: "Open Sans", sans-serif;
+		color: var(--ast-global-color-3);
+	}
+
+	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button {
+		top: 12px;
+		right: 10px;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: var(--ast-global-color-4);
+		border: 1px solid #d1d5db;
+		color: var(--ast-global-color-2);
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 28px;
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease,
+			border-color 0.15s ease;
+		z-index: 5;
+	}
+
+	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button:hover {
+		background: var(--ast-global-color-0);
+		border-color: var(--ast-global-color-0);
+		color: #ffffff;
+	}
+
+	.mapboxgl-popup.neu-mapbox-popup
+		.mapboxgl-popup-close-button:focus-visible {
+		outline: 2px solid var(--ast-global-color-3);
+		outline-offset: 2px;
+	}
+
+	.neu-popup-card {
+		display: flex;
+		flex-direction: column;
+		min-width: 255px;
+	}
+
+	.neu-popup-accent {
+		height: 5px;
+		width: 100%;
+		background: var(--ast-global-color-0);
+	}
+
+	.neu-popup-inner {
+		padding: 16px 18px 18px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.neu-popup-badge {
+		align-self: flex-start;
+		font-size: 10.5px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		color: var(--ast-global-color-3);
+		background: var(--ast-global-color-4);
+		border: 1px solid #cbd5e1;
+		padding: 2px 8px;
+		border-radius: 999px;
+		margin-right: 32px;
+	}
+
+	.neu-popup-title {
+		margin: 0;
+		padding-right: 32px;
+		padding-bottom: 8px;
+		border-bottom: 2px solid var(--ast-global-color-0);
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.4rem;
+		font-weight: 700;
+		line-height: 1.2;
+		color: var(--ast-global-color-2);
+	}
+
+	.neu-popup-kv-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 6px;
+	}
+
+	.neu-popup-kv-item {
+		background: var(--ast-global-color-4);
+		border: 1px solid #e2e8f0;
+		border-radius: 6px;
+		padding: 6px 8px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.neu-popup-kv-lbl {
+		font-size: 10.5px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #64748b;
+	}
+
+	.neu-popup-kv-val {
+		font-size: 13.5px;
+		font-weight: 700;
+		color: var(--ast-global-color-2);
+		margin-top: 1px;
+	}
+
+	.neu-popup-mini-lanes {
+		display: flex;
+		height: 14px;
+		border-radius: 4px;
+		overflow: hidden;
+		border: 1px solid #cbd5e1;
+	}
+
+	.cs-map-pane {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 520px;
+	}
+
+	.cs-mapbox-canvas {
+		width: 100%;
+		height: 100%;
+	}
+
+	.cs-map-hint-bar {
+		position: absolute;
+		bottom: 16px;
+		left: 16px;
+		right: 48px;
+		z-index: 5;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(8px);
+		border: 1px solid var(--ast-global-color-6);
+		color: var(--ast-global-color-2);
+		padding: 8px 14px;
+		border-radius: 6px;
+		font-size: 0.8rem;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+		pointer-events: none;
+	}
+
+	.cs-input:focus-visible,
+	.cs-select:focus-visible,
+	.cs-btn-outline:focus-visible,
+	.cs-chip-btn:focus-visible,
+	.cs-seg-btn:focus-visible,
+	.cs-range:focus-visible {
+		outline: 2px solid var(--ast-global-color-3);
+		outline-offset: 2px;
+	}
+</style>
+
+<style is:global>
+	.mapboxgl-popup.neu-mapbox-popup {
+		z-index: 30;
+	}
+
+	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-content {
+		padding: 0;
+		background: #ffffff;
+		border-radius: 10px;
+		border: 1px solid var(--ast-global-color-6);
+		box-shadow:
+			0 14px 34px rgba(35, 31, 32, 0.18),
+			0 3px 10px rgba(35, 31, 32, 0.08);
+		overflow: hidden;
+		font-family: "Open Sans", sans-serif;
+		color: var(--ast-global-color-3);
+	}
+
+	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button {
+		top: 12px;
+		right: 10px;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: var(--ast-global-color-4);
+		border: 1px solid #d1d5db;
+		color: var(--ast-global-color-2);
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 28px;
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease,
+			border-color 0.15s ease;
+		z-index: 5;
+	}
+
+	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button:hover {
+		background: var(--ast-global-color-0);
+		border-color: var(--ast-global-color-0);
+		color: #ffffff;
+	}
+
+	.mapboxgl-popup.neu-mapbox-popup
+		.mapboxgl-popup-close-button:focus-visible {
+		outline: 2px solid var(--ast-global-color-3);
+		outline-offset: 2px;
+	}
+
+	.neu-popup-card {
+		display: flex;
+		flex-direction: column;
+		min-width: 255px;
+	}
+
+	.neu-popup-accent {
+		height: 5px;
+		width: 100%;
+		background: var(--ast-global-color-0);
+	}
+
+	.neu-popup-inner {
+		padding: 16px 18px 18px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.neu-popup-badge {
+		align-self: flex-start;
+		font-size: 10.5px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		color: var(--ast-global-color-3);
+		background: var(--ast-global-color-4);
+		border: 1px solid #cbd5e1;
+		padding: 2px 8px;
+		border-radius: 999px;
+		margin-right: 32px;
+	}
+
+	.neu-popup-title {
+		margin: 0;
+		padding-right: 32px;
+		padding-bottom: 8px;
+		border-bottom: 2px solid var(--ast-global-color-0);
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.4rem;
+		font-weight: 700;
+		line-height: 1.2;
+		color: var(--ast-global-color-2);
+	}
+
+	.neu-popup-kv-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+	}
+
+	.neu-popup-kv-item {
+		background: var(--ast-global-color-4);
+		border: 1px solid #e2e8f0;
+		border-radius: 6px;
+		padding: 6px 8px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.neu-popup-kv-lbl {
+		font-size: 10.5px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #64748b;
+	}
+
+	.neu-popup-kv-val {
+		font-size: 13.5px;
+		font-weight: 700;
+		color: var(--ast-global-color-2);
+		margin-top: 1px;
+	}
+
+	.neu-popup-mini-lanes {
+		display: flex;
+		height: 14px;
+		border-radius: 4px;
+		overflow: hidden;
+		border: 1px solid #cbd5e1;
+	}
+</style>
+
+<script is:inline>
+	(function () {
+		function initPlanner() {
+			const root = document.querySelector(".cs-planner-root");
+			if (!root) return;
+			if (typeof window.mapboxgl === "undefined") {
+				setTimeout(initPlanner, 80);
+				return;
+			}
+			if (root.getAttribute("data-initialized") === "true") return;
+			root.setAttribute("data-initialized", "true");
+
+			const GEOJSON_URL =
+				root.getAttribute("data-geojson-url") ||
+				"/chicago_curb_widths.geojson";
+			const INITIAL_CORRIDOR =
+				root.getAttribute("data-initial-corridor") || "N CLARK ST";
+			const MAPBOX_TOKEN = root.getAttribute("data-mapbox-token") || "";
+
+			// -----------------------------------------------------------------------
+			// -----------------------------------------------------------------------
+			// CDOT Complete Streets Design Guide (Oct 2026) Standard Cross-Sections
+			// (Class 2 & 3 Arterials/Collectors — Neighborhood Greenways excluded)
+			// -----------------------------------------------------------------------
+			function getTwoWayProtectedLanes(nominalWidth, cta) {
+				const isCta = cta === "cta";
+				const parkingW = nominalWidth >= 50 ? 8.0 : nominalWidth >= 48 ? 7.5 : 7.0;
+				const travelW = isCta
+					? nominalWidth >= 50 ? 11.0 : nominalWidth >= 46 ? 10.5 : 10.0
+					: nominalWidth >= 50 ? 10.5 : nominalWidth >= 46 ? 10.0 : nominalWidth >= 44 ? 9.5 : 9.0;
+				const barrierW = nominalWidth >= 46 && !isCta ? 3.0 : nominalWidth >= 50 ? 3.0 : 2.0;
+				const bikeW = +(nominalWidth - 2 * parkingW - 2 * travelW - barrierW).toFixed(1);
+				return [
+					{ type: "parking", label: "Parking", width: parkingW },
+					{ type: "bike-prot", label: "2-Way Prot. Bike", width: bikeW, dir: "2-WAY" },
+					{ type: "buffer", label: "Curb Barrier", width: barrierW },
+					{ type: "travel", label: isCta ? "CTA Travel" : "Travel", width: travelW, dir: "S/W" },
+					{ type: "travel", label: isCta ? "CTA Travel" : "Travel", width: travelW, dir: "N/E" },
+					{ type: "parking", label: "Parking", width: parkingW },
+				];
+			}
+
+			function getBoardingIslandProtectedLanes(nominalWidth) {
+				const bikeW = nominalWidth >= 50 ? 6.0 : nominalWidth >= 48 ? 5.5 : 5.0;
+				const islandW = nominalWidth >= 46 ? 6.0 : 5.0;
+				const travelW = nominalWidth >= 50 ? 11.0 : nominalWidth >= 46 ? 10.5 : 10.0;
+				const parkingW = nominalWidth >= 48 ? 8.0 : 7.0;
+				const barrierW = +(nominalWidth - 2 * bikeW - islandW - 2 * travelW - parkingW).toFixed(1);
+				return [
+					{ type: "bike-prot", label: "Curbside Prot. Bike", width: bikeW, dir: "S/W" },
+					{ type: "island", label: "Bus Boarding Island", width: islandW },
+					{ type: "travel", label: "CTA Travel", width: travelW, dir: "S/W" },
+					{ type: "travel", label: "CTA Travel", width: travelW, dir: "N/E" },
+					{ type: "parking", label: "Parking", width: parkingW },
+					{ type: "buffer", label: "Curb Barrier", width: Math.max(1.5, barrierW) },
+					{ type: "bike-prot", label: "Parking Prot. Bike", width: bikeW, dir: "N/E" },
+				];
+			}
+
+			const CDOT_DESIGNS = [
+				{
+					id: "CS-3-1",
+					sheet: "CS-3-1",
+					name: "42' Wide Two-Way Roadway",
+					shortName: "42' Standard (CS-3-1)",
+					minWidth: 38.0,
+					nominalWidth: 42.0,
+					color: "#16a34a",
+					getLanes(mode, cta) {
+						if (mode === "two-way-protected") {
+							return getTwoWayProtectedLanes(42, cta);
+						}
+						if (mode === "both-parking") {
+							return [
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "bike-conv",
+									label:
+										cta === "cta"
+											? "Dashed Bike"
+											: "Bike Lane",
+									width: 5.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 9.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 9.0,
+									dir: "N/E",
+								},
+								{
+									type: "bike-conv",
+									label:
+										cta === "cta"
+											? "Dashed Bike"
+											: "Bike Lane",
+									width: 5.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+							];
+						}
+						if (cta === "cta") {
+							return [
+								{
+									type: "bike-prot",
+									label: "Curbside Prot. Bike",
+									width: 5.0,
+									dir: "S/W",
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 2.0,
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 10.5,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 10.5,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 2.0,
+								},
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 5.0,
+									dir: "N/E",
+								},
+							];
+						}
+						return [
+							{
+								type: "bike-prot",
+								label: "Curbside Prot. Bike",
+								width: 5.0,
+								dir: "S/W",
+							},
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 2.5,
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "S/W",
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "N/E",
+							},
+							{ type: "parking", label: "Parking", width: 7.0 },
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 2.5,
+							},
+							{
+								type: "bike-prot",
+								label: "Parking Prot. Bike",
+								width: 5.0,
+								dir: "N/E",
+							},
+						];
+					},
+				},
+				{
+					id: "CS-3-2",
+					sheet: "CS-3-2",
+					name: "44' Wide Two-Way Roadway",
+					shortName: "44' Standard (CS-3-2)",
+					minWidth: 42.5,
+					nominalWidth: 44.0,
+					color: "#0d9488",
+					getLanes(mode, cta) {
+						if (mode === "two-way-protected") {
+							return getTwoWayProtectedLanes(44, cta);
+						}
+						if (mode === "protected" && cta === "cta") {
+							return getBoardingIslandProtectedLanes(44);
+						}
+						if (mode === "both-parking") {
+							return [
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "bike-conv",
+									label: "Bike Lane",
+									width: 5.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 10.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 10.0,
+									dir: "N/E",
+								},
+								{
+									type: "bike-conv",
+									label: "Bike Lane",
+									width: 5.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+							];
+						}
+						if (cta === "cta") {
+							return [
+								{
+									type: "bike-prot",
+									label: "Curbside Prot. Bike",
+									width: 6.0,
+									dir: "S/W",
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 1.5,
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 11.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 11.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 1.5,
+								},
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 6.0,
+									dir: "N/E",
+								},
+							];
+						}
+						return [
+							{
+								type: "bike-prot",
+								label: "Curbside Prot. Bike",
+								width: 5.0,
+								dir: "S/W",
+							},
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 3.0,
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "S/W",
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "N/E",
+							},
+							{ type: "parking", label: "Parking", width: 8.0 },
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 3.0,
+							},
+							{
+								type: "bike-prot",
+								label: "Parking Prot. Bike",
+								width: 5.0,
+								dir: "N/E",
+							},
+						];
+					},
+				},
+				{
+					id: "CS-3-3",
+					sheet: "CS-3-3",
+					name: "46' Wide Two-Way Roadway",
+					shortName: "46' Standard (CS-3-3)",
+					minWidth: 44.5,
+					nominalWidth: 46.0,
+					color: "#d7935b",
+					getLanes(mode, cta) {
+						if (mode === "two-way-protected") {
+							return getTwoWayProtectedLanes(46, cta);
+						}
+						if (mode === "protected" && cta === "cta") {
+							return getBoardingIslandProtectedLanes(46);
+						}
+						if (mode === "both-parking") {
+							return [
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "bike-conv",
+									label: "Bike Lane",
+									width: 6.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 10.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 10.0,
+									dir: "N/E",
+								},
+								{
+									type: "bike-conv",
+									label: "Bike Lane",
+									width: 6.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+							];
+						}
+						if (cta === "cta") {
+							return [
+								{
+									type: "bike-prot",
+									label: "Curbside Prot. Bike",
+									width: 6.0,
+									dir: "S/W",
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 2.0,
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 11.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 11.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 8.0,
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 2.0,
+								},
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 6.0,
+									dir: "N/E",
+								},
+							];
+						}
+						return [
+							{
+								type: "bike-prot",
+								label: "Curbside Prot. Bike",
+								width: 6.0,
+								dir: "S/W",
+							},
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 3.0,
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "S/W",
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "N/E",
+							},
+							{ type: "parking", label: "Parking", width: 8.0 },
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 3.0,
+							},
+							{
+								type: "bike-prot",
+								label: "Parking Prot. Bike",
+								width: 6.0,
+								dir: "N/E",
+							},
+						];
+					},
+				},
+				{
+					id: "CS-3-4",
+					sheet: "CS-3-4",
+					name: "48' Wide Two-Way Roadway",
+					shortName: "48' Standard (CS-3-4)",
+					minWidth: 46.5,
+					nominalWidth: 48.0,
+					color: "#e66101",
+					getLanes(mode, cta) {
+						if (mode === "two-way-protected") {
+							return getTwoWayProtectedLanes(48, cta);
+						}
+						if (mode === "protected" && cta === "cta") {
+							return getBoardingIslandProtectedLanes(48);
+						}
+						if (mode === "both-parking") {
+							if (cta === "cta") {
+								return [
+									{
+										type: "parking",
+										label: "Parking",
+										width: 7.0,
+									},
+									{
+										type: "buffer",
+										label: "Painted Buffer",
+										width: 2.0,
+									},
+									{
+										type: "bike-conv",
+										label: "Buffered Bike",
+										width: 5.0,
+										dir: "S/W",
+									},
+									{
+										type: "travel",
+										label: "CTA Travel",
+										width: 10.0,
+										dir: "S/W",
+									},
+									{
+										type: "travel",
+										label: "CTA Travel",
+										width: 10.0,
+										dir: "N/E",
+									},
+									{
+										type: "bike-conv",
+										label: "Buffered Bike",
+										width: 5.0,
+										dir: "N/E",
+									},
+									{
+										type: "buffer",
+										label: "Painted Buffer",
+										width: 2.0,
+									},
+									{
+										type: "parking",
+										label: "Parking",
+										width: 7.0,
+									},
+								];
+							}
+							return [
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 5.0,
+									dir: "S/W",
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 2.0,
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 10.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 10.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 2.0,
+								},
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 5.0,
+									dir: "N/E",
+								},
+							];
+						}
+						if (cta === "cta") {
+							return [
+								{
+									type: "bike-prot",
+									label: "Curbside Prot. Bike",
+									width: 6.0,
+									dir: "S/W",
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 3.0,
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 11.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 11.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 8.0,
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 3.0,
+								},
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 6.0,
+									dir: "N/E",
+								},
+							];
+						}
+						return [
+							{
+								type: "bike-prot",
+								label: "Curbside Prot. Bike",
+								width: 7.0,
+								dir: "S/W",
+							},
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 3.0,
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "S/W",
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "N/E",
+							},
+							{ type: "parking", label: "Parking", width: 8.0 },
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 3.0,
+							},
+							{
+								type: "bike-prot",
+								label: "Parking Prot. Bike",
+								width: 7.0,
+								dir: "N/E",
+							},
+						];
+					},
+				},
+				{
+					id: "CS-3-5",
+					sheet: "CS-3-5",
+					name: "50' Wide Two-Way Roadway",
+					shortName: "50' Standard (CS-3-5)",
+					minWidth: 48.5,
+					nominalWidth: 50.0,
+					color: "#244367",
+					getLanes(mode, cta) {
+						if (mode === "two-way-protected") {
+							return getTwoWayProtectedLanes(50, cta);
+						}
+						if (mode === "protected" && cta === "cta") {
+							return getBoardingIslandProtectedLanes(50);
+						}
+						if (mode === "both-parking") {
+							if (cta === "cta") {
+								return [
+									{
+										type: "bike-prot",
+										label: "Parking Prot. Bike",
+										width: 6.0,
+										dir: "S/W",
+									},
+									{
+										type: "buffer",
+										label: "Curb Barrier",
+										width: 1.5,
+									},
+									{
+										type: "parking",
+										label: "Parking",
+										width: 7.0,
+									},
+									{
+										type: "travel",
+										label: "CTA Travel",
+										width: 10.5,
+										dir: "S/W",
+									},
+									{
+										type: "travel",
+										label: "CTA Travel",
+										width: 10.5,
+										dir: "N/E",
+									},
+									{
+										type: "parking",
+										label: "Parking",
+										width: 7.0,
+									},
+									{
+										type: "buffer",
+										label: "Curb Barrier",
+										width: 1.5,
+									},
+									{
+										type: "bike-prot",
+										label: "Parking Prot. Bike",
+										width: 6.0,
+										dir: "N/E",
+									},
+								];
+							}
+							return [
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 6.0,
+									dir: "S/W",
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 2.0,
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 10.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "Travel",
+									width: 10.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 7.0,
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 2.0,
+								},
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 6.0,
+									dir: "N/E",
+								},
+							];
+						}
+						if (cta === "cta") {
+							return [
+								{
+									type: "bike-prot",
+									label: "Curbside Prot. Bike",
+									width: 6.0,
+									dir: "S/W",
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 4.0,
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 11.0,
+									dir: "S/W",
+								},
+								{
+									type: "travel",
+									label: "CTA Travel",
+									width: 11.0,
+									dir: "N/E",
+								},
+								{
+									type: "parking",
+									label: "Parking",
+									width: 8.0,
+								},
+								{
+									type: "buffer",
+									label: "Curb Barrier",
+									width: 4.0,
+								},
+								{
+									type: "bike-prot",
+									label: "Parking Prot. Bike",
+									width: 6.0,
+									dir: "N/E",
+								},
+							];
+						}
+						return [
+							{
+								type: "bike-prot",
+								label: "Curbside Prot. Bike",
+								width: 7.0,
+								dir: "S/W",
+							},
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 4.0,
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "S/W",
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.0,
+								dir: "N/E",
+							},
+							{ type: "parking", label: "Parking", width: 8.0 },
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 4.0,
+							},
+							{
+								type: "bike-prot",
+								label: "Parking Prot. Bike",
+								width: 7.0,
+								dir: "N/E",
+							},
+						];
+					},
+				},
+				{
+					id: "CS-5-9",
+					sheet: "CS-5-9 / CS-10-8",
+					name: "56' Arterial + Refuge Median",
+					shortName: "56' Median Arterial (CS-5-9)",
+					minWidth: 53.0,
+					nominalWidth: 56.0,
+					color: "#7c3aed",
+					getLanes(mode, cta) {
+						return [
+							{
+								type: "bike-prot",
+								label: "Parking Prot. Bike",
+								width: 6.0,
+								dir: "S/W",
+							},
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 2.0,
+							},
+							{ type: "parking", label: "Parking", width: 7.0 },
+							{
+								type: "travel",
+								label: cta === "cta" ? "CTA Travel" : "Travel",
+								width: 10.5,
+								dir: "S/W",
+							},
+							{
+								type: "median",
+								label: "Refuge Median / Turn",
+								width: 5.0,
+							},
+							{
+								type: "travel",
+								label: cta === "cta" ? "CTA Travel" : "Travel",
+								width: 10.5,
+								dir: "N/E",
+							},
+							{ type: "parking", label: "Parking", width: 7.0 },
+							{
+								type: "buffer",
+								label: "Curb Barrier",
+								width: 2.0,
+							},
+							{
+								type: "bike-prot",
+								label: "Parking Prot. Bike",
+								width: 6.0,
+								dir: "N/E",
+							},
+						];
+					},
+				},
+				{
+					id: "CS-8-1",
+					sheet: "CS-8-1 / CS-8-6",
+					name: "68'+ Transit Priority Boulevard (Bus + Bike)",
+					shortName: "68'+ Bus + Bike (CS-8-1)",
+					minWidth: 62.0,
+					nominalWidth: 68.0,
+					color: "#be123c",
+					getLanes() {
+						return [
+							{
+								type: "bike-prot",
+								label: "Protected Bike",
+								width: 6.5,
+								dir: "S/W",
+							},
+							{
+								type: "buffer",
+								label: "Boarding Island / Curb",
+								width: 3.0,
+							},
+							{
+								type: "parking",
+								label: "Parking / Loading",
+								width: 7.0,
+							},
+							{
+								type: "bus",
+								label: "Bus Only (Red MMA)",
+								width: 10.0,
+								dir: "S/W",
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.5,
+								dir: "S/W",
+							},
+							{
+								type: "travel",
+								label: "Travel",
+								width: 10.5,
+								dir: "N/E",
+							},
+							{
+								type: "bus",
+								label: "Bus Only (Red MMA)",
+								width: 10.0,
+								dir: "N/E",
+							},
+							{
+								type: "parking",
+								label: "Parking / Loading",
+								width: 7.0,
+							},
+							{
+								type: "buffer",
+								label: "Boarding Island / Curb",
+								width: 3.0,
+							},
+							{
+								type: "bike-prot",
+								label: "Protected Bike",
+								width: 6.5,
+								dir: "N/E",
+							},
+						];
+					},
+				},
+			];
+
+			const DESIGN_BY_ID = Object.fromEntries(
+				CDOT_DESIGNS.map((d) => [d.id, d]),
+			);
+
+			const LANE_COLORS = {
+				"bike-prot": {
+					fill: "#16a34a",
+					stroke: "#15803d",
+					text: "#ffffff",
+				},
+				"bike-conv": {
+					fill: "#4ade80",
+					stroke: "#16a34a",
+					text: "#064e3b",
+				},
+				buffer: { fill: "#cbd5e1", stroke: "#94a3b8", text: "#1e293b" },
+				parking: {
+					fill: "#64748b",
+					stroke: "#475569",
+					text: "#ffffff",
+				},
+				travel: { fill: "#334155", stroke: "#1e293b", text: "#ffffff" },
+				bus: { fill: "#dc2626", stroke: "#991b1b", text: "#ffffff" },
+				island: { fill: "#f59e0b", stroke: "#b45309", text: "#1e293b" },
+				median: { fill: "#d7935b", stroke: "#b45309", text: "#ffffff" },
+			};
+
+			// -----------------------------------------------------------------------
+			// State
+			// -----------------------------------------------------------------------
+			let geojsonData = null;
+			let endpoints = [];
+			let nodeStreets = new Map();
+			let streetChains = new Map();
+			let rawAssignments = [];
+			let optAssignments = [];
+			let transitionNodes = [];
+
+			let selectedCorridor = INITIAL_CORRIDOR;
+			let selectedFeatureIdx = null;
+			let parkingMode = "protected";
+			let ctaMode = "non-cta";
+			let continuityLevel = 75;
+			let overlayScale = 1.0;
+			let mapReady = false;
+
+			// -----------------------------------------------------------------------
+			// Initialize Mapbox GL JS Map (using streets-v12 & PUBLIC_MAPBOX_ACCESS_TOKEN)
+			// -----------------------------------------------------------------------
+			window.mapboxgl.accessToken = MAPBOX_TOKEN;
+			const map = new window.mapboxgl.Map({
+				container: "cs-mapbox-container",
+				style: "mapbox://styles/mapbox/streets-v12",
+				center: [-87.665, 41.975],
+				zoom: 13.5,
+			});
+
+			map.addControl(
+				new window.mapboxgl.NavigationControl(),
+				"top-right",
+			);
+			map.addControl(
+				new window.mapboxgl.FullscreenControl(),
+				"top-right",
+			);
+
+			// -----------------------------------------------------------------------
+			// Topology & Viterbi Dynamic Programming Selector
+			// -----------------------------------------------------------------------
+			function coordKey(pt) {
+				return pt[0].toFixed(5) + "," + pt[1].toFixed(5);
+			}
+
+			function parseKey(k) {
+				const parts = k.split(",");
+				return [parseFloat(parts[0]), parseFloat(parts[1])];
+			}
+
+			function pickRawDesignId(w) {
+				if (w == null || isNaN(w)) return "CS-3-1";
+				for (let i = CDOT_DESIGNS.length - 1; i >= 0; i--) {
+					if (w >= CDOT_DESIGNS[i].nominalWidth)
+						return CDOT_DESIGNS[i].id;
+				}
+				return CDOT_DESIGNS[0].id;
+			}
+
+			function computeFitCost(w, lenFt, design) {
+				if (w == null || isNaN(w)) return 0;
+				const weight = Math.max(
+					0.25,
+					Math.min(2.0, (lenFt || 300) / 400.0),
+				);
+				const effectiveMin =
+					design.id === "CS-3-1" &&
+					parkingMode === "two-way-protected" &&
+					ctaMode === "cta"
+						? 43.5
+						: design.minWidth;
+				const diff = w - design.nominalWidth;
+				if (w < effectiveMin) {
+					const deficit = effectiveMin - w;
+					return weight * (45.0 + deficit * deficit * 16.0);
+				}
+				if (diff < 0) {
+					return weight * (diff * diff * 4.5);
+				}
+				return weight * (diff * 0.85 + 0.075 * diff * diff);
+			}
+
+			function buildNetworkTopology(features) {
+				endpoints = [];
+				nodeStreets = new Map();
+				const byStreet = new Map();
+
+				features.forEach((ft, idx) => {
+					let coords = ft.geometry.coordinates;
+					if (ft.geometry.type === "MultiLineString")
+						coords = coords[0];
+					const k0 = coordKey(coords[0]);
+					const k1 = coordKey(coords[coords.length - 1]);
+					endpoints.push([k0, k1]);
+
+					const name = ft.properties.full_name || "UNKNOWN";
+					if (!nodeStreets.has(k0)) nodeStreets.set(k0, new Set());
+					if (!nodeStreets.has(k1)) nodeStreets.set(k1, new Set());
+					nodeStreets.get(k0).add(name);
+					nodeStreets.get(k1).add(name);
+
+					if (!byStreet.has(name)) byStreet.set(name, []);
+					byStreet.get(name).push(idx);
+				});
+
+				streetChains = new Map();
+				for (const [name, idxs] of byStreet.entries()) {
+					const adj = new Map();
+					for (const i of idxs) {
+						const [k0, k1] = endpoints[i];
+						if (!adj.has(k0)) adj.set(k0, []);
+						if (!adj.has(k1)) adj.set(k1, []);
+						adj.get(k0).push({ seg: i, other: k1 });
+						adj.get(k1).push({ seg: i, other: k0 });
+					}
+
+					const visited = new Set();
+					const chains = [];
+
+					for (const startIdx of idxs) {
+						if (visited.has(startIdx)) continue;
+						visited.add(startIdx);
+						const [k0, k1] = endpoints[startIdx];
+						const chain = [startIdx];
+						const nodes = [];
+
+						let curr = k1;
+						while (true) {
+							const list = adj.get(curr) || [];
+							const nextItem = list.find(
+								(item) => !visited.has(item.seg),
+							);
+							if (!nextItem) break;
+							visited.add(nextItem.seg);
+							nodes.push(curr);
+							chain.push(nextItem.seg);
+							curr = nextItem.other;
+						}
+
+						curr = k0;
+						while (true) {
+							const list = adj.get(curr) || [];
+							const nextItem = list.find(
+								(item) => !visited.has(item.seg),
+							);
+							if (!nextItem) break;
+							visited.add(nextItem.seg);
+							nodes.unshift(curr);
+							chain.unshift(nextItem.seg);
+							curr = nextItem.other;
+						}
+
+						chains.push({ chain, nodes });
+					}
+					streetChains.set(name, chains);
+				}
+			}
+
+			function runCorridorOptimization() {
+				if (!geojsonData) return;
+				const features = geojsonData.features;
+				rawAssignments = new Array(features.length);
+				optAssignments = new Array(features.length);
+				transitionNodes = [];
+
+				const t = continuityLevel / 100.0;
+				const majorPenalty =
+					t === 0 ? 0 : 2.5 + Math.pow(t, 1.8) * 38.0;
+				const minorPenalty =
+					t === 0 ? 0 : 25.0 + Math.pow(t, 1.4) * 145.0;
+				const K = CDOT_DESIGNS.length;
+
+				for (const [streetName, chains] of streetChains.entries()) {
+					for (const { chain, nodes } of chains) {
+						const N = chain.length;
+						for (let i = 0; i < N; i++) {
+							const w =
+								features[chain[i]].properties.curb_width_ft;
+							rawAssignments[chain[i]] = pickRawDesignId(w);
+						}
+
+						if (continuityLevel === 0 || N === 1) {
+							for (let i = 0; i < N; i++) {
+								optAssignments[chain[i]] =
+									rawAssignments[chain[i]];
+							}
+						} else {
+							const dp = Array.from(
+								{ length: N },
+								() => new Float64Array(K),
+							);
+							const back = Array.from(
+								{ length: N },
+								() => new Int32Array(K),
+							);
+
+							const p0 = features[chain[0]].properties;
+							for (let j = 0; j < K; j++) {
+								dp[0][j] = computeFitCost(
+									p0.curb_width_ft,
+									p0.segment_len_ft,
+									CDOT_DESIGNS[j],
+								);
+							}
+
+							for (let i = 1; i < N; i++) {
+								const pi = features[chain[i]].properties;
+								const nodeKey = nodes[i - 1];
+								const streetsAtNode = nodeStreets.get(nodeKey);
+								const isMajor =
+									streetsAtNode && streetsAtNode.size >= 2;
+								const basePen = isMajor
+									? majorPenalty
+									: minorPenalty;
+
+								for (let j = 0; j < K; j++) {
+									const fc = computeFitCost(
+										pi.curb_width_ft,
+										pi.segment_len_ft,
+										CDOT_DESIGNS[j],
+									);
+									let bestVal = Infinity;
+									let bestPrev = 0;
+									for (let prev = 0; prev < K; prev++) {
+										const tc =
+											prev === j
+												? 0
+												: basePen *
+													(1 +
+														0.18 *
+															Math.abs(j - prev));
+										const val = dp[i - 1][prev] + tc + fc;
+										if (val < bestVal) {
+											bestVal = val;
+											bestPrev = prev;
+										}
+									}
+									dp[i][j] = bestVal;
+									back[i][j] = bestPrev;
+								}
+							}
+
+							let bestLast = 0;
+							for (let j = 1; j < K; j++) {
+								if (dp[N - 1][j] < dp[N - 1][bestLast])
+									bestLast = j;
+							}
+
+							const chosen = new Int32Array(N);
+							chosen[N - 1] = bestLast;
+							for (let i = N - 1; i > 0; i--) {
+								chosen[i - 1] = back[i][chosen[i]];
+							}
+
+							for (let i = 0; i < N; i++) {
+								optAssignments[chain[i]] =
+									CDOT_DESIGNS[chosen[i]].id;
+							}
+						}
+
+						for (let i = 0; i < N - 1; i++) {
+							const dA = optAssignments[chain[i]];
+							const dB = optAssignments[chain[i + 1]];
+							if (dA !== dB) {
+								const nodeKey = nodes[i];
+								const allStreets = Array.from(
+									nodeStreets.get(nodeKey) || [],
+								);
+								const crossStreets = allStreets.filter(
+									(s) => s !== streetName,
+								);
+								transitionNodes.push({
+									coord: parseKey(nodeKey),
+									street: streetName,
+									crossStreets,
+									fromId: dA,
+									toId: dB,
+									isMajor: crossStreets.length > 0,
+								});
+							}
+						}
+					}
+				}
+			}
+
+			// -----------------------------------------------------------------------
+			// Geometric Lane-by-Lane Street Surface Overlay (GeoJSON for Mapbox GL)
+			// -----------------------------------------------------------------------
+			const FT_TO_DEG_LAT = 1 / 364000;
+
+			function offsetLineStringLngLatTapered(
+				coords,
+				offsetMidFt,
+				offsetStartFt = offsetMidFt,
+				offsetEndFt = offsetMidFt,
+			) {
+				const out = [];
+				for (let i = 0; i < coords.length; i++) {
+					const pCurr = coords[i];
+					const pPrev = i > 0 ? coords[i - 1] : coords[i];
+					const pNext =
+						i < coords.length - 1 ? coords[i + 1] : coords[i];
+
+					const cosLat = Math.cos((pCurr[1] * Math.PI) / 180);
+					const dx = (pNext[0] - pPrev[0]) * cosLat;
+					const dy = pNext[1] - pPrev[1];
+					const len = Math.hypot(dx, dy);
+					if (len === 0) {
+						out.push([pCurr[0], pCurr[1]]);
+						continue;
+					}
+					const nx = -dy / len;
+					const ny = dx / len;
+					const localOffset =
+						i === 0
+							? offsetStartFt
+							: i === coords.length - 1
+								? offsetEndFt
+								: offsetMidFt;
+					const dLat = ny * localOffset * FT_TO_DEG_LAT;
+					const dLng = (nx * localOffset * FT_TO_DEG_LAT) / cosLat;
+					out.push([pCurr[0] + dLng, pCurr[1] + dLat]);
+				}
+				return out;
+			}
+
+			function offsetLineStringLngLat(
+				coords,
+				offsetMidFt,
+				offsetStartFt = offsetMidFt,
+				offsetEndFt = offsetMidFt,
+			) {
+				// Forwarded to tapered implementation below
+				return offsetLineStringLngLatTapered(
+					coords,
+					offsetMidFt,
+					offsetStartFt,
+					offsetEndFt,
+				);
+			}
+
+			function buildBandPolygonRing(
+				coords,
+				offsetLeftFt,
+				offsetRightFt,
+				startFactor = 1.0,
+				endFactor = 1.0,
+			) {
+				const leftEdge = offsetLineStringLngLat(
+					coords,
+					offsetLeftFt,
+					offsetLeftFt * startFactor,
+					offsetLeftFt * endFactor,
+				);
+				const rightEdge = offsetLineStringLngLat(
+					coords,
+					offsetRightFt,
+					offsetRightFt * startFactor,
+					offsetRightFt * endFactor,
+				).reverse();
+				const ring = leftEdge.concat(rightEdge);
+				if (ring.length > 0) ring.push(ring[0]);
+				return [ring];
+			}
+
+			function trimLineStringEnds(coords, trimStartFt, trimEndFt) {
+				if (!coords || coords.length < 2) return coords;
+				const cosLat = Math.cos((coords[0][1] * Math.PI) / 180);
+				const segLens = [];
+				let totalLen = 0;
+				for (let i = 0; i < coords.length - 1; i++) {
+					const dx = ((coords[i + 1][0] - coords[i][0]) * cosLat) / FT_TO_DEG_LAT;
+					const dy = (coords[i + 1][1] - coords[i][1]) / FT_TO_DEG_LAT;
+					const len = Math.hypot(dx, dy);
+					segLens.push(len);
+					totalLen += len;
+				}
+				if (totalLen <= 1) return coords;
+
+				// Cap combined trim to 40% of segment length so short blocks never invert
+				const maxTotalTrim = totalLen * 0.4;
+				const sumTrim = trimStartFt + trimEndFt;
+				const scale = sumTrim > maxTotalTrim && sumTrim > 0 ? maxTotalTrim / sumTrim : 1;
+				const startTarget = trimStartFt * scale;
+				const endTarget = totalLen - trimEndFt * scale;
+
+				const out = [];
+				let accum = 0;
+				let started = startTarget <= 0;
+				if (started) out.push(coords[0]);
+
+				for (let i = 0; i < segLens.length; i++) {
+					const segLen = segLens[i];
+					const nextAccum = accum + segLen;
+					const p0 = coords[i];
+					const p1 = coords[i + 1];
+
+					if (!started && nextAccum >= startTarget && segLen > 0) {
+						const t = (startTarget - accum) / segLen;
+						out.push([p0[0] + (p1[0] - p0[0]) * t, p0[1] + (p1[1] - p0[1]) * t]);
+						started = true;
+					}
+
+					if (started) {
+						if (nextAccum >= endTarget && segLen > 0) {
+							const t = Math.max(0, (endTarget - accum) / segLen);
+							out.push([p0[0] + (p1[0] - p0[0]) * t, p0[1] + (p1[1] - p0[1]) * t]);
+							break;
+						}
+						out.push(p1);
+					}
+					accum = nextAccum;
+				}
+				return out.length >= 2 ? out : coords;
+			}
+
+			function buildSquareRing(centerLngLat, halfWidthFt, halfHeightFt, offsetXFt = 0, offsetYFt = 0) {
+				const cosLat = Math.cos((centerLngLat[1] * Math.PI) / 180);
+				const dLng = (ft) => (ft * FT_TO_DEG_LAT) / cosLat;
+				const dLat = (ft) => ft * FT_TO_DEG_LAT;
+				const cx = centerLngLat[0] + dLng(offsetXFt);
+				const cy = centerLngLat[1] + dLat(offsetYFt);
+				const hw = dLng(halfWidthFt);
+				const hh = dLat(halfHeightFt);
+				return [[
+					[cx - hw, cy - hh],
+					[cx + hw, cy - hh],
+					[cx + hw, cy + hh],
+					[cx - hw, cy + hh],
+					[cx - hw, cy - hh],
+				]];
+			}
+
+			function getIntersectionTreatment(fromD, toD, isMajor) {
+				if (ctaMode === "cta" && parkingMode === "protected") {
+					return {
+						sheet: "CS-6-4",
+						title: "Transit Boarding Bulb & Daylighting Taper",
+						note: "Extends curb/boarding island into parking lane at intersection for level CTA bus boarding and bikeway continuity.",
+					};
+				}
+				if (
+					parkingMode === "protected" ||
+					parkingMode === "two-way-protected"
+				) {
+					return {
+						sheet: "CS-6-1",
+						title: "Protected Intersection w/ Corner Refuge Islands",
+						note: "Maintains physical bikeway separation through the intersection with corner refuge islands and 20'–30' daylighting.",
+					};
+				}
+				if (toD.nominalWidth < fromD.nominalWidth || !isMajor) {
+					return {
+						sheet: "CS-6-2",
+						title: "Curb Extension & Width-Pinch Taper",
+						note: "Smoothly tapers travel and bike lanes across the intersection throat to match the narrower receiving curb width.",
+					};
+				}
+				return {
+					sheet: "CS-6-3",
+					title: "Bike Box & Lane-Shift Taper",
+					note: "Transitions lane alignment smoothly across the intersection with high-visibility bike markings.",
+				};
+			}
+
+			function getScaledLanesForSegment(design, actualWidthFt) {
+				const baseLanes = design.getLanes(parkingMode, ctaMode);
+				const baseTotal = baseLanes.reduce(
+					(acc, l) => acc + l.width,
+					0,
+				);
+				const targetW =
+					actualWidthFt && actualWidthFt >= 22
+						? actualWidthFt
+						: baseTotal;
+				const scale = targetW / baseTotal;
+				return baseLanes.map((l) => ({
+					...l,
+					actualWidth: +(l.width * scale).toFixed(1),
+				}));
+			}
+
+			function updateMapboxCorridorAndTransitionLayers() {
+				if (!mapReady || !geojsonData) return;
+
+				const features = geojsonData.features.map((ft, idx) => {
+					const dId = optAssignments[idx] || "CS-3-3";
+					const design = DESIGN_BY_ID[dId] || DESIGN_BY_ID["CS-3-3"] || CDOT_DESIGNS[0];
+					const isSelected =
+						selectedCorridor &&
+						ft.properties.full_name === selectedCorridor;
+					const isDimmed = selectedCorridor && !isSelected;
+
+					return {
+						type: "Feature",
+						geometry: ft.geometry,
+						properties: {
+							...ft.properties,
+							featureIdx: idx,
+							designId: dId,
+							designSheet: design.sheet,
+							designName: design.shortName,
+							color: design.color,
+							lineWidth: isSelected ? 6 : 3.2,
+							lineOpacity: isDimmed ? 0.3 : 0.9,
+						},
+					};
+				});
+
+				const corridorSrc = map.getSource("cs-corridors-src");
+				if (corridorSrc) {
+					corridorSrc.setData({
+						type: "FeatureCollection",
+						features,
+					});
+				}
+
+				const filteredTransitions = transitionNodes
+					.filter(
+						(tr) =>
+							!selectedCorridor || tr.street === selectedCorridor,
+					)
+					.map((tr) => {
+						const fromD = DESIGN_BY_ID[tr.fromId];
+						const toD = DESIGN_BY_ID[tr.toId];
+						const treatment = getIntersectionTreatment(
+							fromD,
+							toD,
+							tr.isMajor,
+						);
+						const crossLabel =
+							tr.crossStreets.length > 0
+								? tr.crossStreets.join(" / ")
+								: "Mid-Corridor Pinch Point";
+						return {
+							type: "Feature",
+							geometry: {
+								type: "Point",
+								coordinates: tr.coord,
+							},
+							properties: {
+								street: tr.street,
+								crossLabel,
+								fromSheet: fromD.sheet,
+								toSheet: toD.sheet,
+								isMajor: tr.isMajor,
+								treatmentSheet: treatment.sheet,
+								treatmentTitle: treatment.title,
+								treatmentNote: treatment.note,
+								fillColor: tr.isMajor ? "#244367" : "#be123c",
+							},
+						};
+					});
+
+				const transSrc = map.getSource("cs-transitions-src");
+				if (transSrc) {
+					transSrc.setData({
+						type: "FeatureCollection",
+						features: filteredTransitions,
+					});
+				}
+
+				updateMapboxLaneOverlayLayers();
+			}
+
+			function updateMapboxLaneOverlayLayers() {
+				if (!mapReady || !geojsonData) return;
+
+				const zoom = map.getZoom();
+				const bounds = map.getBounds();
+				const showAllInView = zoom >= 15.5;
+				// Scale up slightly when zoomed out (e.g. zoom 14-16) for readability,
+				// capped at 2.5x and converging to 1.0x real width at zoom >= 17.
+				const zoomBoost = 1 + Math.min(1.5, Math.max(0, (17 - zoom) * 0.45));
+				const effectiveScale = overlayScale * zoomBoost;
+
+				// Build shared target width at transition nodes so adjoining segments taper smoothly
+				const nodeTargetWidth = new Map();
+				for (const chains of streetChains.values()) {
+					for (const { chain, nodes } of chains) {
+						for (let i = 0; i < chain.length - 1; i++) {
+							const wA =
+								geojsonData.features[chain[i]].properties
+									.curb_width_ft || 44;
+							const wB =
+								geojsonData.features[chain[i + 1]].properties
+									.curb_width_ft || 44;
+							if (
+								Math.abs(wA - wB) > 0.5 ||
+								optAssignments[chain[i]] !==
+									optAssignments[chain[i + 1]]
+							) {
+								nodeTargetWidth.set(nodes[i], (wA + wB) / 2);
+							}
+						}
+					}
+				}
+
+				const laneFeatures = [];
+				const centerFeatures = [];
+				const intersectionFeatures = [];
+				const seenIntersections = new Map();
+				const boxHalfFt = 22 * effectiveScale;
+
+				geojsonData.features.forEach((ft, idx) => {
+					const prop = ft.properties;
+					const isSelectedCorridor =
+						selectedCorridor && prop.full_name === selectedCorridor;
+					if (!isSelectedCorridor && !showAllInView) return;
+
+					let coords = ft.geometry.coordinates;
+					if (ft.geometry.type === "MultiLineString")
+						coords = coords[0];
+					if (!coords || coords.length < 2) return;
+
+					const mid = coords[Math.floor(coords.length / 2)];
+					if (
+						!isSelectedCorridor &&
+						!bounds.contains([mid[0], mid[1]])
+					)
+						return;
+
+					const dId = optAssignments[idx] || "CS-3-3";
+					const design = DESIGN_BY_ID[dId] || DESIGN_BY_ID["CS-3-3"] || CDOT_DESIGNS[0];
+					const lanes = getScaledLanesForSegment(
+						design,
+						prop.curb_width_ft,
+					);
+					const totalW = lanes.reduce((s, l) => s + l.actualWidth, 0);
+					const [k0, k1] = endpoints[idx] || [];
+					const isMajorStart = k0 && (nodeStreets.get(k0)?.size || 0) >= 2;
+					const isMajorEnd = k1 && (nodeStreets.get(k1)?.size || 0) >= 2;
+
+					if (isMajorStart && !seenIntersections.has(k0)) {
+						seenIntersections.set(k0, { coord: coords[0], design });
+					}
+					if (isMajorEnd && !seenIntersections.has(k1)) {
+						seenIntersections.set(k1, { coord: coords[coords.length - 1], design });
+					}
+
+					const trimmedCoords = trimLineStringEnds(
+						coords,
+						isMajorStart ? boxHalfFt : 0,
+						isMajorEnd ? boxHalfFt : 0,
+					);
+
+					const startW = k0 ? nodeTargetWidth.get(k0) : null;
+					const endW = k1 ? nodeTargetWidth.get(k1) : null;
+					const startFactor =
+						startW && totalW > 0 ? startW / totalW : 1.0;
+					const endFactor =
+						endW && totalW > 0 ? endW / totalW : 1.0;
+
+					let cursor = -totalW / 2;
+					lanes.forEach((lane) => {
+						const leftOff = cursor * effectiveScale;
+						const rightOff =
+							(cursor + lane.actualWidth) * effectiveScale;
+						cursor += lane.actualWidth;
+
+						const rings = buildBandPolygonRing(
+							trimmedCoords,
+							leftOff,
+							rightOff,
+							startFactor,
+							endFactor,
+						);
+						const styleInfo =
+							LANE_COLORS[lane.type] || LANE_COLORS.travel;
+
+						laneFeatures.push({
+							type: "Feature",
+							geometry: {
+								type: "Polygon",
+								coordinates: rings,
+							},
+							properties: {
+								featureIdx: idx,
+								full_name: prop.full_name,
+								block_range: prop.block_range || "",
+								curb_width_ft: prop.curb_width_ft,
+								laneLabel: lane.label,
+								laneWidth: lane.actualWidth,
+								guideWidth: lane.width,
+								designSheet: design.sheet,
+								fillColor: styleInfo.fill,
+								strokeColor: styleInfo.stroke,
+								fillOpacity: isSelectedCorridor ? 0.88 : 0.72,
+							},
+						});
+					});
+
+					centerFeatures.push({
+						type: "Feature",
+						geometry: {
+							type: "LineString",
+							coordinates: trimmedCoords,
+						},
+						properties: {
+							featureIdx: idx,
+						},
+					});
+				});
+
+				// Build visual CDOT intersection treatment polygons at each major intersection node
+				const TREATMENT_STYLES = {
+					"CS-6-1": { fill: "#ccfbf1", stroke: "#0f766e", accent: "#16a34a" },
+					"CS-6-2": { fill: "#e2e8f0", stroke: "#d7935b", accent: "#244367" },
+					"CS-6-3": { fill: "#dcfce7", stroke: "#15803d", accent: "#4ade80" },
+					"CS-6-4": { fill: "#fef3c7", stroke: "#b45309", accent: "#f59e0b" },
+				};
+
+				for (const [nodeKey, info] of seenIntersections.entries()) {
+					const streets = Array.from(nodeStreets.get(nodeKey) || []);
+					const trMatch = transitionNodes.find((t) => coordKey(t.coord) === nodeKey);
+					const fromD = trMatch ? DESIGN_BY_ID[trMatch.fromId] : info.design;
+					const toD = trMatch ? DESIGN_BY_ID[trMatch.toId] : info.design;
+					const treatment = getIntersectionTreatment(fromD, toD, true);
+					const st = TREATMENT_STYLES[treatment.sheet] || TREATMENT_STYLES["CS-6-1"];
+
+					intersectionFeatures.push({
+						type: "Feature",
+						geometry: {
+							type: "Polygon",
+							coordinates: buildSquareRing(info.coord, boxHalfFt, boxHalfFt),
+						},
+						properties: {
+							crossLabel: streets.join(" & "),
+							street: selectedCorridor || streets[0] || "Intersection",
+							fromSheet: fromD.sheet,
+							toSheet: toD.sheet,
+							isMajor: true,
+							treatmentSheet: treatment.sheet,
+							treatmentTitle: treatment.title,
+							treatmentNote: treatment.note,
+							fillColor: st.fill,
+							strokeColor: st.stroke,
+						},
+					});
+
+					// Add 4 corner refuge islands for CS-6-1 or transit boarding bulbs for CS-6-4
+					if (treatment.sheet === "CS-6-1" || treatment.sheet === "CS-6-4") {
+						const islandHalf = boxHalfFt * 0.22;
+						const islandOff = boxHalfFt * 0.68;
+						for (const [ox, oy] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) {
+							intersectionFeatures.push({
+								type: "Feature",
+								geometry: {
+									type: "Polygon",
+									coordinates: buildSquareRing(
+										info.coord,
+										islandHalf,
+										islandHalf,
+										ox * islandOff,
+										oy * islandOff,
+									),
+								},
+								properties: {
+									crossLabel: streets.join(" & "),
+									street: selectedCorridor || streets[0] || "Intersection",
+									fromSheet: fromD.sheet,
+									toSheet: toD.sheet,
+									isMajor: true,
+									treatmentSheet: treatment.sheet,
+									treatmentTitle: treatment.title,
+									treatmentNote: treatment.note,
+									fillColor: st.accent,
+									strokeColor: st.stroke,
+								},
+							});
+						}
+					}
+				}
+
+				const lanesSrc = map.getSource("cs-lanes-src");
+				if (lanesSrc) {
+					lanesSrc.setData({
+						type: "FeatureCollection",
+						features: laneFeatures,
+					});
+				}
+
+				const centerSrc = map.getSource("cs-centerline-src");
+				if (centerSrc) {
+					centerSrc.setData({
+						type: "FeatureCollection",
+						features: centerFeatures,
+					});
+				}
+
+				const interSrc = map.getSource("cs-intersections-src");
+				if (interSrc) {
+					interSrc.setData({
+						type: "FeatureCollection",
+						features: intersectionFeatures,
+					});
+				}
+				if (centerSrc) {
+					centerSrc.setData({
+						type: "FeatureCollection",
+						features: centerFeatures,
+					});
+				}
+			}
+
+			// -----------------------------------------------------------------------
+			// Sidebar UI & SVG Cross-Section Blueprint
+			// -----------------------------------------------------------------------
+			function renderCrossSectionSVG(design, actualWidthFt) {
+				const wrap = document.getElementById("cs-xsec-svg-wrap");
+				const breakdownEl =
+					document.getElementById("cs-lane-breakdown");
+				if (!wrap || !breakdownEl) return;
+
+				const lanes = getScaledLanesForSegment(design, actualWidthFt);
+				const totalW = lanes.reduce((s, l) => s + l.actualWidth, 0);
+
+				const svgW = 380;
+				const svgH = 114;
+				const padX = 18;
+				const drawW = svgW - padX * 2;
+				const barY = 22;
+				const barH = 52;
+
+				let x = padX;
+				let rects = "";
+				let labels = "";
+
+				rects += `<rect x="2" y="${barY - 5}" width="${padX - 2}" height="${barH + 10}" rx="2" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>`;
+				rects += `<rect x="${svgW - padX}" y="${barY - 5}" width="${padX - 2}" height="${barH + 10}" rx="2" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>`;
+
+				lanes.forEach((lane) => {
+					const wPx = (lane.actualWidth / totalW) * drawW;
+					const c = LANE_COLORS[lane.type] || LANE_COLORS.travel;
+					rects += `<rect x="${x.toFixed(1)}" y="${barY}" width="${wPx.toFixed(1)}" height="${barH}" fill="${c.fill}" stroke="${c.stroke}" stroke-width="1"/>`;
+
+					if (wPx >= 20) {
+						const cx = x + wPx / 2;
+						labels += `<text x="${cx.toFixed(1)}" y="${barY + 23}" fill="${c.text}" font-size="9.5" font-weight="700" text-anchor="middle">${lane.width}'</text>`;
+						const shortLbl = lane.type.startsWith("bike")
+							? "BIKE"
+							: lane.type === "parking"
+								? "PARK"
+								: lane.type === "buffer"
+									? "CURB"
+									: lane.type === "bus"
+										? "BUS"
+										: lane.type === "median"
+											? "MED"
+											: "THRU";
+						labels += `<text x="${cx.toFixed(1)}" y="${barY + 38}" fill="${c.text}" font-size="7.5" text-anchor="middle">${shortLbl}</text>`;
+					}
+					x += wPx;
+				});
+
+				const dimY = barY + barH + 18;
+				const dimLine = `
+					<line x1="${padX}" y1="${dimY}" x2="${svgW - padX}" y2="${dimY}" stroke="#244367" stroke-width="1.5"/>
+					<text x="${svgW / 2}" y="${dimY + 13}" fill="#244367" font-size="10" font-weight="700" text-anchor="middle">
+						FOC to FOC: ${design.nominalWidth}' Standard (${actualWidthFt ? actualWidthFt.toFixed(1) + "' Measured Curb" : "Nominal"})
+					</text>
+				`;
+
+				wrap.innerHTML = `<svg viewBox="0 0 ${svgW} ${svgH}" width="100%" height="${svgH}">${rects}${labels}${dimLine}</svg>`;
+
+				breakdownEl.innerHTML = lanes
+					.map((l) => {
+						const c = LANE_COLORS[l.type] || LANE_COLORS.travel;
+						return `<span style="background:${c.fill};color:${c.text};border:1px solid ${c.stroke};padding:2px 7px;border-radius:4px;font-size:0.69rem;font-weight:700;">
+							${l.label}: ${l.width}' ${l.actualWidth !== l.width ? `(scaled ${l.actualWidth}')` : ""}
+						</span>`;
+					})
+					.join("");
+			}
+
+			function updateCorridorSidebar() {
+				if (!geojsonData) return;
+				const features = geojsonData.features;
+
+				let activeFeat =
+					selectedFeatureIdx != null
+						? features[selectedFeatureIdx]
+						: null;
+				if (!activeFeat && selectedCorridor) {
+					const chains = streetChains.get(selectedCorridor);
+					if (chains && chains.length > 0) {
+						selectedFeatureIdx =
+							chains[0].chain[
+								Math.floor(chains[0].chain.length / 2)
+							];
+						activeFeat = features[selectedFeatureIdx];
+					}
+				}
+				if (!activeFeat) return;
+
+				const prop = activeFeat.properties;
+				const dId = optAssignments[selectedFeatureIdx] || "CS-3-3";
+				const rawId = rawAssignments[selectedFeatureIdx] || "CS-3-3";
+				const design = DESIGN_BY_ID[dId] || CDOT_DESIGNS[3];
+				const rawDesign = DESIGN_BY_ID[rawId] || CDOT_DESIGNS[3];
+
+				document.getElementById("cs-active-street").textContent =
+					`${prop.full_name} (${prop.block_range || "Segment"})`;
+				document.getElementById("cs-active-meta").textContent =
+					`Measured Curb: ${prop.curb_width_ft ?? "N/A"}' | Selected: ${design.name} ${
+						dId !== rawId
+							? `(Smoothed from ${rawDesign.sheet})`
+							: ""
+					}`;
+				const sheetBadge = document.getElementById("cs-active-sheet");
+				sheetBadge.textContent = design.sheet;
+				sheetBadge.style.background = design.color;
+
+				renderCrossSectionSVG(design, prop.curb_width_ft);
+
+				document.querySelectorAll(".cs-chip-btn").forEach((btn) => {
+					btn.classList.toggle(
+						"active",
+						btn.getAttribute("data-corridor") === prop.full_name,
+					);
+				});
+
+				const corridorName = prop.full_name;
+				const chains = streetChains.get(corridorName) || [];
+				let rawFlips = 0;
+				let optFlips = 0;
+				let majorOptFlips = 0;
+				const stripRawHtml = [];
+				const stripOptHtml = [];
+
+				chains.forEach(({ chain, nodes }) => {
+					for (let i = 0; i < chain.length; i++) {
+						const rD =
+							DESIGN_BY_ID[rawAssignments[chain[i]]] ||
+							CDOT_DESIGNS[0];
+						const oD =
+							DESIGN_BY_ID[optAssignments[chain[i]]] ||
+							CDOT_DESIGNS[0];
+						const segW =
+							features[chain[i]].properties.curb_width_ft;
+						const blk =
+							features[chain[i]].properties.block_range || "";
+						stripRawHtml.push(
+							`<div style="flex:1;background:${rD.color};" title="${blk}: ${segW}' (Raw ${rD.sheet})"></div>`,
+						);
+						stripOptHtml.push(
+							`<div style="flex:1;background:${oD.color};" title="${blk}: ${segW}' (Continuous ${oD.sheet})"></div>`,
+						);
+
+						if (i < chain.length - 1) {
+							if (
+								rawAssignments[chain[i]] !==
+								rawAssignments[chain[i + 1]]
+							)
+								rawFlips++;
+							if (
+								optAssignments[chain[i]] !==
+								optAssignments[chain[i + 1]]
+							) {
+								optFlips++;
+								const stSet = nodeStreets.get(nodes[i]);
+								if (stSet && stSet.size >= 2) majorOptFlips++;
+							}
+						}
+					}
+				});
+
+				document.getElementById("stat-raw-flips").textContent =
+					String(rawFlips);
+				document.getElementById("stat-opt-flips").textContent =
+					String(optFlips);
+				const pctMajor =
+					optFlips === 0
+						? "100%"
+						: Math.round((majorOptFlips / optFlips) * 100) + "%";
+				document.getElementById("stat-int-pct").textContent = pctMajor;
+
+				const reduction =
+					rawFlips > 0
+						? Math.round(((rawFlips - optFlips) / rawFlips) * 100)
+						: 0;
+				document.getElementById("cs-continuity-savings").textContent =
+					rawFlips > 0
+						? `−${reduction}% design flips`
+						: "100% uniform";
+
+				document.getElementById("cs-strip-raw").innerHTML =
+					stripRawHtml.join("");
+				document.getElementById("cs-strip-opt").innerHTML =
+					stripOptHtml.join("");
+
+				const corridorTransitions = transitionNodes.filter(
+					(t) => t.street === corridorName,
+				);
+				const transListEl = document.getElementById(
+					"cs-transitions-list",
+				);
+				if (corridorTransitions.length === 0) {
+					transListEl.innerHTML = `<div style="color:#15803d;font-weight:600;padding:4px 0;">✓ Single continuous CDOT design along entire corridor (${design.sheet}).</div>`;
+				} else {
+					transListEl.innerHTML = corridorTransitions
+						.map((tr) => {
+							const fD = DESIGN_BY_ID[tr.fromId];
+							const tD = DESIGN_BY_ID[tr.toId];
+							const cross =
+								tr.crossStreets.length > 0
+									? tr.crossStreets.join(" / ")
+									: "Width Pinch Point";
+							return `<div role="button" tabindex="0" aria-label="Jump to design transition at ${cross}" style="display:flex;justify-content:space-between;align-items:center;background:var(--ast-global-color-4);padding:6px 10px;border-radius:5px;border-left:3px solid ${
+								tr.isMajor
+									? "var(--ast-global-color-0)"
+									: "#be123c"
+							};cursor:pointer;" data-lng="${tr.coord[0]}" data-lat="${tr.coord[1]}">
+								<span><strong>@ ${cross}</strong></span>
+								<span><b style="color:${fD.color}">${fD.sheet}</b> → <b style="color:${tD.color}">${tD.sheet}</b></span>
+							</div>`;
+						})
+						.join("");
+
+					transListEl.querySelectorAll("[data-lng]").forEach((el) => {
+						const triggerFly = () => {
+							const lng = parseFloat(el.getAttribute("data-lng"));
+							const lat = parseFloat(el.getAttribute("data-lat"));
+							map.flyTo({
+								center: [lng, lat],
+								zoom: 16.5,
+								duration: 700,
+							});
+						};
+						el.addEventListener("click", triggerFly);
+						el.addEventListener("keydown", (ev) => {
+							if (ev.key === "Enter" || ev.key === " ") {
+								ev.preventDefault();
+								triggerFly();
+							}
+						});
+					});
+				}
+			}
+
+			function selectSegment(idx, lngLat) {
+				if (!geojsonData) return;
+				selectedFeatureIdx = idx;
+				const prop = geojsonData.features[idx].properties;
+				selectedCorridor = prop.full_name;
+				const searchInput =
+					document.getElementById("cs-corridor-search");
+				if (searchInput) searchInput.value = selectedCorridor;
+
+				updateMapboxCorridorAndTransitionLayers();
+				updateCorridorSidebar();
+
+				if (lngLat) {
+					const dId = optAssignments[idx] || "CS-3-3";
+					const design = DESIGN_BY_ID[dId] || DESIGN_BY_ID["CS-3-3"] || CDOT_DESIGNS[0];
+					const lanes = getScaledLanesForSegment(
+						design,
+						prop.curb_width_ft,
+					);
+					const miniLaneBar = lanes
+						.map((l) => {
+							const c = LANE_COLORS[l.type] || LANE_COLORS.travel;
+							return `<span style="flex:${l.actualWidth};background:${c.fill};" title="${l.label}: ${l.width}'"></span>`;
+						})
+						.join("");
+
+					const dirLabel =
+						prop.dir_travel === "B"
+							? "Two-Way"
+							: "One-Way (" +
+								(prop.oneway_dir || prop.dir_travel) +
+								")";
+
+					const html =
+						`<div class="neu-popup-card" role="dialog" aria-label="${prop.full_name} segment details">` +
+						`<div class="neu-popup-accent" style="background:${design.color};"></div>` +
+						`<div class="neu-popup-inner">` +
+						`<span class="neu-popup-badge">CDOT Sheet ${design.sheet}</span>` +
+						`<h4 class="neu-popup-title">${prop.full_name}</h4>` +
+						`<div class="neu-popup-kv-grid">` +
+						`<div class="neu-popup-kv-item"><span class="neu-popup-kv-lbl">Block Range</span><span class="neu-popup-kv-val">${prop.block_range || "Segment"}</span></div>` +
+						`<div class="neu-popup-kv-item"><span class="neu-popup-kv-lbl">Curb Width</span><span class="neu-popup-kv-val">${prop.curb_width_ft ?? "N/A"} ft</span></div>` +
+						`<div class="neu-popup-kv-item"><span class="neu-popup-kv-lbl">Standard Design</span><span class="neu-popup-kv-val">${design.nominalWidth}' Config</span></div>` +
+						`<div class="neu-popup-kv-item"><span class="neu-popup-kv-lbl">Traffic Flow</span><span class="neu-popup-kv-val">${dirLabel}</span></div>` +
+						`</div>` +
+						`<div class="neu-popup-mini-lanes" title="Cross-section lane layout">${miniLaneBar}</div>` +
+						`</div></div>`;
+
+					new window.mapboxgl.Popup({
+						maxWidth: "330px",
+						className: "neu-mapbox-popup",
+						closeButton: true,
+					})
+						.setLngLat(lngLat)
+						.setHTML(html)
+						.addTo(map);
+				}
+			}
+
+			function focusCorridor(corridorName, fly = true) {
+				if (!geojsonData) return;
+				selectedCorridor = corridorName || null;
+				if (selectedCorridor && streetChains.has(selectedCorridor)) {
+					const chains = streetChains.get(selectedCorridor);
+					selectedFeatureIdx =
+						chains[0].chain[Math.floor(chains[0].chain.length / 2)];
+					if (fly) {
+						const bounds = new window.mapboxgl.LngLatBounds();
+						let hasPts = false;
+						chains.forEach(({ chain }) => {
+							chain.forEach((i) => {
+								let coords =
+									geojsonData.features[i].geometry
+										.coordinates;
+								if (
+									geojsonData.features[i].geometry.type ===
+									"MultiLineString"
+								)
+									coords = coords[0];
+								coords.forEach((c) => {
+									bounds.extend([c[0], c[1]]);
+									hasPts = true;
+								});
+							});
+						});
+						if (hasPts) {
+							map.fitBounds(bounds, {
+								padding: 48,
+								maxZoom: 15.5,
+								duration: 700,
+							});
+						}
+					}
+				}
+				updateMapboxCorridorAndTransitionLayers();
+				updateCorridorSidebar();
+			}
+
+			function populateLegendAndCorridorList() {
+				const legendEl = document.getElementById("cs-design-legend");
+				if (legendEl) {
+					legendEl.innerHTML = CDOT_DESIGNS.map(
+						(d) => `
+						<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:0.76rem;padding:2px 0;">
+							<span style="display:flex;align-items:center;gap:8px;">
+								<span style="width:12px;height:12px;border-radius:3px;background:${d.color};display:inline-block;flex-shrink:0;"></span>
+								<strong>${d.name}</strong>
+							</span>
+							<span style="color:var(--ast-global-color-3);font-size:0.7rem;font-weight:700;">${d.sheet}</span>
+						</div>`,
+					).join("");
+				}
+
+				const datalist = document.getElementById("cs-corridor-list");
+				if (datalist && streetChains) {
+					const sortedNames = Array.from(streetChains.keys()).sort();
+					datalist.innerHTML = sortedNames
+						.map((n) => `<option value="${n}"></option>`)
+						.join("");
+				}
+			}
+
+			// -----------------------------------------------------------------------
+			// Mapbox Load & Layer Registration
+			// -----------------------------------------------------------------------
+			map.on("load", () => {
+				mapReady = true;
+
+				map.addSource("cs-corridors-src", {
+					type: "geojson",
+					data: { type: "FeatureCollection", features: [] },
+				});
+
+				map.addSource("cs-lanes-src", {
+					type: "geojson",
+					data: { type: "FeatureCollection", features: [] },
+				});
+
+				map.addSource("cs-centerline-src", {
+					type: "geojson",
+					data: { type: "FeatureCollection", features: [] },
+				});
+
+				map.addSource("cs-intersections-src", {
+					type: "geojson",
+					data: { type: "FeatureCollection", features: [] },
+				});
+
+				map.addSource("cs-transitions-src", {
+					type: "geojson",
+					data: { type: "FeatureCollection", features: [] },
+				});
+
+				map.addLayer({
+					id: "cs-corridors-lyr",
+					type: "line",
+					source: "cs-corridors-src",
+					layout: {
+						"line-cap": "round",
+						"line-join": "round",
+					},
+					paint: {
+						"line-color": ["get", "color"],
+						"line-width": ["get", "lineWidth"],
+						"line-opacity": ["get", "lineOpacity"],
+					},
+				});
+
+				map.addLayer({
+					id: "cs-lanes-fill-lyr",
+					type: "fill",
+					source: "cs-lanes-src",
+					paint: {
+						"fill-color": ["get", "fillColor"],
+						"fill-opacity": ["get", "fillOpacity"],
+					},
+				});
+
+				map.addLayer({
+					id: "cs-lanes-line-lyr",
+					type: "line",
+					source: "cs-lanes-src",
+					paint: {
+						"line-color": ["get", "strokeColor"],
+						"line-width": 0.6,
+						"line-opacity": 0.75,
+					},
+				});
+
+				map.addLayer({
+					id: "cs-centerline-lyr",
+					type: "line",
+					source: "cs-centerline-src",
+					paint: {
+						"line-color": "#facc15",
+						"line-width": 1.6,
+						"line-opacity": 0.9,
+					},
+				});
+
+				map.addLayer({
+					id: "cs-intersections-fill-lyr",
+					type: "fill",
+					source: "cs-intersections-src",
+					paint: {
+						"fill-color": ["get", "fillColor"],
+						"fill-opacity": 0.9,
+					},
+				});
+
+				map.addLayer({
+					id: "cs-intersections-line-lyr",
+					type: "line",
+					source: "cs-intersections-src",
+					paint: {
+						"line-color": ["get", "strokeColor"],
+						"line-width": 1.6,
+						"line-opacity": 0.95,
+					},
+				});
+
+				map.addLayer({
+					id: "cs-transitions-lyr",
+					type: "circle",
+					source: "cs-transitions-src",
+					paint: {
+						"circle-radius": 6.5,
+						"circle-color": ["get", "fillColor"],
+						"circle-stroke-width": 2,
+						"circle-stroke-color": "#ffffff",
+					},
+				});
+
+				map.on("click", "cs-lanes-fill-lyr", (e) => {
+					const feat = e.features && e.features[0];
+					if (!feat) return;
+					selectSegment(feat.properties.featureIdx, e.lngLat);
+				});
+
+				map.on("click", "cs-corridors-lyr", (e) => {
+					const feat = e.features && e.features[0];
+					if (!feat) return;
+					selectSegment(feat.properties.featureIdx, e.lngLat);
+				});
+
+				function openIntersectionPopup(p, lngLat) {
+					const accent = p.strokeColor || p.fillColor || "#244367";
+					const html =
+						`<div class="neu-popup-card" role="dialog" aria-label="Intersection design treatment">` +
+						`<div class="neu-popup-accent" style="background:${accent};"></div>` +
+						`<div class="neu-popup-inner">` +
+						`<span class="neu-popup-badge">${p.isMajor ? "CDOT Intersection Treatment" : "Width Pinch Transition"}</span>` +
+						`<h4 class="neu-popup-title">@ ${p.crossLabel}</h4>` +
+						`<div class="neu-popup-kv-grid">` +
+						`<div class="neu-popup-kv-item"><span class="neu-popup-kv-lbl">Corridor</span><span class="neu-popup-kv-val">${p.street}</span></div>` +
+						`<div class="neu-popup-kv-item"><span class="neu-popup-kv-lbl">Transition</span><span class="neu-popup-kv-val">${p.fromSheet} → ${p.toSheet}</span></div>` +
+						`<div class="neu-popup-kv-item"><span class="neu-popup-kv-lbl">CDOT Treatment</span><span class="neu-popup-kv-val">${p.treatmentSheet}</span></div>` +
+						`<div class="neu-popup-kv-item"><span class="neu-popup-kv-lbl">Design Type</span><span class="neu-popup-kv-val">${p.treatmentTitle}</span></div>` +
+						`</div>` +
+						`<p class="neu-popup-text" style="margin:6px 0 0;">${p.treatmentNote}</p>` +
+						`</div></div>`;
+					new window.mapboxgl.Popup({
+						maxWidth: "330px",
+						className: "neu-mapbox-popup",
+						closeButton: true,
+					})
+						.setLngLat(lngLat)
+						.setHTML(html)
+						.addTo(map);
+				}
+
+				map.on("click", "cs-intersections-fill-lyr", (e) => {
+					const feat = e.features && e.features[0];
+					if (!feat) return;
+					openIntersectionPopup(feat.properties, e.lngLat);
+				});
+
+				map.on("click", "cs-transitions-lyr", (e) => {
+					const feat = e.features && e.features[0];
+					if (!feat) return;
+					openIntersectionPopup(feat.properties, e.lngLat);
+				});
+
+				[
+					"cs-lanes-fill-lyr",
+					"cs-corridors-lyr",
+					"cs-intersections-fill-lyr",
+					"cs-transitions-lyr",
+				].forEach((lyr) => {
+					map.on("mouseenter", lyr, () => {
+						map.getCanvas().style.cursor = "pointer";
+					});
+					map.on("mouseleave", lyr, () => {
+						map.getCanvas().style.cursor = "";
+					});
+				});
+
+				map.on("moveend", () => {
+					updateMapboxLaneOverlayLayers();
+				});
+
+				if (geojsonData) {
+					focusCorridor(selectedCorridor, true);
+				}
+			});
+
+			// -----------------------------------------------------------------------
+			// UI Event Listeners
+			// -----------------------------------------------------------------------
+			document
+				.getElementById("cs-parking-mode")
+				?.addEventListener("change", (e) => {
+					parkingMode = e.target.value;
+					runCorridorOptimization();
+					updateMapboxCorridorAndTransitionLayers();
+					updateCorridorSidebar();
+				});
+
+			document
+				.getElementById("cs-cta-mode")
+				?.addEventListener("change", (e) => {
+					ctaMode = e.target.value;
+					runCorridorOptimization();
+					updateMapboxCorridorAndTransitionLayers();
+					updateCorridorSidebar();
+				});
+
+			document
+				.getElementById("cs-continuity-slider")
+				?.addEventListener("input", (e) => {
+					continuityLevel = parseInt(e.target.value, 10);
+					const lbl = document.getElementById("cs-continuity-val");
+					if (lbl) {
+						lbl.textContent =
+							continuityLevel === 0
+								? "0% (Raw Block-by-Block)"
+								: continuityLevel < 50
+									? `${continuityLevel}% (Light Smoothing)`
+									: continuityLevel < 90
+										? `${continuityLevel}% (Intersection-Locked)`
+										: `${continuityLevel}% (Max Uniform)`;
+					}
+					runCorridorOptimization();
+					updateMapboxCorridorAndTransitionLayers();
+					updateCorridorSidebar();
+				});
+
+			document
+				.querySelectorAll("#cs-scale-buttons .cs-seg-btn")
+				.forEach((btn) => {
+					btn.addEventListener("click", () => {
+						document
+							.querySelectorAll("#cs-scale-buttons .cs-seg-btn")
+							.forEach((b) => b.classList.remove("active"));
+						btn.classList.add("active");
+						overlayScale = parseFloat(
+							btn.getAttribute("data-scale") || "1",
+						);
+						const tag = document.getElementById("cs-scale-val");
+						if (tag) tag.textContent = `${overlayScale}× Scale`;
+						updateMapboxLaneOverlayLayers();
+					});
+				});
+
+			document
+				.getElementById("cs-corridor-search")
+				?.addEventListener("change", (e) => {
+					const val = e.target.value.trim().toUpperCase();
+					if (streetChains.has(val)) {
+						focusCorridor(val, true);
+					}
+				});
+
+			document.querySelectorAll(".cs-chip-btn").forEach((btn) => {
+				btn.addEventListener("click", () => {
+					const cName = btn.getAttribute("data-corridor");
+					const inp = document.getElementById("cs-corridor-search");
+					if (inp) inp.value = cName;
+					focusCorridor(cName, true);
+				});
+			});
+
+			document
+				.getElementById("cs-clear-corridor")
+				?.addEventListener("click", () => {
+					selectedCorridor = null;
+					const inp = document.getElementById("cs-corridor-search");
+					if (inp) inp.value = "";
+					document
+						.querySelectorAll(".cs-chip-btn")
+						.forEach((b) => b.classList.remove("active"));
+					updateMapboxCorridorAndTransitionLayers();
+				});
+
+			// -----------------------------------------------------------------------
+			// Load GeoJSON Data
+			// -----------------------------------------------------------------------
+			fetch(GEOJSON_URL)
+				.then((res) => {
+					if (!res.ok) throw new Error(`HTTP ${res.status}`);
+					return res.json();
+				})
+				.then((data) => {
+					geojsonData = data;
+					const pill = document.getElementById("cs-status-pill");
+					if (pill)
+						pill.textContent = `${data.features.length.toLocaleString()} Segments`;
+
+					buildNetworkTopology(data.features);
+					populateLegendAndCorridorList();
+					runCorridorOptimization();
+
+					const searchInput =
+						document.getElementById("cs-corridor-search");
+					if (searchInput && INITIAL_CORRIDOR)
+						searchInput.value = INITIAL_CORRIDOR;
+
+					if (mapReady) {
+						focusCorridor(INITIAL_CORRIDOR, true);
+					} else {
+						updateCorridorSidebar();
+					}
+				})
+				.catch((err) => {
+					const pill = document.getElementById("cs-status-pill");
+					if (pill) {
+						pill.textContent = "Error loading GeoJSON";
+						pill.style.color = "#be123c";
+					}
+					console.error("Failed to load GeoJSON:", err);
+				});
+		}
+
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", initPlanner);
+		} else {
+			initPlanner();
+		}
+	})();
+</script>

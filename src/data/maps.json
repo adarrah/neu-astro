@@ -1,89 +1,55 @@
 {
-  "4060": {
-    "id": "4060",
+  "neu-geography": {
+    "id": "neu-geography",
     "title": "NEU Geography",
     "style": "streets",
     "center": [
       -87.64410697,
       41.97550391
     ],
-    "zoom": 12.0,
+    "zoom": 12,
     "height": "66vh",
     "zoomControl": true,
     "scrollZoom": true,
     "categoryFilter": true,
-    "categoryIds": [
-      "59",
-      "1",
-      "60",
-      "2",
-      "62",
-      "3",
-      "63",
-      "4",
-      "65",
-      "5",
-      "70",
-      "6",
-      "69",
-      "7",
-      "66",
-      "8",
-      "68",
-      "9",
-      "67"
-    ],
-    "explicitPolygons": [],
-    "explicitLines": [],
-    "explicitLocations": [],
     "categories": [
       {
-        "id": "59",
         "slug": "community-areas",
         "name": "Community Areas"
       },
       {
-        "id": "60",
         "slug": "wards",
         "name": "Wards"
       },
       {
-        "id": "62",
         "slug": "block-clubs",
         "name": "Block Clubs"
       },
       {
-        "id": "63",
         "slug": "chambers-of-commerce",
         "name": "Chambers of Commerce"
       },
       {
-        "id": "65",
         "slug": "police-districts",
         "name": "Police Districts"
       },
       {
-        "id": "70",
         "slug": "federal-congressional-districts",
         "name": "Federal Congressional Districts"
       },
       {
-        "id": "69",
         "slug": "police-beats",
         "name": "Police Beats"
       },
       {
-        "id": "66",
         "slug": "school-board-districts",
         "name": "School Board Districts"
       },
       {
-        "id": "68",
         "slug": "state-house-districts",
         "name": "State House Districts"
       },
       {
-        "id": "67",
         "slug": "state-senate-districts",
         "name": "State Senate Districts"
       }
@@ -94,9 +60,6 @@
         "title": "Uptown",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -4259,19 +4222,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Uptown",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Uptown"
+        }
       },
       {
         "id": "4066",
         "title": "47th Ward",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -10436,19 +10396,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "47th Ward",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "47th Ward"
+        }
       },
       {
         "id": "4067",
         "title": "46th Ward",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -15221,19 +15178,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "46th Ward",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "46th Ward"
+        }
       },
       {
         "id": "4061",
         "title": "Edgewater",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -18264,19 +18218,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater"
+        }
       },
       {
         "id": "4064",
         "title": "48th Ward",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -21877,19 +21828,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "48th Ward",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "48th Ward"
+        }
       },
       {
         "id": "4065",
         "title": "40th Ward",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29106,19 +29054,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "40th Ward",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "40th Ward"
+        }
       },
       {
         "id": "4097",
         "title": "Buena Park Neighbors",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29177,19 +29122,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Buena Park Neighbors",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Buena Park Neighbors"
+        }
       },
       {
         "id": "4098",
         "title": "Clarendon Park Neighborhood Association",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29232,19 +29174,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Clarendon Park Neighborhood Association",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Clarendon Park Neighborhood Association"
+        }
       },
       {
         "id": "4099",
         "title": "Graceland-Wilson Neighbors Association (GWNA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29291,19 +29230,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Graceland-Wilson Neighbors Association (GWNA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Graceland-Wilson Neighbors Association (GWNA)"
+        }
       },
       {
         "id": "4100",
         "title": "Beacon Street Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29370,19 +29306,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beacon Street Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beacon Street Block Club"
+        }
       },
       {
         "id": "4101",
         "title": "Dover Street Neighbors Association",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29441,19 +29374,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Dover Street Neighbors Association",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Dover Street Neighbors Association"
+        }
       },
       {
         "id": "4102",
         "title": "Ravenswood Neighbors Association",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29496,19 +29426,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Ravenswood Neighbors Association",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Ravenswood Neighbors Association"
+        }
       },
       {
         "id": "4103",
         "title": "Magnolia Malden Neighbors Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29563,19 +29490,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Magnolia Malden Neighbors Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Magnolia Malden Neighbors Block Club"
+        }
       },
       {
         "id": "4105",
         "title": "North Uptown Neighbors Association (NUNA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29630,19 +29554,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "North Uptown Neighbors Association (NUNA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "North Uptown Neighbors Association (NUNA)"
+        }
       },
       {
         "id": "4106",
         "title": "Truman Square Neighbors Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29689,19 +29610,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Truman Square Neighbors Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Truman Square Neighbors Block Club"
+        }
       },
       {
         "id": "4107",
         "title": "Lakeside Area Neighbors Association (LANA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29744,19 +29662,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Lakeside Area Neighbors Association (LANA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Lakeside Area Neighbors Association (LANA)"
+        }
       },
       {
         "id": "4108",
         "title": "Ainslie Winmore Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29799,19 +29714,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Ainslie Winmore Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Ainslie Winmore Block Club"
+        }
       },
       {
         "id": "4109",
         "title": "Gunnison Street Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29870,19 +29782,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Gunnison Street Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Gunnison Street Block Club"
+        }
       },
       {
         "id": "4110",
         "title": "Castlewood Terrace Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29929,19 +29838,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Castlewood Terrace Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Castlewood Terrace Block Club"
+        }
       },
       {
         "id": "4111",
         "title": "Margate Park Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -29988,19 +29894,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Margate Park Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Margate Park Block Club"
+        }
       },
       {
         "id": "4112",
         "title": "Carmen Winona Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30047,19 +29950,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Carmen Winona Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Carmen Winona Block Club"
+        }
       },
       {
         "id": "4113",
         "title": "Winona Winmore Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30102,19 +30002,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Winona Winmore Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Winona Winmore Block Club"
+        }
       },
       {
         "id": "4115",
         "title": "Edgewater Beach Neighborhood Association",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30165,19 +30062,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater Beach Neighborhood Association",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater Beach Neighborhood Association"
+        }
       },
       {
         "id": "4116",
         "title": "Winona Foster Carmen Winnemac (WFCW) Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30244,19 +30138,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Winona Foster Carmen Winnemac (WFCW) Block Club ",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Winona Foster Carmen Winnemac (WFCW) Block Club"
+        }
       },
       {
         "id": "4117",
         "title": "Lakewood Balmoral Residents Council",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30299,19 +30190,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Lakewood Balmoral Residents Council",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Lakewood Balmoral Residents Council"
+        }
       },
       {
         "id": "4118",
         "title": "East Andersonville Residents Council",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30378,19 +30266,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "East Andersonville Residents Council",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "East Andersonville Residents Council"
+        }
       },
       {
         "id": "4119",
         "title": "West Andersonville Neighbors Together (WANT)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30485,19 +30370,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "West Andersonville Neighbors Together (WANT)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "West Andersonville Neighbors Together (WANT)"
+        }
       },
       {
         "id": "4120",
         "title": "West Edgewater Area Residents (WEAR)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30576,19 +30458,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "West Edgewater Area Residents (WEAR)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "West Edgewater Area Residents (WEAR)"
+        }
       },
       {
         "id": "4121",
         "title": "Edgewater Triangle Neighbors Association (ETNA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30647,19 +30526,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater Triangle Neighbors Association (ETNA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater Triangle Neighbors Association (ETNA)"
+        }
       },
       {
         "id": "4122",
         "title": "Broadway-Ardmore-Ridge-Glenwood-Early (BARGE)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30702,19 +30578,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Broadway-Ardmore-Ridge-Glenwood-Early (BARGE)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Broadway-Ardmore-Ridge-Glenwood-Early (BARGE)"
+        }
       },
       {
         "id": "4123",
         "title": "Neighbors of Elmdale and Thorndale (NET)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30773,19 +30646,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Neighbors on Elmdale and Thorndale (NET)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Neighbors on Elmdale and Thorndale (NET)"
+        }
       },
       {
         "id": "4124",
         "title": "Every Person is Concerned (EPIC)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30840,19 +30710,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Every Person is Concerned (EPIC)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Every Person is Concerned (EPIC)"
+        }
       },
       {
         "id": "4125",
         "title": "Edgewater Glen Association (EGA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30895,19 +30762,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater Glen Association (EGA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater Glen Association (EGA)"
+        }
       },
       {
         "id": "4126",
         "title": "Neighbors of Edgewater West (NEW)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -30970,19 +30834,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Neighbors of Edgewater West (NEW)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Neighbors of Edgewater West (NEW)"
+        }
       },
       {
         "id": "4127",
         "title": "Northeast Organization of Neighbors (NEON)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -31049,19 +30910,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Northeast Organization of Neighbors (NEON)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Northeast Organization of Neighbors (NEON)"
+        }
       },
       {
         "id": "4128",
         "title": "Edgewater North Neighbors (ENN)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -31108,19 +30966,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater North Neighbors (ENN)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater North Neighbors (ENN)"
+        }
       },
       {
         "id": "4129",
         "title": "North Edgewater Beach Association (NEBA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -31311,19 +31166,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "North Edgewater Beach Association (NEBA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "North Edgewater Beach Association (NEBA)"
+        }
       },
       {
         "id": "4130",
         "title": "Thorndale-Ardmore-Hollywood-Broadway-Sheridan (TAHBS)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -31422,19 +31274,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Thorndale-Ardmore-Hollywood-Broadway-Sheridan (TAHBS)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Thorndale-Ardmore-Hollywood-Broadway-Sheridan (TAHBS)"
+        }
       },
       {
         "id": "4131",
         "title": "Uptown United",
         "categories": [
           "chambers-of-commerce"
-        ],
-        "categoryIds": [
-          "63"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -36154,19 +36003,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Uptown United",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Uptown United"
+        }
       },
       {
         "id": "4132",
         "title": "Greater Ravenswood Chamber of Commerce",
         "categories": [
           "chambers-of-commerce"
-        ],
-        "categoryIds": [
-          "63"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -38910,19 +38756,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Greater Ravenswood Chamber of Commerce",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Greater Ravenswood Chamber of Commerce"
+        }
       },
       {
         "id": "4133",
         "title": "Andersonville Chamber of Commerce",
         "categories": [
           "chambers-of-commerce"
-        ],
-        "categoryIds": [
-          "63"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -40320,19 +40163,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Andersonville Chamber of Commerce",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Andersonville Chamber of Commerce"
+        }
       },
       {
         "id": "4134",
         "title": "Edgewater Chamber of Commerce",
         "categories": [
           "chambers-of-commerce"
-        ],
-        "categoryIds": [
-          "63"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -41918,19 +41758,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater Chamber of Commerce",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater Chamber of Commerce"
+        }
       },
       {
         "id": "4148",
         "title": "24th Police District",
         "categories": [
           "police-districts"
-        ],
-        "categoryIds": [
-          "65"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -45750,19 +45587,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "24th Police District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "24th Police District"
+        }
       },
       {
         "id": "4149",
         "title": "20th Police District",
         "categories": [
           "police-districts"
-        ],
-        "categoryIds": [
-          "65"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -49946,19 +49780,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "20th Police District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "20th Police District"
+        }
       },
       {
         "id": "4150",
         "title": "19th Police District",
         "categories": [
           "police-districts"
-        ],
-        "categoryIds": [
-          "65"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -57870,19 +57701,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "19th Police District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "19th Police District"
+        }
       },
       {
         "id": "4153",
         "title": "11th State House District",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -61245,19 +61073,16 @@
         "opacity": 0.3,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "11th State House District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "11th State House District"
+        }
       },
       {
         "id": "4154",
         "title": "13th State House District",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -64752,19 +64577,16 @@
         "opacity": 0.3,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "13th State House District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "13th State House District"
+        }
       },
       {
         "id": "4155",
         "title": "14th State House District",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -67303,19 +67125,16 @@
         "opacity": 0.3,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "14th State House District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "14th State House District"
+        }
       },
       {
         "id": "4159",
         "title": "16th State House District",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -71890,19 +71709,16 @@
         "opacity": 0.3,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "16th State House District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "16th State House District"
+        }
       },
       {
         "id": "4160",
         "title": "6th State Senate District",
         "categories": [
           "state-senate-districts"
-        ],
-        "categoryIds": [
-          "67"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -76469,19 +76285,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "6th State Senate District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "6th State Senate District"
+        }
       },
       {
         "id": "4161",
         "title": "7th State Senate District",
         "categories": [
           "state-senate-districts"
-        ],
-        "categoryIds": [
-          "67"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -81596,19 +81409,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "7th State Senate District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "7th State Senate District"
+        }
       },
       {
         "id": "4162",
         "title": "8th State Senate District",
         "categories": [
           "state-senate-districts"
-        ],
-        "categoryIds": [
-          "67"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -90543,19 +90353,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "8th State Senate District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "8th State Senate District"
+        }
       },
       {
         "id": "4163",
         "title": "5th Congressional District",
         "categories": [
           "federal-congressional-districts"
-        ],
-        "categoryIds": [
-          "70"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -120954,19 +120761,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "5th Congressional District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "5th Congressional District"
+        }
       },
       {
         "id": "4164",
         "title": "9th Congressional District",
         "categories": [
           "federal-congressional-districts"
-        ],
-        "categoryIds": [
-          "70"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -143321,19 +143125,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "9th Congressional District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "9th Congressional District"
+        }
       },
       {
         "id": "4166",
         "title": "Beat 2023",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -144076,19 +143877,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 2023",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 2023"
+        }
       },
       {
         "id": "4167",
         "title": "Beat 2024",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -144731,19 +144529,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 2024",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 2024"
+        }
       },
       {
         "id": "4168",
         "title": "Beat 2033",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -145330,19 +145125,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 2033",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 2033"
+        }
       },
       {
         "id": "4169",
         "title": "Beat 2032",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -146149,19 +145941,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 2032",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 2032"
+        }
       },
       {
         "id": "4170",
         "title": "Beat 1914",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -147044,19 +146833,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 1914",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 1914"
+        }
       },
       {
         "id": "4171",
         "title": "Beat 1915",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -149427,19 +149213,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 1915",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 1915"
+        }
       },
       {
         "id": "4172",
         "title": "Beat 1913",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -150098,19 +149881,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 1913",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 1913"
+        }
       },
       {
         "id": "4173",
         "title": "Beat 1912",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -151085,19 +150865,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 1912",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 1912"
+        }
       },
       {
         "id": "4175",
         "title": "Beat 2433",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -152428,19 +152205,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 2433",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 2433"
+        }
       },
       {
         "id": "4176",
         "title": "Beat 2013",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -153211,19 +152985,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 2013",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 2013"
+        }
       },
       {
         "id": "4177",
         "title": "Beat 2012",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -154250,19 +154021,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 2012",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 2012"
+        }
       },
       {
         "id": "4178",
         "title": "Beat 2022",
         "categories": [
           "police-beats"
-        ],
-        "categoryIds": [
-          "69"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -155021,19 +154789,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beat 2022",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beat 2022"
+        }
       },
       {
         "id": "4179",
         "title": "School Board District 2B",
         "categories": [
           "school-board-districts"
-        ],
-        "categoryIds": [
-          "66"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -155228,19 +154993,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "School Board District 2B",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "School Board District 2B"
+        }
       },
       {
         "id": "4180",
         "title": "School Board District 4A",
         "categories": [
           "school-board-districts"
-        ],
-        "categoryIds": [
-          "66"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -155519,10 +155281,10 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "School Board District 4A",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "School Board District 4A"
+        }
       }
     ],
     "lines": [
@@ -155531,9 +155293,6 @@
         "title": "Edgewater Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -158557,17 +158316,14 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       },
       {
         "id": "4095",
         "title": "Uptown Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -162723,8 +162479,8 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       }
     ],
     "locations": [
@@ -162733,9 +162489,6 @@
         "title": "46th Ward Office",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -162758,19 +162511,19 @@
         "labelText": "46th Ward Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "46th Ward Office",
-        "popupBody": "<strong>Angela Clay, Alderwoman 46th Ward</strong>\n\n<em>4544 N Broadway, Chicago, IL 60640</em>\n\n<a href=\"https://www.46thward.com/\">https://www.46thward.com/</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "46th Ward Office",
+          "lead": "Angela Clay, Alderwoman 46th Ward",
+          "address": "4544 N Broadway, Chicago, IL 60640",
+          "website": "https://www.46thward.com/"
+        }
       },
       {
         "id": "4070",
         "title": "48th Ward Office",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -162793,19 +162546,19 @@
         "labelText": "48th Ward Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "48th Ward Office",
-        "popupBody": "<strong>Leni Manaa-Hoppenworth, Alderwoman 48th Ward</strong>\n\n<em>1129 W Bryn Mawr Ave, Chicago, IL 60660</em>\n\n<a href=\"https://the48thward.org/\">https://the48thward.org/</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "48th Ward Office",
+          "lead": "Leni Manaa-Hoppenworth, Alderwoman 48th Ward",
+          "address": "1129 W Bryn Mawr Ave, Chicago, IL 60660",
+          "website": "https://the48thward.org/"
+        }
       },
       {
         "id": "4071",
         "title": "47th Ward Office",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -162828,19 +162581,19 @@
         "labelText": "47th Ward Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "47th Ward Office",
-        "popupBody": "<strong>Matt Martin, Alderman 47th Ward</strong>\n\n<em>4243 N Lincoln Ave, Chicago, IL 60618</em>\n\n<a href=\"http://www.aldermanmartin.com/\">http://www.aldermanmartin.com/</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "47th Ward Office",
+          "lead": "Matt Martin, Alderman 47th Ward",
+          "address": "4243 N Lincoln Ave, Chicago, IL 60618",
+          "website": "http://www.aldermanmartin.com/"
+        }
       },
       {
         "id": "4068",
         "title": "40th Ward Office",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -162863,19 +162616,19 @@
         "labelText": "40th Ward Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "40th Ward Office",
-        "popupBody": "<strong>Andre Vaquez, Alderman 40th Ward</strong>\n\n<em>5620 N Western Ave, Chicago, IL 60659</em>\n\n<a href=\"http://40thward.org/\">http://40thward.org/</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "40th Ward Office",
+          "lead": "Andre Vaquez, Alderman 40th Ward",
+          "address": "5620 N Western Ave, Chicago, IL 60659",
+          "website": "http://40thward.org/"
+        }
       },
       {
         "id": "4708",
         "title": "13th State House District Office",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -162898,19 +162651,19 @@
         "labelText": "13th State House District Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "13th State House District Office",
-        "popupBody": "<strong>Hoan Hyunh, Representative 13th District</strong>\n\n<em>4753 N Broadway, Chicago, IL 60640</em>\n\n<a href=\"https://www.rephoanhuynh.com\">https://www.rephoanhuynh.com</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "13th State House District Office",
+          "lead": "Hoan Hyunh, Representative 13th District",
+          "address": "4753 N Broadway, Chicago, IL 60640",
+          "website": "https://www.rephoanhuynh.com"
+        }
       },
       {
         "id": "4710",
         "title": "14th State House District Office",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -162933,19 +162686,19 @@
         "labelText": "14th State House District Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "14th State House District Office",
-        "popupBody": "<strong>Kelly Cassidy, Representative 14th District</strong>\n\n<em>1507 W Morse Ave, Chicago, IL 60626</em>\n\n<a href=\"https://www.repcassidy.com\">https://www.repcassidy.com</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "14th State House District Office",
+          "lead": "Kelly Cassidy, Representative 14th District",
+          "address": "1507 W Morse Ave, Chicago, IL 60626",
+          "website": "https://www.repcassidy.com"
+        }
       },
       {
         "id": "4711",
         "title": "16th State House District Office",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -162968,19 +162721,19 @@
         "labelText": "16th State House District Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "16th State House District Office",
-        "popupBody": "<strong>Kevin Olickal, Representative 16th District</strong>\n\n<em>3851 W Devon Ave, Chicago, IL 60659</em>\n\n<a href=\"https://staterepkevinolickal.com\">https://staterepkevinolickal.com</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "16th State House District Office",
+          "lead": "Kevin Olickal, Representative 16th District",
+          "address": "3851 W Devon Ave, Chicago, IL 60659",
+          "website": "https://staterepkevinolickal.com"
+        }
       },
       {
         "id": "4712",
         "title": "11th State House District Office",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163003,39 +162756,31 @@
         "labelText": "11th State House District Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "11th State House District Office",
-        "popupBody": "<strong>Ann Williams, Representative 11th District</strong>\n\n<em>3805 N Ashland Ave Suite B, Chicago, IL 60657</em>\n\n<a href=\"https://www.repannwilliams.com\">https://www.repannwilliams.com</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "11th State House District Office",
+          "lead": "Ann Williams, Representative 11th District",
+          "address": "3805 N Ashland Ave Suite B, Chicago, IL 60657",
+          "website": "https://www.repannwilliams.com"
+        }
       }
     ]
   },
-  "4138": {
-    "id": "4138",
+  "block-clubs": {
+    "id": "block-clubs",
     "title": "Block Clubs",
     "style": "standard-day",
     "center": [
       -87.65068407,
       41.97665046
     ],
-    "zoom": 12.0,
+    "zoom": 12,
     "height": "400px",
     "zoomControl": true,
     "scrollZoom": true,
     "categoryFilter": false,
-    "categoryIds": [
-      "62"
-    ],
-    "explicitPolygons": [],
-    "explicitLines": [
-      "4094",
-      "1",
-      "4095"
-    ],
-    "explicitLocations": [],
     "categories": [
       {
-        "id": "62",
         "slug": "block-clubs",
         "name": "Block Clubs"
       }
@@ -163046,9 +162791,6 @@
         "title": "Buena Park Neighbors",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163107,19 +162849,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Buena Park Neighbors",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Buena Park Neighbors"
+        }
       },
       {
         "id": "4098",
         "title": "Clarendon Park Neighborhood Association",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163162,19 +162901,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Clarendon Park Neighborhood Association",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Clarendon Park Neighborhood Association"
+        }
       },
       {
         "id": "4099",
         "title": "Graceland-Wilson Neighbors Association (GWNA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163221,19 +162957,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Graceland-Wilson Neighbors Association (GWNA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Graceland-Wilson Neighbors Association (GWNA)"
+        }
       },
       {
         "id": "4100",
         "title": "Beacon Street Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163300,19 +163033,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Beacon Street Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Beacon Street Block Club"
+        }
       },
       {
         "id": "4101",
         "title": "Dover Street Neighbors Association",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163371,19 +163101,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Dover Street Neighbors Association",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Dover Street Neighbors Association"
+        }
       },
       {
         "id": "4102",
         "title": "Ravenswood Neighbors Association",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163426,19 +163153,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Ravenswood Neighbors Association",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Ravenswood Neighbors Association"
+        }
       },
       {
         "id": "4103",
         "title": "Magnolia Malden Neighbors Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163493,19 +163217,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Magnolia Malden Neighbors Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Magnolia Malden Neighbors Block Club"
+        }
       },
       {
         "id": "4105",
         "title": "North Uptown Neighbors Association (NUNA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163560,19 +163281,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "North Uptown Neighbors Association (NUNA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "North Uptown Neighbors Association (NUNA)"
+        }
       },
       {
         "id": "4106",
         "title": "Truman Square Neighbors Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163619,19 +163337,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Truman Square Neighbors Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Truman Square Neighbors Block Club"
+        }
       },
       {
         "id": "4107",
         "title": "Lakeside Area Neighbors Association (LANA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163674,19 +163389,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Lakeside Area Neighbors Association (LANA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Lakeside Area Neighbors Association (LANA)"
+        }
       },
       {
         "id": "4108",
         "title": "Ainslie Winmore Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163729,19 +163441,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Ainslie Winmore Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Ainslie Winmore Block Club"
+        }
       },
       {
         "id": "4109",
         "title": "Gunnison Street Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163800,19 +163509,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Gunnison Street Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Gunnison Street Block Club"
+        }
       },
       {
         "id": "4110",
         "title": "Castlewood Terrace Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163859,19 +163565,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Castlewood Terrace Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Castlewood Terrace Block Club"
+        }
       },
       {
         "id": "4111",
         "title": "Margate Park Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163918,19 +163621,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Margate Park Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Margate Park Block Club"
+        }
       },
       {
         "id": "4112",
         "title": "Carmen Winona Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -163977,19 +163677,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Carmen Winona Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Carmen Winona Block Club"
+        }
       },
       {
         "id": "4113",
         "title": "Winona Winmore Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164032,19 +163729,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Winona Winmore Block Club",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Winona Winmore Block Club"
+        }
       },
       {
         "id": "4115",
         "title": "Edgewater Beach Neighborhood Association",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164095,19 +163789,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater Beach Neighborhood Association",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater Beach Neighborhood Association"
+        }
       },
       {
         "id": "4116",
         "title": "Winona Foster Carmen Winnemac (WFCW) Block Club",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164174,19 +163865,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Winona Foster Carmen Winnemac (WFCW) Block Club ",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Winona Foster Carmen Winnemac (WFCW) Block Club"
+        }
       },
       {
         "id": "4117",
         "title": "Lakewood Balmoral Residents Council",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164229,19 +163917,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Lakewood Balmoral Residents Council",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Lakewood Balmoral Residents Council"
+        }
       },
       {
         "id": "4118",
         "title": "East Andersonville Residents Council",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164308,19 +163993,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "East Andersonville Residents Council",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "East Andersonville Residents Council"
+        }
       },
       {
         "id": "4119",
         "title": "West Andersonville Neighbors Together (WANT)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164415,19 +164097,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "West Andersonville Neighbors Together (WANT)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "West Andersonville Neighbors Together (WANT)"
+        }
       },
       {
         "id": "4120",
         "title": "West Edgewater Area Residents (WEAR)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164506,19 +164185,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "West Edgewater Area Residents (WEAR)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "West Edgewater Area Residents (WEAR)"
+        }
       },
       {
         "id": "4121",
         "title": "Edgewater Triangle Neighbors Association (ETNA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164577,19 +164253,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater Triangle Neighbors Association (ETNA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater Triangle Neighbors Association (ETNA)"
+        }
       },
       {
         "id": "4122",
         "title": "Broadway-Ardmore-Ridge-Glenwood-Early (BARGE)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164632,19 +164305,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Broadway-Ardmore-Ridge-Glenwood-Early (BARGE)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Broadway-Ardmore-Ridge-Glenwood-Early (BARGE)"
+        }
       },
       {
         "id": "4123",
         "title": "Neighbors of Elmdale and Thorndale (NET)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164703,19 +164373,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Neighbors on Elmdale and Thorndale (NET)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Neighbors on Elmdale and Thorndale (NET)"
+        }
       },
       {
         "id": "4124",
         "title": "Every Person is Concerned (EPIC)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164770,19 +164437,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Every Person is Concerned (EPIC)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Every Person is Concerned (EPIC)"
+        }
       },
       {
         "id": "4125",
         "title": "Edgewater Glen Association (EGA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164825,19 +164489,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater Glen Association (EGA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater Glen Association (EGA)"
+        }
       },
       {
         "id": "4126",
         "title": "Neighbors of Edgewater West (NEW)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164900,19 +164561,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Neighbors of Edgewater West (NEW)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Neighbors of Edgewater West (NEW)"
+        }
       },
       {
         "id": "4127",
         "title": "Northeast Organization of Neighbors (NEON)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -164979,19 +164637,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Northeast Organization of Neighbors (NEON)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Northeast Organization of Neighbors (NEON)"
+        }
       },
       {
         "id": "4128",
         "title": "Edgewater North Neighbors (ENN)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -165038,19 +164693,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater North Neighbors (ENN)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater North Neighbors (ENN)"
+        }
       },
       {
         "id": "4129",
         "title": "North Edgewater Beach Association (NEBA)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -165241,19 +164893,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "North Edgewater Beach Association (NEBA)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "North Edgewater Beach Association (NEBA)"
+        }
       },
       {
         "id": "4130",
         "title": "Thorndale-Ardmore-Hollywood-Broadway-Sheridan (TAHBS)",
         "categories": [
           "block-clubs"
-        ],
-        "categoryIds": [
-          "62"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -165352,10 +165001,10 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Thorndale-Ardmore-Hollywood-Broadway-Sheridan (TAHBS)",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Thorndale-Ardmore-Hollywood-Broadway-Sheridan (TAHBS)"
+        }
       }
     ],
     "lines": [
@@ -165364,9 +165013,6 @@
         "title": "Edgewater Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -168390,17 +168036,14 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       },
       {
         "id": "4095",
         "title": "Uptown Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -172556,38 +172199,27 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       }
     ],
     "locations": []
   },
-  "4276": {
-    "id": "4276",
+  "wards": {
+    "id": "wards",
     "title": "Wards",
     "style": "streets",
     "center": [
       -87.64410697,
       41.97550391
     ],
-    "zoom": 12.0,
+    "zoom": 12,
     "height": "600px",
     "zoomControl": true,
     "scrollZoom": true,
     "categoryFilter": false,
-    "categoryIds": [
-      "60"
-    ],
-    "explicitPolygons": [],
-    "explicitLines": [
-      "4094",
-      "1",
-      "4095"
-    ],
-    "explicitLocations": [],
     "categories": [
       {
-        "id": "60",
         "slug": "wards",
         "name": "Wards"
       }
@@ -172598,9 +172230,6 @@
         "title": "47th Ward",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -178765,19 +178394,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "47th Ward",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "47th Ward"
+        }
       },
       {
         "id": "4067",
         "title": "46th Ward",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -183550,19 +183176,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "46th Ward",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "46th Ward"
+        }
       },
       {
         "id": "4064",
         "title": "48th Ward",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -187163,19 +186786,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "48th Ward",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "48th Ward"
+        }
       },
       {
         "id": "4065",
         "title": "40th Ward",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -194392,10 +194012,10 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "40th Ward",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "40th Ward"
+        }
       }
     ],
     "lines": [
@@ -194404,9 +194024,6 @@
         "title": "Edgewater Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -197430,17 +197047,14 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       },
       {
         "id": "4095",
         "title": "Uptown Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -201596,8 +201210,8 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       }
     ],
     "locations": [
@@ -201606,9 +201220,6 @@
         "title": "46th Ward Office",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -201631,19 +201242,19 @@
         "labelText": "46th Ward Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "46th Ward Office",
-        "popupBody": "<strong>Angela Clay, Alderwoman 46th Ward</strong>\n\n<em>4544 N Broadway, Chicago, IL 60640</em>\n\n<a href=\"https://www.46thward.com/\">https://www.46thward.com/</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "46th Ward Office",
+          "lead": "Angela Clay, Alderwoman 46th Ward",
+          "address": "4544 N Broadway, Chicago, IL 60640",
+          "website": "https://www.46thward.com/"
+        }
       },
       {
         "id": "4070",
         "title": "48th Ward Office",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -201666,19 +201277,19 @@
         "labelText": "48th Ward Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "48th Ward Office",
-        "popupBody": "<strong>Leni Manaa-Hoppenworth, Alderwoman 48th Ward</strong>\n\n<em>1129 W Bryn Mawr Ave, Chicago, IL 60660</em>\n\n<a href=\"https://the48thward.org/\">https://the48thward.org/</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "48th Ward Office",
+          "lead": "Leni Manaa-Hoppenworth, Alderwoman 48th Ward",
+          "address": "1129 W Bryn Mawr Ave, Chicago, IL 60660",
+          "website": "https://the48thward.org/"
+        }
       },
       {
         "id": "4071",
         "title": "47th Ward Office",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -201701,19 +201312,19 @@
         "labelText": "47th Ward Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "47th Ward Office",
-        "popupBody": "<strong>Matt Martin, Alderman 47th Ward</strong>\n\n<em>4243 N Lincoln Ave, Chicago, IL 60618</em>\n\n<a href=\"http://www.aldermanmartin.com/\">http://www.aldermanmartin.com/</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "47th Ward Office",
+          "lead": "Matt Martin, Alderman 47th Ward",
+          "address": "4243 N Lincoln Ave, Chicago, IL 60618",
+          "website": "http://www.aldermanmartin.com/"
+        }
       },
       {
         "id": "4068",
         "title": "40th Ward Office",
         "categories": [
           "wards"
-        ],
-        "categoryIds": [
-          "60"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -201736,39 +201347,31 @@
         "labelText": "40th Ward Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "40th Ward Office",
-        "popupBody": "<strong>Andre Vaquez, Alderman 40th Ward</strong>\n\n<em>5620 N Western Ave, Chicago, IL 60659</em>\n\n<a href=\"http://40thward.org/\">http://40thward.org/</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "40th Ward Office",
+          "lead": "Andre Vaquez, Alderman 40th Ward",
+          "address": "5620 N Western Ave, Chicago, IL 60659",
+          "website": "http://40thward.org/"
+        }
       }
     ]
   },
-  "4286": {
-    "id": "4286",
+  "chambers-of-commerce": {
+    "id": "chambers-of-commerce",
     "title": "Chambers of Commerce",
     "style": "streets",
     "center": [
       -87.64410697,
       41.97550391
     ],
-    "zoom": 12.0,
+    "zoom": 12,
     "height": "600px",
     "zoomControl": true,
     "scrollZoom": true,
     "categoryFilter": false,
-    "categoryIds": [
-      "63"
-    ],
-    "explicitPolygons": [],
-    "explicitLines": [
-      "4094",
-      "1",
-      "4095"
-    ],
-    "explicitLocations": [],
     "categories": [
       {
-        "id": "63",
         "slug": "chambers-of-commerce",
         "name": "Chambers of Commerce"
       }
@@ -201779,9 +201382,6 @@
         "title": "Uptown United",
         "categories": [
           "chambers-of-commerce"
-        ],
-        "categoryIds": [
-          "63"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -206501,19 +206101,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Uptown United",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Uptown United"
+        }
       },
       {
         "id": "4132",
         "title": "Greater Ravenswood Chamber of Commerce",
         "categories": [
           "chambers-of-commerce"
-        ],
-        "categoryIds": [
-          "63"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -209257,19 +208854,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Greater Ravenswood Chamber of Commerce",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Greater Ravenswood Chamber of Commerce"
+        }
       },
       {
         "id": "4133",
         "title": "Andersonville Chamber of Commerce",
         "categories": [
           "chambers-of-commerce"
-        ],
-        "categoryIds": [
-          "63"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -210667,19 +210261,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Andersonville Chamber of Commerce",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Andersonville Chamber of Commerce"
+        }
       },
       {
         "id": "4134",
         "title": "Edgewater Chamber of Commerce",
         "categories": [
           "chambers-of-commerce"
-        ],
-        "categoryIds": [
-          "63"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -212265,10 +211856,10 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater Chamber of Commerce",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater Chamber of Commerce"
+        }
       }
     ],
     "lines": [
@@ -212277,9 +211868,6 @@
         "title": "Edgewater Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -215303,17 +214891,14 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       },
       {
         "id": "4095",
         "title": "Uptown Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -219469,38 +219054,27 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       }
     ],
     "locations": []
   },
-  "4376": {
-    "id": "4376",
+  "school-board-districts": {
+    "id": "school-board-districts",
     "title": "School Board Districts",
     "style": "streets",
     "center": [
       -87.64410697,
       41.97550391
     ],
-    "zoom": 12.0,
+    "zoom": 12,
     "height": "600px",
     "zoomControl": true,
     "scrollZoom": true,
     "categoryFilter": false,
-    "categoryIds": [
-      "66"
-    ],
-    "explicitPolygons": [],
-    "explicitLines": [
-      "4094",
-      "1",
-      "4095"
-    ],
-    "explicitLocations": [],
     "categories": [
       {
-        "id": "66",
         "slug": "school-board-districts",
         "name": "School Board Districts"
       }
@@ -219511,9 +219085,6 @@
         "title": "School Board District 2B",
         "categories": [
           "school-board-districts"
-        ],
-        "categoryIds": [
-          "66"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -219708,19 +219279,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "School Board District 2B",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "School Board District 2B"
+        }
       },
       {
         "id": "4180",
         "title": "School Board District 4A",
         "categories": [
           "school-board-districts"
-        ],
-        "categoryIds": [
-          "66"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -219999,10 +219567,10 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "School Board District 4A",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "School Board District 4A"
+        }
       }
     ],
     "lines": [
@@ -220011,9 +219579,6 @@
         "title": "Edgewater Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -223037,17 +222602,14 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       },
       {
         "id": "4095",
         "title": "Uptown Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -227203,14 +226765,14 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       }
     ],
     "locations": []
   },
-  "4534": {
-    "id": "4534",
+  "community-areas": {
+    "id": "community-areas",
     "title": "Community Areas",
     "style": "streets",
     "center": [
@@ -227222,22 +226784,6 @@
     "zoomControl": false,
     "scrollZoom": false,
     "categoryFilter": false,
-    "categoryIds": [],
-    "explicitPolygons": [
-      "4062",
-      "1",
-      "4061"
-    ],
-    "explicitLines": [
-      "4094",
-      "1",
-      "4095"
-    ],
-    "explicitLocations": [
-      "4536",
-      "1",
-      "4538"
-    ],
     "categories": [],
     "polygons": [
       {
@@ -227245,9 +226791,6 @@
         "title": "Uptown",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -231410,19 +230953,16 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Uptown",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Uptown"
+        }
       },
       {
         "id": "4061",
         "title": "Edgewater",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -234453,10 +233993,10 @@
         "opacity": 0.5,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "Edgewater",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "Edgewater"
+        }
       }
     ],
     "lines": [
@@ -234465,9 +234005,6 @@
         "title": "Edgewater Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -237491,17 +237028,14 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       },
       {
         "id": "4095",
         "title": "Uptown Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -241657,8 +241191,8 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       }
     ],
     "locations": [
@@ -241666,7 +241200,6 @@
         "id": "4536",
         "title": "Uptown Label",
         "categories": [],
-        "categoryIds": [],
         "geojson": {
           "type": "FeatureCollection",
           "features": [
@@ -241688,16 +241221,12 @@
         "labelText": "Uptown",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 30.0,
-        "enablePopup": false,
-        "popupHeader": "",
-        "popupBody": ""
+        "labelSize": 30
       },
       {
         "id": "4538",
         "title": "Edgewater Label",
         "categories": [],
-        "categoryIds": [],
         "geojson": {
           "type": "FeatureCollection",
           "features": [
@@ -241720,39 +241249,25 @@
         "labelText": "Edgewater",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 28.0,
-        "enablePopup": false,
-        "popupHeader": "",
-        "popupBody": ""
+        "labelSize": 28
       }
     ]
   },
-  "4713": {
-    "id": "4713",
+  "state-house-districts": {
+    "id": "state-house-districts",
     "title": "State House Districts",
     "style": "streets",
     "center": [
       -87.64410697,
       41.97550391
     ],
-    "zoom": 12.0,
+    "zoom": 12,
     "height": "600px",
     "zoomControl": true,
     "scrollZoom": true,
     "categoryFilter": false,
-    "categoryIds": [
-      "68"
-    ],
-    "explicitPolygons": [],
-    "explicitLines": [
-      "4095",
-      "1",
-      "4094"
-    ],
-    "explicitLocations": [],
     "categories": [
       {
-        "id": "68",
         "slug": "state-house-districts",
         "name": "State House Districts"
       }
@@ -241763,9 +241278,6 @@
         "title": "11th State House District",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -245128,19 +244640,16 @@
         "opacity": 0.3,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "11th State House District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "11th State House District"
+        }
       },
       {
         "id": "4154",
         "title": "13th State House District",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -248635,19 +248144,16 @@
         "opacity": 0.3,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "13th State House District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "13th State House District"
+        }
       },
       {
         "id": "4155",
         "title": "14th State House District",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -251186,19 +250692,16 @@
         "opacity": 0.3,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "14th State House District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "14th State House District"
+        }
       },
       {
         "id": "4159",
         "title": "16th State House District",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -255773,10 +255276,10 @@
         "opacity": 0.3,
         "borderColor": "#000000",
         "borderOpacity": 0.8,
-        "borderWidth": 2.0,
-        "enablePopup": true,
-        "popupHeader": "16th State House District",
-        "popupBody": ""
+        "borderWidth": 2,
+        "popup": {
+          "title": "16th State House District"
+        }
       }
     ],
     "lines": [
@@ -255785,9 +255288,6 @@
         "title": "Edgewater Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -258811,17 +258311,14 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       },
       {
         "id": "4095",
         "title": "Uptown Boundary",
         "categories": [
           "community-areas"
-        ],
-        "categoryIds": [
-          "59"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -262977,8 +262474,8 @@
           ]
         },
         "color": "#4c4c4c",
-        "opacity": 1.0,
-        "width": 2.0
+        "opacity": 1,
+        "width": 2
       }
     ],
     "locations": [
@@ -262987,9 +262484,6 @@
         "title": "13th State House District Office",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -263012,19 +262506,19 @@
         "labelText": "13th State House District Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "13th State House District Office",
-        "popupBody": "<strong>Hoan Hyunh, Representative 13th District</strong>\n\n<em>4753 N Broadway, Chicago, IL 60640</em>\n\n<a href=\"https://www.rephoanhuynh.com\">https://www.rephoanhuynh.com</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "13th State House District Office",
+          "lead": "Hoan Hyunh, Representative 13th District",
+          "address": "4753 N Broadway, Chicago, IL 60640",
+          "website": "https://www.rephoanhuynh.com"
+        }
       },
       {
         "id": "4710",
         "title": "14th State House District Office",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -263047,19 +262541,19 @@
         "labelText": "14th State House District Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "14th State House District Office",
-        "popupBody": "<strong>Kelly Cassidy, Representative 14th District</strong>\n\n<em>1507 W Morse Ave, Chicago, IL 60626</em>\n\n<a href=\"https://www.repcassidy.com\">https://www.repcassidy.com</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "14th State House District Office",
+          "lead": "Kelly Cassidy, Representative 14th District",
+          "address": "1507 W Morse Ave, Chicago, IL 60626",
+          "website": "https://www.repcassidy.com"
+        }
       },
       {
         "id": "4711",
         "title": "16th State House District Office",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -263082,19 +262576,19 @@
         "labelText": "16th State House District Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "16th State House District Office",
-        "popupBody": "<strong>Kevin Olickal, Representative 16th District</strong>\n\n<em>3851 W Devon Ave, Chicago, IL 60659</em>\n\n<a href=\"https://staterepkevinolickal.com\">https://staterepkevinolickal.com</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "16th State House District Office",
+          "lead": "Kevin Olickal, Representative 16th District",
+          "address": "3851 W Devon Ave, Chicago, IL 60659",
+          "website": "https://staterepkevinolickal.com"
+        }
       },
       {
         "id": "4712",
         "title": "11th State House District Office",
         "categories": [
           "state-house-districts"
-        ],
-        "categoryIds": [
-          "68"
         ],
         "geojson": {
           "type": "FeatureCollection",
@@ -263117,10 +262611,13 @@
         "labelText": "11th State House District Office",
         "labelColor": "rgba(248,248,248,1)",
         "labelHaloColor": "rgba(0,0,0,1)",
-        "labelSize": 24.0,
-        "enablePopup": true,
-        "popupHeader": "11th State House District Office",
-        "popupBody": "<strong>Ann Williams, Representative 11th District</strong>\n\n<em>3805 N Ashland Ave Suite B, Chicago, IL 60657</em>\n\n<a href=\"https://www.repannwilliams.com\">https://www.repannwilliams.com</a>"
+        "labelSize": 24,
+        "popup": {
+          "title": "11th State House District Office",
+          "lead": "Ann Williams, Representative 11th District",
+          "address": "3805 N Ashland Ave Suite B, Chicago, IL 60657",
+          "website": "https://www.repannwilliams.com"
+        }
       }
     ]
   }
