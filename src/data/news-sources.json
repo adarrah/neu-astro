@@ -1,9 +1,15 @@
 {
+  "lookbackDays": 90,
   "sources": [
     {
       "id": "block-club-chicago",
       "name": "Block Club Chicago",
       "feedUrl": "https://blockclubchicago.org/feed/",
+      "feedUrls": [
+        "https://blockclubchicago.org/category/edgewater/feed/",
+        "https://blockclubchicago.org/category/uptown/feed/",
+        "https://blockclubchicago.org/feed/"
+      ],
       "siteUrl": "https://blockclubchicago.org/"
     },
     {
@@ -11,6 +17,72 @@
       "name": "Urbanize Chicago",
       "feedUrl": "https://chicago.urbanize.city/rss.xml",
       "siteUrl": "https://chicago.urbanize.city/"
+    },
+    {
+      "id": "uptown-update",
+      "name": "Uptown Update",
+      "feedUrl": "https://www.uptownupdate.com/feeds/posts/default",
+      "defaultCommunityAreas": ["uptown"],
+      "siteUrl": "https://www.uptownupdate.com/"
+    },
+    {
+      "id": "sun-times",
+      "name": "Chicago Sun-Times",
+      "publisher": "chicago-public-media",
+      "feedUrl": "https://chicago.suntimes.com/rss/index.xml",
+      "feedUrls": [
+        "https://chicago.suntimes.com/rss/index.xml",
+        "https://chicago.suntimes.com/rss/news/index.xml",
+        "https://chicago.suntimes.com/rss/transportation/index.xml",
+        "https://chicago.suntimes.com/rss/real-estate/index.xml"
+      ],
+      "siteUrl": "https://chicago.suntimes.com/"
+    },
+    {
+      "id": "chicago-reader",
+      "name": "Chicago Reader",
+      "feedUrl": "https://chicagoreader.com/feed/",
+      "feedUrls": [
+        "https://chicagoreader.com/feed/?s=edgewater",
+        "https://chicagoreader.com/feed/?s=uptown",
+        "https://chicagoreader.com/feed/"
+      ],
+      "siteUrl": "https://chicagoreader.com/"
+    },
+    {
+      "id": "loyola-phoenix",
+      "name": "Loyola Phoenix",
+      "feedUrl": "https://loyolaphoenix.com/feed",
+      "feedUrls": [
+        "https://loyolaphoenix.com/feed?s=edgewater",
+        "https://loyolaphoenix.com/feed?s=uptown",
+        "https://loyolaphoenix.com/feed"
+      ],
+      "siteUrl": "https://loyolaphoenix.com"
+    },
+    {
+      "id": "wbez",
+      "name": "WBEZ Chicago",
+      "publisher": "chicago-public-media",
+      "feedUrl": "https://www.wbez.org/rss",
+      "siteUrl": "https://www.wbez.org/"
+    },
+    {
+      "id": "chicago-yimby",
+      "name": "Chicago YIMBY",
+      "feedUrl": "https://chicagoyimby.com/feed",
+      "feedUrls": [
+        "https://chicagoyimby.com/category/edgewater/feed",
+        "https://chicagoyimby.com/category/uptown/feed",
+        "https://chicagoyimby.com/feed"
+      ],
+      "siteUrl": "https://chicagoyimby.com"
+    },
+    {
+      "id": "streetsblog-chicago",
+      "name": "Streetsblog Chicago",
+      "feedUrl": "https://chi.streetsblog.org/feed",
+      "siteUrl": "https://chi.streetsblog.org"
     }
   ],
   "communityAreas": {
@@ -26,7 +98,11 @@
         "48th ward",
         "40th ward",
         "lakewood balmoral",
-        "devon"
+        "devon ave",
+        "w. devon",
+        "west devon",
+        "lake shore campus",
+        "loyola station"
       ]
     },
     "uptown": {
@@ -36,10 +112,19 @@
         "argyle",
         "buena park",
         "sheridan park",
-        "truman",
-        "wilson",
-        "lawrence",
-        "montrose",
+        "truman college",
+        "wilson ave",
+        "wilson station",
+        "wilson red line",
+        "w. wilson",
+        "lawrence ave",
+        "lawrence station",
+        "lawrence red line",
+        "w. lawrence",
+        "montrose ave",
+        "montrose beach",
+        "montrose harbor",
+        "w. montrose",
         "46th ward",
         "47th ward",
         "clarendon park",
@@ -70,7 +155,8 @@
         "demolition",
         "rent",
         "sro",
-        "tenant"
+        "tenant",
+        "parking"
       ]
     },
     "transit": {
@@ -131,4 +217,3 @@
     }
   }
 }
-

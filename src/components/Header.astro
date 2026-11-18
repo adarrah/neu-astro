@@ -87,7 +87,7 @@ const slackUrl =
 			<nav aria-label="Primary Site Navigation">
 				<ul class="menu menu-horizontal p-0 items-center">
 					{navItems.map((item) => (
-						<li class="dropdown dropdown-hover">
+						<li class:list={[item.children && "dropdown dropdown-hover dropdown-bottom"]}>
 							<a
 								href={item.href}
 								class:list={[
@@ -114,7 +114,7 @@ const slackUrl =
 								)}
 							</a>
 							{item.children && (
-								<ul class="dropdown-content menu bg-base-200 border-t-4 border-primary shadow-md min-w-60 p-0 z-50 rounded-none">
+								<ul class="dropdown-content menu absolute top-full left-0 m-0 mt-0 ms-0 p-0 bg-base-200 border-t-0 border-primary shadow-md min-w-60 z-50 rounded-none before:content-[''] before:block before:absolute before:-top-2 before:bottom-auto before:inset-x-0 before:w-full before:h-2 before:bg-transparent before:opacity-100">
 									{item.children.map((sub) => (
 										<li>
 											<a

@@ -18,6 +18,11 @@ const pillars = Object.entries(newsConfig.pillars).map(([id, def]) => ({
 	label: def.label,
 }));
 
+const sources = newsConfig.sources.map((s) => ({
+	id: s.id,
+	name: s.name,
+}));
+
 function formatDate(iso: string): string {
 	return new Date(iso).toLocaleDateString('en-US', {
 		month: 'short',
@@ -56,8 +61,8 @@ function formatDate(iso: string): string {
 
 		<section class="max-w-6xl mx-auto px-6 py-12 md:py-16">
 			<!-- Filter Bar -->
-			<div class="card bg-base-100 border border-neutral/20 shadow-sm p-5 mb-10">
-				<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+			<div class="card bg-base-100 border border-neutral/20 shadow-sm p-5 mb-10 flex flex-col gap-4">
+				<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
 					<div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by Community Area">
 						<span class="text-xs font-bold uppercase tracking-wider text-secondary mr-1">
 							Community Area:
@@ -96,6 +101,25 @@ function formatDate(iso: string): string {
 						))}
 					</div>
 				</div>
+
+				<div class="flex flex-wrap items-center gap-2 pt-3 border-t border-base-300" role="group" aria-label="Filter by News Source">
+					<span class="text-xs font-bold uppercase tracking-wider text-secondary mr-1">
+						Source:
+					</span>
+					<button type="button" class="btn btn-xs btn-accent news-source-btn" data-source="all" aria-pressed="true">
+						All Sources
+					</button>
+					{sources.map((source) => (
+						<button
+							type="button"
+							class="btn btn-xs btn-outline btn-accent news-source-btn"
+							data-source={source.id}
+							aria-pressed="false"
+						>
+							{source.name}
+						</button>
+					))}
+				</div>
 			</div>
 
 			{feedErrors.length > 0 && (
@@ -124,6 +148,7 @@ function formatDate(iso: string): string {
 								class="card bg-base-100 border border-neutral/20 shadow-sm hover:shadow-md transition-shadow news-card"
 								data-areas={article.communityAreas.join(',')}
 								data-pillars={article.pillars.join(',')}
+								data-source={article.sourceId}
 							>
 								{article.imageUrl && (
 									<figure class="h-44 overflow-hidden bg-base-200 border-b border-neutral/10">
@@ -192,7 +217,7 @@ function formatDate(iso: string): string {
 
 					<div id="news-empty-filter" class="hidden card bg-base-100 border border-neutral/20 p-10 text-center mt-6">
 						<p class="font-semibold text-neutral m-0">
-							No articles match the selected Community Area and NEU Pillar combination.
+							No articles match the selected filters.
 						</p>
 					</div>
 				</>
@@ -206,9 +231,11 @@ function formatDate(iso: string): string {
 <script>
 	let activeArea = 'all';
 	let activePillar = 'all';
+	let activeSource = 'all';
 
 	const areaBtns = document.querySelectorAll<HTMLButtonElement>('.news-area-btn');
 	const pillarBtns = document.querySelectorAll<HTMLButtonElement>('.news-pillar-btn');
+	const sourceBtns = document.querySelectorAll<HTMLButtonElement>('.news-source-btn');
 	const cards = document.querySelectorAll<HTMLElement>('.news-card');
 	const emptyNotice = document.getElementById('news-empty-filter');
 
@@ -217,9 +244,11 @@ function formatDate(iso: string): string {
 		cards.forEach((card) => {
 			const areas = (card.dataset.areas ?? '').split(',').filter(Boolean);
 			const pillars = (card.dataset.pillars ?? '').split(',').filter(Boolean);
+			const source = card.dataset.source ?? '';
 			const matchesArea = activeArea === 'all' || areas.includes(activeArea);
 			const matchesPillar = activePillar === 'all' || pillars.includes(activePillar);
-			const show = matchesArea && matchesPillar;
+			const matchesSource = activeSource === 'all' || source === activeSource;
+			const show = matchesArea && matchesPillar && matchesSource;
 			card.classList.toggle('hidden', !show);
 			if (show) visibleCount++;
 		});
@@ -228,7 +257,11 @@ function formatDate(iso: string): string {
 		}
 	}
 
-	function setActiveButton(buttons: NodeListOf<HTMLButtonElement>, activeAttr: 'area' | 'pillar', value: string): void {
+	function setActiveButton(
+		buttons: NodeListOf<HTMLButtonElement>,
+		activeAttr: 'area' | 'pillar' | 'source',
+		value: string
+	): void {
 		buttons.forEach((btn) => {
 			const isSelected = btn.dataset[activeAttr] === value;
 			btn.setAttribute('aria-pressed', String(isSelected));
@@ -248,6 +281,14 @@ function formatDate(iso: string): string {
 		btn.addEventListener('click', () => {
 			activePillar = btn.dataset.pillar ?? 'all';
 			setActiveButton(pillarBtns, 'pillar', activePillar);
+			applyNewsFilters();
+		});
+	});
+
+	sourceBtns.forEach((btn) => {
+		btn.addEventListener('click', () => {
+			activeSource = btn.dataset.source ?? 'all';
+			setActiveButton(sourceBtns, 'source', activeSource);
 			applyNewsFilters();
 		});
 	});
