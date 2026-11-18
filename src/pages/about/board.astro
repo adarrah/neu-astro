@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import PageBanner from '../../components/ui/PageBanner.astro';
 
 const boardMembers = [
 	{
@@ -89,150 +90,53 @@ const boardMembers = [
 	<Header transparent={false} />
 
 	<main id="content" class="site-main">
-		<div class="page-banner">
-			<h1>Meet the Board</h1>
-		</div>
+		<PageBanner title="Meet the Board" />
 
-		<section class="board-container">
-			<div class="board-grid">
-				{
-					boardMembers.map((member) => (
-						<article class="board-card">
-							<figure class="board-photo-wrap">
-								<img
-									src={member.photo}
-									alt={member.name}
-									class="board-photo"
-									loading="lazy"
-								/>
-							</figure>
-							<h2 class="board-role">{member.role}</h2>
-							<hr class="board-divider" />
-							<p class="board-name">{member.name}</p>
-							{member.bio.map((paragraph) => (
-								<p class="board-bio">{paragraph}</p>
-							))}
-							{member.vacantNote && (
-								<p class="board-vacant">
-									<em>{member.vacantNote}</em>
-								</p>
-							)}
-							{member.since && (
-								<p class="board-meta">
-									<em>Board Member Since: {member.since}</em>
-									{member.email && (
-										<>
-											<br />
-											<br />
-											Contact Me at <a href={member.emailHref}>{member.email}</a>
-										</>
-									)}
-								</p>
-							)}
-						</article>
-					))
-				}
+		<section class="max-w-6xl mx-auto py-16 px-6 pb-20">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+				{boardMembers.map((member) => (
+					<article class="flex flex-col items-center text-center">
+						<figure class="m-0 mb-6 w-64 h-64 rounded-full overflow-hidden shadow-md">
+							<img
+								src={member.photo}
+								alt={member.name}
+								class="w-full h-full object-cover block"
+								loading="lazy"
+							/>
+						</figure>
+						<h2 class="font-display text-4xl font-semibold text-neutral m-0">
+							{member.role}
+						</h2>
+						<hr class="w-full border-0 border-t-2 border-neutral my-4" />
+						<p class="text-2xl font-semibold text-neutral m-0 mb-4">{member.name}</p>
+						{member.bio.map((paragraph) => (
+							<p class="text-base leading-relaxed text-secondary m-0 mb-3">{paragraph}</p>
+						))}
+						{member.vacantNote && (
+							<p class="text-xl text-secondary m-0">
+								<em>{member.vacantNote}</em>
+							</p>
+						)}
+						{member.since && (
+							<p class="mt-3 text-sm text-secondary m-0">
+								<em>Board Member Since: {member.since}</em>
+								{member.email && (
+									<>
+										<br />
+										<br />
+										Contact Me at{' '}
+										<a href={member.emailHref} class="text-primary hover:text-accent">
+											{member.email}
+										</a>
+									</>
+								)}
+							</p>
+						)}
+					</article>
+				))}
 			</div>
 		</section>
 	</main>
 
 	<Footer />
 </Layout>
-
-<style>
-	.page-banner {
-		background-color: var(--ast-global-color-0);
-		padding: 36px 20px;
-		text-align: center;
-	}
-
-	.page-banner h1 {
-		margin: 0;
-		color: var(--ast-global-color-5);
-	}
-
-	.board-container {
-		max-width: 1140px;
-		margin: 0 auto;
-		padding: 64px 24px 88px;
-	}
-
-	.board-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 64px 48px;
-	}
-
-	@media (max-width: 780px) {
-		.board-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.board-card {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-
-	.board-photo-wrap {
-		margin: 0 0 24px 0;
-		width: 280px;
-		height: 280px;
-		border-radius: 50%;
-		overflow: hidden;
-		box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
-	}
-
-	.board-photo {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-	}
-
-	.board-role {
-		margin: 0;
-		font-size: 40px;
-		color: var(--ast-global-color-2);
-	}
-
-	.board-divider {
-		width: 100%;
-		border: none;
-		border-top: 2px solid var(--ast-global-color-6);
-		margin: 16px 0;
-	}
-
-	.board-name {
-		font-size: 26px;
-		font-weight: 600;
-		color: var(--ast-global-color-2);
-		margin: 0 0 16px 0;
-	}
-
-	.board-bio {
-		font-size: 16px;
-		line-height: 1.7;
-		color: var(--ast-global-color-3);
-		margin: 0 0 12px 0;
-	}
-
-	.board-vacant {
-		font-size: 22px;
-		color: var(--ast-global-color-3);
-		margin: 0;
-	}
-
-	.board-meta {
-		margin-top: 12px;
-		font-size: 15px;
-		color: var(--ast-global-color-3);
-	}
-
-	.board-meta a {
-		color: var(--ast-global-color-0);
-	}
-</style>
-

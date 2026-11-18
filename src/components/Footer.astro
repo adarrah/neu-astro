@@ -13,7 +13,7 @@ const socialLinks = [
 	{
 		label: 'Facebook',
 		href: 'https://www.facebook.com/people/Neighbors-of-Edgewater-and-Uptown/61580935426591/',
-		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path></svg>`,
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48A48,48 0 0 0 0 80v352a48,48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48,48 0 0 0 48-48V80a48,48 0 0 0-48-48z"></path></svg>`,
 	},
 	{
 		label: 'Slack',
@@ -38,274 +38,65 @@ const socialLinks = [
 ];
 ---
 
-<footer class="site-footer" id="colophon">
-	<div class="site-primary-footer-wrap">
-		<div class="footer-primary-grid">
-			<div class="footer-col-1">
-				<h2>Neighbors of Edgewater and Uptown</h2>
-				<h4>
+<footer class="bg-primary text-primary-content px-6 lg:px-0" id="colophon">
+	<div class="py-14 lg:pt-16 lg:pb-0">
+		<div class="max-w-6xl mx-auto px-5 grid grid-cols-1 sm:grid-cols-2 gap-12 lg:gap-5 items-start">
+			<div class="text-center sm:text-left">
+				<h2 class="font-display text-3xl lg:text-4xl leading-snug font-semibold text-primary-content mb-6">
+					Neighbors of Edgewater and Uptown
+				</h2>
+				<h4 class="font-display text-xl lg:text-2xl leading-tight font-semibold text-primary-content m-0">
 					Creating community, empowering everyone, and acting as a resource for Edgewater and Uptown Community Area neighbors.
 				</h4>
 			</div>
-			<div class="footer-col-2">
-				<h2><a href="https://neuchicago.org/contact">Contact Us</a></h2>
-				<h4>
+			<div class="text-center sm:text-left lg:text-right text-primary-content">
+				<h2 class="font-display text-3xl lg:text-4xl leading-snug font-semibold text-primary-content m-0">
+					<a href="/contact/" class="text-primary-content hover:text-accent no-underline transition-colors">
+						Contact Us
+					</a>
+				</h2>
+				<h4 class="font-display text-xl lg:text-2xl leading-tight font-semibold text-primary-content m-0">
 					<br /><br />
 					Neighbors of Edgewater and Uptown is a registered 501(c)4 organization.<br />
-					<a href="mailto:info@neuchicago.org" class="underline-link">info@neuchicago.org</a>
+					<a href="mailto:info@neuchicago.org" class="text-primary-content underline hover:text-accent">
+						info@neuchicago.org
+					</a>
 				</h4>
 			</div>
 		</div>
 	</div>
 
-	<div class="site-below-footer-wrap">
-		<div class="footer-below-grid">
-			<div class="footer-below-col-1">
-				<p>Copyright &copy; 2026 Neighbors of Edgewater and Uptown</p>
+	<div class="py-5 min-h-10">
+		<div class="max-w-6xl mx-auto px-5 grid grid-cols-1 sm:grid-cols-3 gap-5 items-center text-center sm:text-left">
+			<div class="text-base text-primary-content">
+				<p class="m-0">Copyright &copy; 2026 Neighbors of Edgewater and Uptown</p>
 			</div>
-			<div class="footer-below-col-2">
-				<a href="/">
+			<div class="flex justify-center">
+				<a href="/" class="inline-block">
 					<img
 						loading="lazy"
 						width="81"
 						height="81"
 						src="/images/neu-logo.png"
 						alt="Neighbors of Edgewater and Uptown"
-						class="footer-logo"
+						class="w-20 h-auto inline-block"
 					/>
 				</a>
 			</div>
-			<div class="footer-below-col-3">
-				<div class="footer-social-wrap">
-					{socialLinks.map((item) => (
-						<a
-							href={item.href}
-							aria-label={item.label}
-							target={item.href.startsWith('mailto:') ? undefined : '_blank'}
-							rel={item.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-							class="footer-social-item"
-						>
-							<span class="social-icon" aria-hidden="true" set:html={item.icon} />
-							<span class="social-label">{item.label}</span>
-						</a>
-					))}
-				</div>
+			<div class="flex flex-wrap justify-center sm:justify-end items-center gap-3">
+				{socialLinks.map((item) => (
+					<a
+						href={item.href}
+						aria-label={item.label}
+						target={item.href.startsWith('mailto:') ? undefined : '_blank'}
+						rel={item.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+						class="inline-flex items-center text-primary-content hover:text-accent no-underline transition-colors [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-current"
+					>
+						<span aria-hidden="true" set:html={item.icon} />
+						<span class="sr-only">{item.label}</span>
+					</a>
+				))}
 			</div>
 		</div>
 	</div>
 </footer>
-
-<style>
-	.site-footer {
-		background-color: var(--ast-global-color-0);
-		color: var(--ast-global-color-4);
-	}
-
-	@media (max-width: 921px) {
-		.site-footer {
-			padding-left: 25px;
-			padding-right: 25px;
-		}
-	}
-
-	.site-primary-footer-wrap {
-		padding-top: 5%;
-		padding-bottom: 0;
-	}
-
-	@media (max-width: 921px) {
-		.site-primary-footer-wrap {
-			padding-top: 60px;
-			padding-bottom: 60px;
-		}
-	}
-
-	.footer-primary-grid {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 20px;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 20px;
-		align-items: flex-start;
-	}
-
-	.footer-col-1 {
-		text-align: left;
-	}
-
-	.footer-col-1 h2,
-	.footer-col-1 h4 {
-		color: #ffffff;
-	}
-
-	.footer-col-1 h2 {
-		margin: 0 0 24px 0;
-		font-size: 2.625rem;
-		line-height: 1.3em;
-	}
-
-	.footer-col-1 h4,
-	.footer-col-2 h4 {
-		margin: 0;
-		font-size: 1.5625rem;
-		line-height: 1.2em;
-		font-weight: 600;
-	}
-
-	.footer-col-2 {
-		text-align: right;
-		color: var(--ast-global-color-5);
-	}
-
-	.footer-col-2 h2 {
-		margin: 0;
-		font-size: 2.625rem;
-		line-height: 1.3em;
-		color: var(--ast-global-color-4);
-	}
-
-	.footer-col-2 h4 {
-		color: var(--ast-global-color-4);
-	}
-
-	.footer-col-2 a {
-		color: var(--ast-global-color-5);
-		text-decoration: none;
-	}
-
-	.footer-col-2 a.underline-link {
-		text-decoration: underline;
-	}
-
-	@media (max-width: 921px) {
-		.footer-primary-grid {
-			gap: 50px;
-		}
-		.footer-col-2 {
-			text-align: left;
-		}
-		.footer-col-1 h2,
-		.footer-col-2 h2 {
-			font-size: 32px;
-		}
-		.footer-col-1 h4,
-		.footer-col-2 h4 {
-			font-size: 22px;
-		}
-	}
-
-	@media (max-width: 544px) {
-		.footer-primary-grid {
-			grid-template-columns: 1fr;
-		}
-		.footer-col-1,
-		.footer-col-2 {
-			text-align: center;
-		}
-	}
-
-	.site-below-footer-wrap {
-		padding-top: 20px;
-		padding-bottom: 20px;
-		min-height: 40px;
-	}
-
-	.footer-below-grid {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 20px;
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		align-items: center;
-		gap: 20px;
-	}
-
-	.footer-below-col-1 {
-		text-align: left;
-		color: #f8f8f8;
-	}
-
-	.footer-below-col-1 p {
-		margin: 0;
-		font-size: 1rem;
-	}
-
-	.footer-below-col-2 {
-		text-align: center;
-	}
-
-	.footer-logo {
-		width: 81px;
-		height: auto;
-		display: inline-block;
-	}
-
-	.footer-below-col-3 {
-		text-align: right;
-	}
-
-	.footer-social-wrap {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-end;
-		align-items: center;
-		gap: 12px;
-	}
-
-	.footer-social-item {
-		display: inline-flex;
-		align-items: center;
-		text-decoration: none;
-		color: #f8f8f8;
-		padding: 0 0.2em;
-		transition: color 0.15s ease;
-	}
-
-	.social-icon {
-		display: inline-flex;
-		align-items: center;
-	}
-
-	.social-icon :global(svg) {
-		width: 25px;
-		height: 25px;
-		fill: #f8f8f8;
-		transition: fill 0.15s ease;
-	}
-
-	.social-label {
-		padding-left: 6px;
-		color: #f8f8f8;
-		font-size: 1rem;
-		transition: color 0.15s ease;
-	}
-
-	.footer-social-item:hover .social-icon :global(svg) {
-		fill: var(--ast-global-color-3);
-	}
-
-	.footer-social-item:hover .social-label {
-		color: var(--ast-global-color-3);
-	}
-
-	@media (max-width: 921px) {
-		.footer-below-col-1 {
-			text-align: center;
-		}
-		.footer-social-wrap {
-			justify-content: flex-start;
-		}
-	}
-
-	@media (max-width: 544px) {
-		.footer-below-grid {
-			grid-template-columns: 1fr;
-			gap: 15px;
-		}
-		.footer-social-wrap {
-			justify-content: center;
-		}
-	}
-</style>
-

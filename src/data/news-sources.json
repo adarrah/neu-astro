@@ -1,0 +1,134 @@
+{
+  "sources": [
+    {
+      "id": "block-club-chicago",
+      "name": "Block Club Chicago",
+      "feedUrl": "https://blockclubchicago.org/feed/",
+      "siteUrl": "https://blockclubchicago.org/"
+    },
+    {
+      "id": "urbanize-chicago",
+      "name": "Urbanize Chicago",
+      "feedUrl": "https://chicago.urbanize.city/rss.xml",
+      "siteUrl": "https://chicago.urbanize.city/"
+    }
+  ],
+  "communityAreas": {
+    "edgewater": {
+      "label": "Edgewater",
+      "keywords": [
+        "edgewater",
+        "andersonville",
+        "bryn mawr",
+        "granville",
+        "thorndale",
+        "berwyn",
+        "48th ward",
+        "40th ward",
+        "lakewood balmoral",
+        "devon"
+      ]
+    },
+    "uptown": {
+      "label": "Uptown",
+      "keywords": [
+        "uptown",
+        "argyle",
+        "buena park",
+        "sheridan park",
+        "truman",
+        "wilson",
+        "lawrence",
+        "montrose",
+        "46th ward",
+        "47th ward",
+        "clarendon park",
+        "4006 n. sheridan",
+        "4531 n. clark"
+      ]
+    }
+  },
+  "pillars": {
+    "housing": {
+      "label": "Housing",
+      "keywords": [
+        "housing",
+        "apartment",
+        "apartments",
+        "condo",
+        "condos",
+        "zoning",
+        "rezoning",
+        "affordable",
+        "aro",
+        "development",
+        "mixed-use",
+        "residential",
+        "units",
+        "building permit",
+        "tower crane",
+        "demolition",
+        "rent",
+        "sro",
+        "tenant"
+      ]
+    },
+    "transit": {
+      "label": "Transit",
+      "keywords": [
+        "cta",
+        "red line",
+        "purple line",
+        "bus",
+        "transit",
+        "train",
+        "station",
+        "metra",
+        "divvy",
+        "ridership",
+        "rpm",
+        "commuter"
+      ]
+    },
+    "safe-streets": {
+      "label": "Safe Streets",
+      "keywords": [
+        "bike",
+        "bike lane",
+        "pedestrian",
+        "crosswalk",
+        "complete streets",
+        "traffic",
+        "speed",
+        "sidewalk",
+        "curb",
+        "intersection",
+        "protected",
+        "greenway",
+        "streetscape",
+        "vision zero"
+      ]
+    },
+    "community": {
+      "label": "Community",
+      "keywords": [
+        "community",
+        "neighborhood",
+        "park",
+        "school",
+        "business",
+        "restaurant",
+        "retail",
+        "festival",
+        "market",
+        "library",
+        "art",
+        "block club",
+        "mutual aid",
+        "small business",
+        "chamber"
+      ]
+    }
+  }
+}
+

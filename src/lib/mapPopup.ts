@@ -92,10 +92,12 @@ function cleanHostname(urlStr: string): string {
 
 function createIconRow(icon: IconName, content: Node, extraClass?: string): HTMLDivElement {
   const row = document.createElement('div');
-  row.className = extraClass ? `neu-popup-row ${extraClass}` : 'neu-popup-row';
+  row.className = extraClass
+    ? `flex items-start gap-2 ${extraClass}`
+    : 'flex items-start gap-2';
 
   const iconWrap = document.createElement('span');
-  iconWrap.className = 'neu-popup-icon';
+  iconWrap.className = 'text-primary shrink-0 mt-0.5 inline-flex items-center';
   iconWrap.appendChild(createIcon(icon));
 
   row.append(iconWrap, content);
@@ -107,7 +109,7 @@ function createCtaButton(url: string, label: string): HTMLAnchorElement {
   link.href = url;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
-  link.className = 'neu-popup-cta-btn btn btn-sm btn-secondary w-full';
+  link.className = 'btn btn-sm btn-secondary hover:btn-primary w-full gap-1.5 font-sans font-semibold no-underline';
 
   const span = document.createElement('span');
   span.textContent = label;
@@ -130,54 +132,54 @@ export function createPopupElement(popup: MapPopupData, options: CreatePopupOpti
   const accentColor = options.color || '#d7935b';
 
   const card = document.createElement('div');
-  card.className = 'neu-popup-card';
+  card.className = 'neu-popup-card flex flex-col min-w-60';
   card.setAttribute('role', 'dialog');
   if (title) {
     card.setAttribute('aria-label', title);
   }
 
   const accent = document.createElement('div');
-  accent.className = 'neu-popup-accent';
+  accent.className = 'neu-popup-accent h-1.5 w-full bg-primary';
   accent.style.background = accentColor;
   card.appendChild(accent);
 
   const inner = document.createElement('div');
-  inner.className = 'neu-popup-inner';
+  inner.className = 'neu-popup-inner p-4 flex flex-col gap-2.5';
 
   if (categoryLabel) {
     const badge = document.createElement('span');
-    badge.className = 'neu-popup-badge badge badge-sm badge-outline';
+    badge.className = 'neu-popup-badge badge badge-sm badge-outline self-start font-bold uppercase tracking-wider mr-8';
     badge.textContent = categoryLabel;
     inner.appendChild(badge);
   }
 
   if (title) {
     const heading = document.createElement('h4');
-    heading.className = 'neu-popup-title';
+    heading.className = 'neu-popup-title m-0 pr-8 pb-2 border-b-2 border-primary font-display text-2xl font-bold leading-tight text-neutral';
     heading.textContent = title;
     inner.appendChild(heading);
   }
 
   const rows = document.createElement('div');
-  rows.className = 'neu-popup-rows';
+  rows.className = 'flex flex-col gap-2 text-sm leading-snug text-secondary';
 
   if (popup.lead) {
     const strong = document.createElement('strong');
     strong.textContent = popup.lead;
-    rows.appendChild(createIconRow('person', strong, 'neu-popup-lead'));
+    rows.appendChild(createIconRow('person', strong, 'text-neutral text-sm'));
   }
 
   if (popup.address) {
     const span = document.createElement('span');
     span.textContent = popup.address;
-    rows.appendChild(createIconRow('pin', span, 'neu-popup-address'));
+    rows.appendChild(createIconRow('pin', span, 'text-secondary'));
   }
 
   if (popup.phone) {
     const digits = popup.phone.replace(/\D/g, '');
     const telLink = document.createElement('a');
     telLink.href = `tel:${digits}`;
-    telLink.className = 'neu-popup-link';
+    telLink.className = 'link link-secondary hover:link-primary font-semibold break-words';
     telLink.textContent = popup.phone;
     rows.appendChild(createIconRow('phone', telLink));
   }
@@ -185,7 +187,7 @@ export function createPopupElement(popup: MapPopupData, options: CreatePopupOpti
   if (popup.email) {
     const mailLink = document.createElement('a');
     mailLink.href = `mailto:${popup.email}`;
-    mailLink.className = 'neu-popup-link';
+    mailLink.className = 'link link-secondary hover:link-primary font-semibold break-words';
     mailLink.textContent = popup.email;
     rows.appendChild(createIconRow('mail', mailLink));
   }
@@ -193,7 +195,7 @@ export function createPopupElement(popup: MapPopupData, options: CreatePopupOpti
   if (popup.details && popup.details.length > 0) {
     for (const detail of popup.details) {
       const textEl = document.createElement('div');
-      textEl.className = 'neu-popup-text';
+      textEl.className = 'text-secondary text-sm leading-relaxed';
       textEl.textContent = detail;
       rows.appendChild(textEl);
     }
@@ -204,7 +206,7 @@ export function createPopupElement(popup: MapPopupData, options: CreatePopupOpti
   }
 
   const actions = document.createElement('div');
-  actions.className = 'neu-popup-actions';
+  actions.className = 'flex flex-wrap gap-2 mt-1 pt-2 border-t border-base-300';
 
   if (popup.website) {
     actions.appendChild(createCtaButton(popup.website, `Visit Website (${cleanHostname(popup.website)})`));

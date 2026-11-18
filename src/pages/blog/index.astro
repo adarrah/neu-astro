@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import PageBanner from '../../components/ui/PageBanner.astro';
 
 const allPosts = await getCollection('ltes');
 const posts = allPosts.sort(
@@ -17,12 +18,10 @@ const posts = allPosts.sort(
 	<Header transparent={false} />
 
 	<main id="content" class="site-main">
-		<div class="blog-hero-banner">
-			<h1>Read More from Our Members</h1>
-		</div>
+		<PageBanner title="Read More from Our Members" />
 
-		<section class="blog-grid-container">
-			<div class="neu-post-grid">
+		<section class="max-w-6xl mx-auto py-14 px-5 pb-20">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
 				{
 					posts.map((post) => {
 						const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
@@ -32,30 +31,43 @@ const posts = allPosts.sort(
 							timeZone: 'UTC',
 						});
 						return (
-							<article class="neu-post-card">
+							<article class="card bg-base-100 border border-neutral/20 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden">
 								{post.data.featuredImage && (
-									<a href={post.data.permalink} class="neu-post-card-img-link">
-										<img
-											src={post.data.featuredImage.url}
-											alt={post.data.featuredImage.alt}
-											loading="lazy"
-										/>
-									</a>
+									<figure class="h-60 overflow-hidden bg-base-200">
+										<a href={post.data.permalink} class="block w-full h-full">
+											<img
+												src={post.data.featuredImage.url}
+												alt={post.data.featuredImage.alt}
+												loading="lazy"
+												class="w-full h-full object-cover"
+											/>
+										</a>
+									</figure>
 								)}
-								<div class="neu-post-card-content">
-									<div class="neu-post-card-tax">
-										<span>{post.data.category}</span>
-									</div>
-									<h3 class="neu-post-card-title">
-										<a href={post.data.permalink}>{post.data.title}</a>
+								<div class="card-body p-6 gap-2.5">
+									<span class="text-xs font-bold uppercase tracking-wider text-primary">
+										{post.data.category}
+									</span>
+									<h3 class="font-display text-2xl font-bold leading-snug m-0">
+										<a
+											href={post.data.permalink}
+											class="text-neutral hover:text-primary no-underline transition-colors"
+										>
+											{post.data.title}
+										</a>
 									</h3>
-									<div class="neu-post-card-meta">
+									<div class="text-xs text-primary font-semibold">
 										<span>By {post.data.author}</span> &bull;{' '}
 										<time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
 									</div>
-									<p class="neu-post-card-excerpt">{post.data.excerpt}</p>
-									<div class="neu-post-card-cta">
-										<a href={post.data.permalink} class="neu-post-readmore">
+									<p class="text-sm text-base-content leading-relaxed m-0 flex-1">
+										{post.data.excerpt}
+									</p>
+									<div class="card-actions pt-3 mt-auto">
+										<a
+											href={post.data.permalink}
+											class="btn btn-sm btn-outline btn-secondary"
+										>
 											Read More
 										</a>
 									</div>
@@ -70,141 +82,3 @@ const posts = allPosts.sort(
 
 	<Footer />
 </Layout>
-
-<style>
-	.blog-hero-banner {
-		background-color: var(--ast-global-color-0);
-		padding: 36px 20px;
-		text-align: center;
-	}
-
-	.blog-hero-banner h1 {
-		margin: 0;
-		color: var(--ast-global-color-5);
-	}
-
-	.blog-grid-container {
-		max-width: 80vw;
-		width: 100%;
-		margin: 0 auto;
-		padding: 56px 20px 80px;
-	}
-
-	@media (max-width: 976px) {
-		.blog-grid-container {
-			max-width: 100%;
-		}
-	}
-
-	.neu-post-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 28px;
-		width: 100%;
-	}
-
-	@media (max-width: 960px) {
-		.neu-post-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	@media (max-width: 640px) {
-		.neu-post-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.neu-post-card {
-		background: #fff;
-		border: 1px solid var(--ast-global-color-6);
-		border-radius: 6px;
-		overflow: hidden;
-		display: flex;
-		flex-direction: column;
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
-	}
-
-	.neu-post-card:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-	}
-
-	.neu-post-card-img-link img {
-		width: 100%;
-		height: 240px;
-		object-fit: cover;
-		display: block;
-	}
-
-	.neu-post-card-content {
-		padding: 24px;
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
-	}
-
-	.neu-post-card-tax span {
-		display: inline-block;
-		font-size: 12px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: var(--ast-global-color-0);
-		margin-bottom: 8px;
-	}
-
-	.neu-post-card-title {
-		margin: 0 0 10px 0;
-		font-size: 24px;
-		line-height: 1.3;
-	}
-
-	.neu-post-card-title a {
-		color: var(--ast-global-color-2);
-		text-decoration: none;
-	}
-
-	.neu-post-card-title a:hover {
-		color: var(--ast-global-color-0);
-	}
-
-	.neu-post-card-meta {
-		font-size: 13px;
-		color: var(--ast-global-color-0);
-		margin-bottom: 14px;
-	}
-
-	.neu-post-card-excerpt {
-		font-size: 15px;
-		color: var(--ast-global-color-3);
-		line-height: 1.65;
-		margin-bottom: 20px;
-		flex-grow: 1;
-	}
-
-	.neu-post-card-cta {
-		display: flex;
-		align-items: center;
-		margin-top: auto;
-	}
-
-	.neu-post-readmore {
-		display: inline-block;
-		padding: 8px 18px;
-		border: 1px solid #0170b9;
-		border-radius: 5px;
-		color: #0170b9;
-		font-size: 14px;
-		font-weight: 600;
-		text-decoration: none;
-		transition: all 0.2s ease;
-	}
-
-	.neu-post-readmore:hover {
-		background: #3a3a3a;
-		border-color: #3a3a3a;
-		color: #fff;
-	}
-</style>
-

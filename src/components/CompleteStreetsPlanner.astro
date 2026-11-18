@@ -322,10 +322,10 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		height: calc(100vh - 80px);
 		min-height: 720px;
 		width: 100%;
-		background-color: var(--ast-global-color-4);
-		color: var(--ast-global-color-3);
+		background-color: var(--color-base-200);
+		color: var(--color-secondary);
 		font-family: "Open Sans", sans-serif;
-		border-bottom: 1px solid var(--ast-global-color-6);
+		border-bottom: 1px solid var(--color-neutral);
 		overflow: hidden;
 	}
 
@@ -339,8 +339,8 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	}
 
 	.cs-sidebar {
-		background-color: var(--ast-global-color-4);
-		border-right: 1px solid var(--ast-global-color-6);
+		background-color: var(--color-base-200);
+		border-right: 1px solid var(--color-neutral);
 		padding: 20px;
 		overflow-y: auto;
 		display: flex;
@@ -350,7 +350,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
 	.cs-app-header {
 		padding-bottom: 12px;
-		border-bottom: 2px solid var(--ast-global-color-0);
+		border-bottom: 2px solid var(--color-primary);
 	}
 
 	.cs-badge-row {
@@ -366,7 +366,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		letter-spacing: 0.08em;
 		font-size: 12px;
 		font-weight: 700;
-		color: var(--ast-global-color-0);
+		color: var(--color-primary);
 	}
 
 	.cs-status-badge {
@@ -377,8 +377,8 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		padding: 3px 9px;
 		border-radius: 20px;
 		background: #ffffff;
-		color: var(--ast-global-color-3);
-		border: 1px solid var(--ast-border-color);
+		color: var(--color-secondary);
+		border: 1px solid var(--color-base-300);
 		white-space: nowrap;
 	}
 
@@ -387,20 +387,20 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		font-size: 2rem;
 		font-weight: 700;
 		line-height: 1.15;
-		color: var(--ast-global-color-2);
+		color: var(--color-neutral);
 		margin: 0 0 6px 0;
 	}
 
 	.cs-app-subtitle {
 		font-size: 0.84rem;
 		line-height: 1.5;
-		color: var(--ast-global-color-3);
+		color: var(--color-secondary);
 		margin: 0;
 	}
 
 	.cs-card {
 		background: #ffffff;
-		border: 1px solid var(--ast-global-color-6);
+		border: 1px solid var(--color-neutral);
 		border-radius: 8px;
 		padding: 16px 18px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -415,7 +415,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		align-items: flex-start;
 		gap: 10px;
 		padding-bottom: 8px;
-		border-bottom: 2px solid var(--ast-global-color-0);
+		border-bottom: 2px solid var(--color-primary);
 	}
 
 	.cs-card-title-row h3 {
@@ -424,18 +424,18 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		font-size: 1.35rem;
 		font-weight: 600;
 		line-height: 1.2;
-		color: var(--ast-global-color-2);
+		color: var(--color-neutral);
 	}
 
 	.cs-card-subtitle {
 		margin: 3px 0 0 0;
 		font-size: 0.78rem;
-		color: var(--ast-global-color-3);
+		color: var(--color-secondary);
 		line-height: 1.35;
 	}
 
 	.cs-sheet-badge {
-		background: var(--ast-global-color-3);
+		background: var(--color-secondary);
 		color: #ffffff;
 		font-size: 0.74rem;
 		font-weight: 700;
@@ -459,7 +459,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	.cs-label {
 		font-size: 0.76rem;
 		font-weight: 700;
-		color: var(--ast-global-color-2);
+		color: var(--color-neutral);
 	}
 
 	.cs-label-flex {
@@ -472,7 +472,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	.cs-val-tag {
 		font-size: 0.73rem;
 		font-weight: 700;
-		color: var(--ast-global-color-0);
+		color: var(--color-primary);
 	}
 
 	.cs-search-row {
@@ -485,7 +485,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		width: 100%;
 		background: #ffffff;
 		border: 1px solid #cbd5e1;
-		color: var(--ast-global-color-2);
+		color: var(--color-neutral);
 		padding: 7px 10px;
 		border-radius: 6px;
 		font-family: "Open Sans", sans-serif;
@@ -496,7 +496,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	.cs-input:focus,
 	.cs-select:focus {
 		outline: none;
-		border-color: var(--ast-global-color-0);
+		border-color: var(--color-primary);
 	}
 
 	.cs-btn-outline {
@@ -506,15 +506,15 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		font-size: 0.78rem;
 		font-weight: 600;
 		cursor: pointer;
-		border: 1px solid var(--ast-global-color-3);
+		border: 1px solid var(--color-secondary);
 		background: #ffffff;
-		color: var(--ast-global-color-3);
+		color: var(--color-secondary);
 		white-space: nowrap;
 		transition: all 0.15s ease;
 	}
 
 	.cs-btn-outline:hover {
-		background: var(--ast-global-color-3);
+		background: var(--color-secondary);
 		color: #ffffff;
 	}
 
@@ -526,9 +526,9 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	}
 
 	.cs-chip-btn {
-		background: var(--ast-global-color-4);
+		background: var(--color-base-200);
 		border: 1px solid #d1d5db;
-		color: var(--ast-global-color-3);
+		color: var(--color-secondary);
 		border-radius: 20px;
 		padding: 2px 8px;
 		font-size: 0.7rem;
@@ -539,14 +539,14 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
 	.cs-chip-btn:hover,
 	.cs-chip-btn.active {
-		background: var(--ast-global-color-0);
-		border-color: var(--ast-global-color-0);
+		background: var(--color-primary);
+		border-color: var(--color-primary);
 		color: #ffffff;
 	}
 
 	.cs-range {
 		width: 100%;
-		accent-color: var(--ast-global-color-0);
+		accent-color: var(--color-primary);
 		cursor: pointer;
 	}
 
@@ -564,9 +564,9 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	}
 
 	.cs-seg-btn {
-		background: var(--ast-global-color-4);
+		background: var(--color-base-200);
 		border: 1px solid #cbd5e1;
-		color: var(--ast-global-color-3);
+		color: var(--color-secondary);
 		padding: 5px 6px;
 		border-radius: 5px;
 		font-family: "Open Sans", sans-serif;
@@ -577,17 +577,17 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	}
 
 	.cs-seg-btn:hover {
-		border-color: var(--ast-global-color-0);
+		border-color: var(--color-primary);
 	}
 
 	.cs-seg-btn.active {
-		background: var(--ast-global-color-0);
-		border-color: var(--ast-global-color-0);
+		background: var(--color-primary);
+		border-color: var(--color-primary);
 		color: #ffffff;
 	}
 
 	.cs-xsec-container {
-		background: var(--ast-global-color-4);
+		background: var(--color-base-200);
 		border: 1px solid #e2e8f0;
 		border-radius: 6px;
 		padding: 8px;
@@ -607,7 +607,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		font-size: 0.7rem;
 		font-weight: 700;
 		color: #ffffff;
-		background: var(--ast-global-color-3);
+		background: var(--color-secondary);
 		padding: 2px 9px;
 		border-radius: 999px;
 		white-space: nowrap;
@@ -620,7 +620,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	}
 
 	.cs-stat-box {
-		background: var(--ast-global-color-4);
+		background: var(--color-base-200);
 		border: 1px solid #e2e8f0;
 		border-radius: 6px;
 		padding: 8px 6px;
@@ -634,12 +634,12 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		font-size: 1.4rem;
 		font-weight: 700;
 		line-height: 1.1;
-		color: var(--ast-global-color-2);
+		color: var(--color-neutral);
 	}
 
 	.cs-stat-lbl {
 		font-size: 0.66rem;
-		color: var(--ast-global-color-3);
+		color: var(--color-secondary);
 		margin-top: 2px;
 	}
 
@@ -652,13 +652,13 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	.cs-strip-label {
 		font-size: 0.7rem;
 		font-weight: 600;
-		color: var(--ast-global-color-2);
+		color: var(--color-neutral);
 	}
 
 	.cs-strip-bar {
 		height: 11px;
 		border-radius: 4px;
-		background: var(--ast-global-color-4);
+		background: var(--color-base-200);
 		display: flex;
 		overflow: hidden;
 		border: 1px solid #cbd5e1;
@@ -703,8 +703,8 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 		z-index: 5;
 		background: rgba(255, 255, 255, 0.95);
 		backdrop-filter: blur(8px);
-		border: 1px solid var(--ast-global-color-6);
-		color: var(--ast-global-color-2);
+		border: 1px solid var(--color-neutral);
+		color: var(--color-neutral);
 		padding: 8px 14px;
 		border-radius: 6px;
 		font-size: 0.8rem;
@@ -718,323 +718,8 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 	.cs-chip-btn:focus-visible,
 	.cs-seg-btn:focus-visible,
 	.cs-range:focus-visible {
-		outline: 2px solid var(--ast-global-color-3);
+		outline: 2px solid var(--color-secondary);
 		outline-offset: 2px;
-	}
-</style>
-
-<style is:global>
-	.mapboxgl-popup.neu-mapbox-popup {
-		z-index: 30;
-	}
-
-	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-content {
-		padding: 0;
-		background: #ffffff;
-		border-radius: 10px;
-		border: 1px solid var(--ast-global-color-6);
-		box-shadow:
-			0 14px 34px rgba(35, 31, 32, 0.18),
-			0 3px 10px rgba(35, 31, 32, 0.08);
-		overflow: hidden;
-		font-family: "Open Sans", sans-serif;
-		color: var(--ast-global-color-3);
-	}
-
-	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button {
-		top: 12px;
-		right: 10px;
-		width: 30px;
-		height: 30px;
-		border-radius: 50%;
-		background: var(--ast-global-color-4);
-		border: 1px solid #d1d5db;
-		color: var(--ast-global-color-2);
-		font-size: 18px;
-		font-weight: 700;
-		line-height: 28px;
-		padding: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition:
-			background-color 0.15s ease,
-			color 0.15s ease,
-			border-color 0.15s ease;
-		z-index: 5;
-	}
-
-	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button:hover {
-		background: var(--ast-global-color-0);
-		border-color: var(--ast-global-color-0);
-		color: #ffffff;
-	}
-
-	.mapboxgl-popup.neu-mapbox-popup
-		.mapboxgl-popup-close-button:focus-visible {
-		outline: 2px solid var(--ast-global-color-3);
-		outline-offset: 2px;
-	}
-
-	.neu-popup-card {
-		display: flex;
-		flex-direction: column;
-		min-width: 255px;
-	}
-
-	.neu-popup-accent {
-		height: 5px;
-		width: 100%;
-		background: var(--ast-global-color-0);
-	}
-
-	.neu-popup-inner {
-		padding: 16px 18px 18px;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.neu-popup-badge {
-		align-self: flex-start;
-		font-size: 10.5px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.07em;
-		color: var(--ast-global-color-3);
-		background: var(--ast-global-color-4);
-		border: 1px solid #cbd5e1;
-		padding: 2px 8px;
-		border-radius: 999px;
-		margin-right: 32px;
-	}
-
-	.neu-popup-title {
-		margin: 0;
-		padding-right: 32px;
-		padding-bottom: 8px;
-		border-bottom: 2px solid var(--ast-global-color-0);
-		font-family: "Cormorant Garamond", serif;
-		font-size: 1.4rem;
-		font-weight: 700;
-		line-height: 1.2;
-		color: var(--ast-global-color-2);
-	}
-
-	.neu-popup-kv-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 6px;
-	}
-
-	.neu-popup-kv-item {
-		background: var(--ast-global-color-4);
-		border: 1px solid #e2e8f0;
-		border-radius: 6px;
-		padding: 6px 8px;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.neu-popup-kv-lbl {
-		font-size: 10.5px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.04em;
-		color: #64748b;
-	}
-
-	.neu-popup-kv-val {
-		font-size: 13.5px;
-		font-weight: 700;
-		color: var(--ast-global-color-2);
-		margin-top: 1px;
-	}
-
-	.neu-popup-mini-lanes {
-		display: flex;
-		height: 14px;
-		border-radius: 4px;
-		overflow: hidden;
-		border: 1px solid #cbd5e1;
-	}
-
-	.cs-map-pane {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		min-height: 520px;
-	}
-
-	.cs-mapbox-canvas {
-		width: 100%;
-		height: 100%;
-	}
-
-	.cs-map-hint-bar {
-		position: absolute;
-		bottom: 16px;
-		left: 16px;
-		right: 48px;
-		z-index: 5;
-		background: rgba(255, 255, 255, 0.95);
-		backdrop-filter: blur(8px);
-		border: 1px solid var(--ast-global-color-6);
-		color: var(--ast-global-color-2);
-		padding: 8px 14px;
-		border-radius: 6px;
-		font-size: 0.8rem;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-		pointer-events: none;
-	}
-
-	.cs-input:focus-visible,
-	.cs-select:focus-visible,
-	.cs-btn-outline:focus-visible,
-	.cs-chip-btn:focus-visible,
-	.cs-seg-btn:focus-visible,
-	.cs-range:focus-visible {
-		outline: 2px solid var(--ast-global-color-3);
-		outline-offset: 2px;
-	}
-</style>
-
-<style is:global>
-	.mapboxgl-popup.neu-mapbox-popup {
-		z-index: 30;
-	}
-
-	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-content {
-		padding: 0;
-		background: #ffffff;
-		border-radius: 10px;
-		border: 1px solid var(--ast-global-color-6);
-		box-shadow:
-			0 14px 34px rgba(35, 31, 32, 0.18),
-			0 3px 10px rgba(35, 31, 32, 0.08);
-		overflow: hidden;
-		font-family: "Open Sans", sans-serif;
-		color: var(--ast-global-color-3);
-	}
-
-	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button {
-		top: 12px;
-		right: 10px;
-		width: 30px;
-		height: 30px;
-		border-radius: 50%;
-		background: var(--ast-global-color-4);
-		border: 1px solid #d1d5db;
-		color: var(--ast-global-color-2);
-		font-size: 18px;
-		font-weight: 700;
-		line-height: 28px;
-		padding: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition:
-			background-color 0.15s ease,
-			color 0.15s ease,
-			border-color 0.15s ease;
-		z-index: 5;
-	}
-
-	.mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button:hover {
-		background: var(--ast-global-color-0);
-		border-color: var(--ast-global-color-0);
-		color: #ffffff;
-	}
-
-	.mapboxgl-popup.neu-mapbox-popup
-		.mapboxgl-popup-close-button:focus-visible {
-		outline: 2px solid var(--ast-global-color-3);
-		outline-offset: 2px;
-	}
-
-	.neu-popup-card {
-		display: flex;
-		flex-direction: column;
-		min-width: 255px;
-	}
-
-	.neu-popup-accent {
-		height: 5px;
-		width: 100%;
-		background: var(--ast-global-color-0);
-	}
-
-	.neu-popup-inner {
-		padding: 16px 18px 18px;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.neu-popup-badge {
-		align-self: flex-start;
-		font-size: 10.5px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.07em;
-		color: var(--ast-global-color-3);
-		background: var(--ast-global-color-4);
-		border: 1px solid #cbd5e1;
-		padding: 2px 8px;
-		border-radius: 999px;
-		margin-right: 32px;
-	}
-
-	.neu-popup-title {
-		margin: 0;
-		padding-right: 32px;
-		padding-bottom: 8px;
-		border-bottom: 2px solid var(--ast-global-color-0);
-		font-family: "Cormorant Garamond", serif;
-		font-size: 1.4rem;
-		font-weight: 700;
-		line-height: 1.2;
-		color: var(--ast-global-color-2);
-	}
-
-	.neu-popup-kv-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 8px;
-	}
-
-	.neu-popup-kv-item {
-		background: var(--ast-global-color-4);
-		border: 1px solid #e2e8f0;
-		border-radius: 6px;
-		padding: 6px 8px;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.neu-popup-kv-lbl {
-		font-size: 10.5px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.04em;
-		color: #64748b;
-	}
-
-	.neu-popup-kv-val {
-		font-size: 13.5px;
-		font-weight: 700;
-		color: var(--ast-global-color-2);
-		margin-top: 1px;
-	}
-
-	.neu-popup-mini-lanes {
-		display: flex;
-		height: 14px;
-		border-radius: 4px;
-		overflow: hidden;
-		border: 1px solid #cbd5e1;
 	}
 </style>
 
@@ -3053,9 +2738,9 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 								tr.crossStreets.length > 0
 									? tr.crossStreets.join(" / ")
 									: "Width Pinch Point";
-							return `<div role="button" tabindex="0" aria-label="Jump to design transition at ${cross}" style="display:flex;justify-content:space-between;align-items:center;background:var(--ast-global-color-4);padding:6px 10px;border-radius:5px;border-left:3px solid ${
+							return `<div role="button" tabindex="0" aria-label="Jump to design transition at ${cross}" style="display:flex;justify-content:space-between;align-items:center;background:var(--color-base-200);padding:6px 10px;border-radius:5px;border-left:3px solid ${
 								tr.isMajor
-									? "var(--ast-global-color-0)"
+									? "var(--color-primary)"
 									: "#be123c"
 							};cursor:pointer;" data-lng="${tr.coord[0]}" data-lat="${tr.coord[1]}">
 								<span><strong>@ ${cross}</strong></span>
@@ -3193,7 +2878,7 @@ const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 								<span style="width:12px;height:12px;border-radius:3px;background:${d.color};display:inline-block;flex-shrink:0;"></span>
 								<strong>${d.name}</strong>
 							</span>
-							<span style="color:var(--ast-global-color-3);font-size:0.7rem;font-weight:700;">${d.sheet}</span>
+							<span style="color:var(--color-secondary);font-size:0.7rem;font-weight:700;">${d.sheet}</span>
 						</div>`,
 					).join("");
 				}

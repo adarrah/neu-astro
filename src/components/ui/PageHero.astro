@@ -1,0 +1,34 @@
+---
+interface Props {
+	eyebrow?: string;
+	title: string;
+}
+
+const { eyebrow, title } = Astro.props;
+const hasMedia = Astro.slots.has('media');
+---
+
+<section class="bg-base-200 border-b border-neutral py-16 px-6">
+	<div class="max-w-6xl mx-auto">
+		<div class:list={['grid gap-12 items-center', hasMedia ? 'grid-cols-1 lg:grid-cols-12' : 'grid-cols-1 max-w-3xl']}>
+			<div class:list={[hasMedia ? 'lg:col-span-5' : '']}>
+				{eyebrow && (
+					<p class="uppercase tracking-widest text-xs font-bold text-primary mb-2">
+						{eyebrow}
+					</p>
+				)}
+				<h1 class="font-display text-4xl md:text-5xl font-semibold text-neutral mb-4 leading-snug">
+					{title}
+				</h1>
+				<div class="space-y-4 text-lg text-base-content leading-relaxed">
+					<slot />
+				</div>
+			</div>
+			{hasMedia && (
+				<div class="lg:col-span-7">
+					<slot name="media" />
+				</div>
+			)}
+		</div>
+	</div>
+</section>

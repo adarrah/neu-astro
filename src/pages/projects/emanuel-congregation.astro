@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Slideshow from '../../components/Slideshow.astro';
+import PageBanner from '../../components/ui/PageBanner.astro';
 
 const slides = [
 	{
@@ -86,71 +87,54 @@ const faqs = [
 	<Header transparent={false} />
 
 	<main id="content" class="site-main">
-		<div class="page-banner">
-			<h1>Emanuel Congregation</h1>
-		</div>
+		<PageBanner title="Emanuel Congregation" />
 
-		<div class="project-detail-container">
-			<section class="project-slideshow-section">
+		<div class="max-w-5xl mx-auto py-14 px-6 pb-20 space-y-12">
+			<section>
 				<Slideshow slides={slides} aspectRatio="800 / 450" />
 			</section>
 
-			<section class="project-update-cta">
-				<div class="cta-text">
-					<h3>Project Update (7/14/2026)</h3>
-					<p>
+			<section class="bg-base-200 border border-neutral border-l-4 border-l-primary rounded-lg p-8 flex flex-wrap items-center justify-between gap-6">
+				<div class="flex-1 min-w-72 space-y-3 text-base text-base-content leading-relaxed">
+					<h2 class="font-display text-3xl font-semibold text-neutral m-0">
+						Project Update (7/14/2026)
+					</h2>
+					<p class="m-0">
 						After six months of gathering feedback from the community and revising the project plans,{' '}
 						<strong>
 							Alderwoman Leni Manaa-Hoppenworth is allowing the project to move forward to the next step of the development process!
 						</strong>
 					</p>
-					<p>
+					<p class="m-0">
 						For more information, see the 48th Ward’s{' '}
-						<a href="https://the48thward.org/blog/emanuel-fern-hill-faq" target="_blank" rel="noopener noreferrer">
-							<strong>Emanuel Congregation FAQ</strong>
+						<a href="https://the48thward.org/blog/emanuel-fern-hill-faq" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold">
+							Emanuel Congregation FAQ
 						</a>{' '}
 						page. While official feedback forms are closed at this time,{' '}
 						<strong>you can still share your support for the project via email to the 48th Ward Office!</strong>
 					</p>
 				</div>
-				<div class="cta-action">
-					<a href="mailto:info@the48thward.org" class="cta-email-btn">
+				<div class="shrink-0">
+					<a href="mailto:info@the48thward.org" class="btn btn-primary hover:bg-accent border-0 rounded-full text-primary-content px-6">
 						<span>Send an email</span>
-						<svg viewBox="0 0 512 512" width="16" height="16" aria-hidden="true">
-							<path
-								fill="currentColor"
-								d="M504.3 273.6l-112.1 104c-6.992 6.484-17.18 8.218-25.94 4.406c-8.758-3.812-14.42-12.45-14.42-21.1L351.9 288H32C14.33 288 .0002 273.7 .0002 255.1S14.33 224 32 224h319.9l0-72c0-9.547 5.66-18.19 14.42-22c8.754-3.809 18.95-2.075 25.94 4.41l112.1 104C514.6 247.9 514.6 264.1 504.3 273.6z"
-							/>
-						</svg>
+						<span aria-hidden="true">→</span>
 					</a>
 				</div>
 			</section>
 
-			<section class="faq-section">
-				<h2>Frequently Asked Questions</h2>
-				<div class="faq-accordion">
-					{
-						faqs.map((faq, idx) => (
-							<details class="faq-item" open={idx === 0}>
-								<summary class="faq-question">
-									<span>{faq.question}</span>
-									<svg
-										class="faq-chevron"
-										viewBox="0 0 448 512"
-										width="16"
-										height="16"
-										aria-hidden="true"
-									>
-										<path
-											fill="currentColor"
-											d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
-										/>
-									</svg>
-								</summary>
-								<div class="faq-answer" set:html={faq.answer} />
-							</details>
-						))
-					}
+			<section class="space-y-6">
+				<h2 class="font-display text-3xl md:text-4xl font-semibold text-neutral text-center m-0">
+					Frequently Asked Questions
+				</h2>
+				<div class="space-y-3">
+					{faqs.map((faq, idx) => (
+						<details class="collapse collapse-arrow bg-base-100 border border-neutral/20 shadow-sm" open={idx === 0}>
+							<summary class="collapse-title font-display text-xl font-semibold text-neutral">
+								{faq.question}
+							</summary>
+							<div class="collapse-content space-y-3 text-base text-base-content leading-relaxed [&_a]:link [&_a]:link-primary" set:html={faq.answer} />
+						</details>
+					))}
 				</div>
 			</section>
 		</div>
@@ -158,150 +142,3 @@ const faqs = [
 
 	<Footer />
 </Layout>
-
-<style>
-	.page-banner {
-		background-color: var(--ast-global-color-0);
-		padding: 36px 20px;
-		text-align: center;
-	}
-
-	.page-banner h1 {
-		margin: 0;
-		color: var(--ast-global-color-5);
-	}
-
-	.project-detail-container {
-		max-width: 1000px;
-		margin: 0 auto;
-		padding: 48px 24px 88px;
-		display: flex;
-		flex-direction: column;
-		gap: 48px;
-	}
-
-	.project-update-cta {
-		background: var(--ast-global-color-4);
-		border: 1px solid var(--ast-global-color-6);
-		border-left: 5px solid var(--ast-global-color-0);
-		border-radius: 8px;
-		padding: 32px;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-between;
-		gap: 24px;
-	}
-
-	.cta-text {
-		flex: 1 1 560px;
-	}
-
-	.cta-text h3 {
-		margin: 0 0 12px 0;
-		color: var(--ast-global-color-2);
-	}
-
-	.cta-text p {
-		margin: 0 0 12px 0;
-		line-height: 1.65;
-	}
-
-	.cta-text p:last-child {
-		margin-bottom: 0;
-	}
-
-	.cta-text a {
-		color: var(--ast-global-color-0);
-	}
-
-	.cta-email-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
-		padding: 12px 26px;
-		background-color: var(--ast-global-color-0);
-		color: #fff;
-		border-radius: 30px;
-		font-weight: 600;
-		text-decoration: none;
-		transition: background 0.2s ease;
-	}
-
-	.cta-email-btn:hover {
-		background-color: var(--ast-global-color-1);
-		color: #fff;
-	}
-
-	.faq-section h2 {
-		text-align: center;
-		margin: 0 0 28px 0;
-	}
-
-	.faq-accordion {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-	}
-
-	.faq-item {
-		border: 1px solid var(--ast-global-color-6);
-		border-radius: 6px;
-		background: #fff;
-		overflow: hidden;
-	}
-
-	.faq-question {
-		list-style: none;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 16px;
-		padding: 18px 22px;
-		background: var(--ast-global-color-4);
-		cursor: pointer;
-		font-size: 18px;
-		font-weight: 700;
-		color: var(--ast-global-color-2);
-	}
-
-	.faq-question::-webkit-details-marker {
-		display: none;
-	}
-
-	.faq-chevron {
-		flex-shrink: 0;
-		transition: transform 0.25s ease;
-		color: var(--ast-global-color-2);
-	}
-
-	.faq-item[open] .faq-question {
-		color: var(--ast-global-color-0);
-	}
-
-	.faq-item[open] .faq-chevron {
-		transform: rotate(180deg);
-		color: var(--ast-global-color-0);
-	}
-
-	.faq-answer {
-		padding: 20px 24px;
-		border-top: 1px solid var(--ast-global-color-6);
-		line-height: 1.7;
-		color: var(--ast-global-color-3);
-	}
-
-	.faq-answer :global(p) {
-		margin: 0 0 1em 0;
-	}
-
-	.faq-answer :global(p:last-child) {
-		margin-bottom: 0;
-	}
-
-	.faq-answer :global(a) {
-		color: var(--ast-global-color-0);
-		text-decoration: underline;
-	}
-</style>
-

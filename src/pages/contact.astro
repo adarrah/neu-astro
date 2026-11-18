@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageBanner from '../components/ui/PageBanner.astro';
 ---
 
 <Layout
@@ -11,21 +12,21 @@ import Footer from '../components/Footer.astro';
 	<Header transparent={false} />
 
 	<main id="content" class="site-main">
-		<div class="page-banner">
-			<h1>Contact Information</h1>
-		</div>
+		<PageBanner title="Contact Information" />
 
-		<section class="contact-container">
-			<div class="contact-grid">
-				<div class="contact-info">
-					<h2>Get in Touch</h2>
-					<ul class="contact-links">
+		<section class="max-w-6xl mx-auto py-20 px-6">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-14 items-start">
+				<div>
+					<h2 class="font-display text-4xl font-semibold text-neutral m-0 mb-5">
+						Get in Touch
+					</h2>
+					<ul class="list-none p-0 m-0 flex flex-col gap-3.5 text-lg leading-relaxed text-secondary">
 						<li>
-							<strong><a href="/newsletter-signup/">Newsletter:</a></strong> Sign up to get updates on events, projects, and neighborhood news straight to your inbox.
+							<strong><a href="/newsletter-signup/" class="text-primary">Newsletter:</a></strong> Sign up to get updates on events, projects, and neighborhood news straight to your inbox.
 						</li>
 						<li>
 							<strong>
-								<a href="https://www.instagram.com/neu_edgewateruptown/" target="_blank" rel="noopener noreferrer">
+								<a href="https://www.instagram.com/neu_edgewateruptown/" target="_blank" rel="noopener noreferrer" class="text-primary">
 									Instagram:
 								</a>
 							</strong>{' '}
@@ -37,6 +38,7 @@ import Footer from '../components/Footer.astro';
 									href="https://join.slack.com/t/edgewaterupto-heh1970/shared_invite/zt-3oktvgk77-kDEgVtLqx3AieGVeSzcqMQ"
 									target="_blank"
 									rel="noopener noreferrer"
+									class="text-primary"
 								>
 									Slack:
 								</a>
@@ -44,12 +46,12 @@ import Footer from '../components/Footer.astro';
 							Join our workspace to chat with neighbors, collaborate on projects, and help shape what we do behind the scenes.
 						</li>
 						<li>
-							<strong><a href="mailto:info@neuchicago.org">Email:</a></strong> Questions, ideas, or feedback? Email us at{' '}
-							<strong><a href="mailto:info@neuchicago.org">info@neuchicago.org</a></strong>
+							<strong><a href="mailto:info@neuchicago.org" class="text-primary">Email:</a></strong> Questions, ideas, or feedback? Email us at{' '}
+							<strong><a href="mailto:info@neuchicago.org" class="text-primary">info@neuchicago.org</a></strong>
 						</li>
 						<li>
 							<strong>
-								<a href="https://www.linkedin.com/company/neu-chicago/" target="_blank" rel="noopener noreferrer">
+								<a href="https://www.linkedin.com/company/neu-chicago/" target="_blank" rel="noopener noreferrer" class="text-primary">
 									LinkedIn:
 								</a>
 							</strong>{' '}
@@ -58,39 +60,37 @@ import Footer from '../components/Footer.astro';
 					</ul>
 				</div>
 
-				<div class="contact-form-col">
-					<h2>Message us</h2>
-					<form class="neu-contact-form" action="mailto:info@neuchicago.org" method="post" enctype="text/plain">
-						<div class="neu-form-row neu-form-row-2col">
-							<div class="neu-form-field">
-								<label for="sf-first-name">First Name</label>
-								<input type="text" id="sf-first-name" name="First Name" autocomplete="given-name" />
-							</div>
-							<div class="neu-form-field">
-								<label for="sf-last-name">Last Name</label>
-								<input type="text" id="sf-last-name" name="Last Name" autocomplete="family-name" />
-							</div>
+				<div>
+					<h2 class="font-display text-4xl font-semibold text-neutral m-0 mb-5">
+						Message us
+					</h2>
+					<form class="flex flex-col gap-4" action="mailto:info@neuchicago.org" method="post" enctype="text/plain">
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+							<label class="flex flex-col gap-1.5">
+								<span class="text-sm font-semibold text-neutral">First Name</span>
+								<input type="text" id="sf-first-name" name="First Name" autocomplete="given-name" class="input input-bordered bg-base-100 w-full rounded" />
+							</label>
+							<label class="flex flex-col gap-1.5">
+								<span class="text-sm font-semibold text-neutral">Last Name</span>
+								<input type="text" id="sf-last-name" name="Last Name" autocomplete="family-name" class="input input-bordered bg-base-100 w-full rounded" />
+							</label>
 						</div>
-						<div class="neu-form-row">
-							<div class="neu-form-field">
-								<label for="sf-email">Email <span class="required">*</span></label>
-								<input type="email" id="sf-email" name="Email" required autocomplete="email" />
-							</div>
-						</div>
-						<div class="neu-form-row">
-							<div class="neu-form-field">
-								<label for="sf-phone">Phone Number</label>
-								<input type="tel" id="sf-phone" name="Phone" autocomplete="tel" placeholder="(312) 555-0123" />
-							</div>
-						</div>
-						<div class="neu-form-row">
-							<div class="neu-form-field">
-								<label for="sf-message">Message <span class="required">*</span></label>
-								<textarea id="sf-message" name="Message" rows="4" required></textarea>
-							</div>
-						</div>
-						<div class="neu-form-submit">
-							<button type="submit" class="neu-btn-submit">Submit</button>
+						<label class="flex flex-col gap-1.5">
+							<span class="text-sm font-semibold text-neutral">Email <span class="text-error">*</span></span>
+							<input type="email" id="sf-email" name="Email" required autocomplete="email" class="input input-bordered bg-base-100 w-full rounded" />
+						</label>
+						<label class="flex flex-col gap-1.5">
+							<span class="text-sm font-semibold text-neutral">Phone Number</span>
+							<input type="tel" id="sf-phone" name="Phone" autocomplete="tel" placeholder="(312) 555-0123" class="input input-bordered bg-base-100 w-full rounded" />
+						</label>
+						<label class="flex flex-col gap-1.5">
+							<span class="text-sm font-semibold text-neutral">Message <span class="text-error">*</span></span>
+							<textarea id="sf-message" name="Message" rows="4" required class="textarea textarea-bordered bg-base-100 w-full rounded"></textarea>
+						</label>
+						<div>
+							<button type="submit" class="btn btn-primary hover:bg-accent border-0 text-primary-content px-7 rounded">
+								Submit
+							</button>
 						</div>
 					</form>
 				</div>
@@ -100,126 +100,3 @@ import Footer from '../components/Footer.astro';
 
 	<Footer />
 </Layout>
-
-<style>
-	.page-banner {
-		background-color: var(--ast-global-color-0);
-		padding: 36px 20px;
-		text-align: center;
-	}
-
-	.page-banner h1 {
-		margin: 0;
-		color: var(--ast-global-color-5);
-	}
-
-	.contact-container {
-		max-width: 1140px;
-		margin: 0 auto;
-		padding: 80px 24px;
-	}
-
-	.contact-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 56px;
-		align-items: start;
-	}
-
-	@media (max-width: 820px) {
-		.contact-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.contact-info h2,
-	.contact-form-col h2 {
-		margin: 0 0 20px 0;
-	}
-
-	.contact-links {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 14px;
-		font-size: 19px;
-		line-height: 1.6;
-		color: var(--ast-global-color-3);
-	}
-
-	.contact-links a {
-		color: var(--ast-global-color-0);
-	}
-
-	.neu-contact-form {
-		display: flex;
-		flex-direction: column;
-		gap: 16px;
-	}
-
-	.neu-form-row-2col {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 16px;
-	}
-
-	@media (max-width: 600px) {
-		.neu-form-row-2col {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.neu-form-field {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-	}
-
-	.neu-form-field label {
-		font-size: 14px;
-		font-weight: 600;
-		color: var(--ast-global-color-2);
-	}
-
-	.neu-form-field .required {
-		color: #dc2626;
-	}
-
-	.neu-form-field input,
-	.neu-form-field textarea {
-		padding: 10px 12px;
-		border: 1px solid #cbd5e1;
-		border-radius: 4px;
-		font-family: var(--body-font);
-		font-size: 15px;
-		color: var(--ast-global-color-3);
-		background: #fff;
-	}
-
-	.neu-form-field input:focus,
-	.neu-form-field textarea:focus {
-		outline: none;
-		border-color: var(--ast-global-color-0);
-		box-shadow: 0 0 0 2px rgba(215, 147, 91, 0.2);
-	}
-
-	.neu-btn-submit {
-		padding: 12px 28px;
-		background: var(--ast-global-color-0);
-		color: #fff;
-		border: none;
-		border-radius: 4px;
-		font-family: var(--body-font);
-		font-size: 15px;
-		font-weight: 600;
-		cursor: pointer;
-		transition: background 0.2s ease;
-	}
-
-	.neu-btn-submit:hover {
-		background: var(--ast-global-color-1);
-	}
-</style>
-

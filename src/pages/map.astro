@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MapboxMap from '../components/MapboxMap.astro';
+import PageBanner from '../components/ui/PageBanner.astro';
 ---
 
 <Layout
@@ -12,38 +13,15 @@ import MapboxMap from '../components/MapboxMap.astro';
 	<Header transparent={false} />
 
 	<main id="content" class="site-main">
-		<div class="page-banner">
-			<h1>
-				Edgewater &amp; Uptown<br />
-				Political and Administrative Boundaries
-			</h1>
-		</div>
+		<PageBanner title="Edgewater & Uptown Political and Administrative Boundaries">
+			Edgewater &amp; Uptown<br />
+			Political and Administrative Boundaries
+		</PageBanner>
 
-		<section class="everything-map-container">
+		<section class="max-w-7xl mx-auto px-5 pt-6 pb-16">
 			<MapboxMap mapId="neu-geography" />
 		</section>
 	</main>
 
 	<Footer />
 </Layout>
-
-<style>
-	.page-banner {
-		background-color: var(--ast-global-color-0);
-		padding: 32px 20px;
-		text-align: center;
-	}
-
-	.page-banner h1 {
-		margin: 0;
-		color: var(--ast-global-color-5);
-		font-size: 48px;
-	}
-
-	.everything-map-container {
-		max-width: 1400px;
-		margin: 0 auto;
-		padding: 24px 20px 64px;
-	}
-</style>
-

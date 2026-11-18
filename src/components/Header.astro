@@ -43,6 +43,7 @@ const navItems = [
 		],
 	},
 	{ label: "Endorsements", href: "/endorsements/" },
+	{ label: "News", href: "/news/" },
 	{ label: "Blog", href: "/blog/" },
 	{ label: "Contact", href: "/contact/" },
 ].map((item) => ({
@@ -60,84 +61,79 @@ const slackUrl =
 ---
 
 <header
-	class:list={["site-header", { "is-transparent": transparent }]}
+	class:list={[
+		"relative z-50 transition-colors",
+		transparent
+			? "bg-primary border-b border-primary lg:absolute lg:top-0 lg:left-0 lg:right-0 lg:bg-transparent lg:border-b-0"
+			: "bg-primary border-b border-primary",
+	]}
 	id="masthead"
 >
-	<div class="header-container">
-		<div class="site-branding">
-			<a href="/" class="custom-logo-link" rel="home" aria-current="page">
+	<div class="navbar max-w-7xl mx-auto px-5 py-1 min-h-18 justify-between">
+		<div class="flex items-center py-1 shrink-0">
+			<a href="/" class="inline-block" rel="home" aria-current="page">
 				<img
 					width="120"
 					height="120"
 					src="/images/neu-logo.png"
-					class="custom-logo"
+					class="w-20 sm:w-28 h-auto block transition-all"
 					alt="Neighbors of Edgewater and Uptown"
 				/>
 			</a>
 		</div>
 
 		<!-- Desktop Navigation -->
-		<div class="header-right-desktop">
-			<nav class="site-navigation" aria-label="Primary Site Navigation">
-				<ul class="main-header-menu">
+		<div class="hidden lg:flex items-center gap-2.5">
+			<nav aria-label="Primary Site Navigation">
+				<ul class="menu menu-horizontal p-0 items-center">
 					{navItems.map((item) => (
-						<li
-							class:list={[
-								"menu-item",
-								{
-									"current-menu-item": item.active,
-									"menu-item-has-children": !!item.children,
-								},
-							]}
-						>
+						<li class="dropdown dropdown-hover">
 							<a
 								href={item.href}
-								class="menu-link"
+								class:list={[
+									"flex items-center gap-1.5 px-3.5 py-5 font-sans text-base font-normal no-underline whitespace-nowrap transition-colors bg-transparent",
+									item.active
+										? "text-primary-content/90"
+										: "text-primary-content hover:text-primary-content/90",
+								]}
 								aria-current={item.active ? "page" : undefined}
 							>
-								{item.label}
+								<span>{item.label}</span>
 								{item.children && (
-									<span
-										class="dropdown-arrow"
+									<svg
+										viewBox="57 35.171 26 16.043"
+										width="12"
+										height="12"
 										aria-hidden="true"
 									>
-										<svg
-											viewBox="57 35.171 26 16.043"
-											width="12"
-											height="12"
-										>
-											<path
-												d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z"
-												fill="currentColor"
-											/>
-										</svg>
-									</span>
+										<path
+											d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z"
+											fill="currentColor"
+										/>
+									</svg>
 								)}
 							</a>
 							{item.children && (
-								<ul class="sub-menu">
+								<ul class="dropdown-content menu bg-base-200 border-t-4 border-primary shadow-md min-w-60 p-0 z-50 rounded-none">
 									{item.children.map((sub) => (
-										<li class="sub-menu-item">
+										<li>
 											<a
 												href={sub.href}
-												class="sub-menu-link"
+												class="flex items-center gap-2 px-4 py-3.5 text-sm leading-snug text-secondary hover:text-accent hover:bg-base-100 rounded-none no-underline transition-colors"
 											>
-												<span
-													class="sub-arrow"
+												<svg
+													viewBox="57 35.171 26 16.043"
+													width="10"
+													height="10"
 													aria-hidden="true"
+													class="-rotate-90 text-secondary shrink-0"
 												>
-													<svg
-														viewBox="57 35.171 26 16.043"
-														width="10"
-														height="10"
-													>
-														<path
-															d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z"
-															fill="currentColor"
-														/>
-													</svg>
-												</span>
-												{sub.label}
+													<path
+														d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z"
+														fill="currentColor"
+													/>
+												</svg>
+												<span>{sub.label}</span>
 											</a>
 										</li>
 									))}
@@ -148,11 +144,12 @@ const slackUrl =
 				</ul>
 			</nav>
 
-			<div class="header-cta-wrap">
+			<div class="ml-2.5">
 				<a
-					class="header-cta-button"
+					class="btn btn-secondary rounded-full hover:btn-accent border-0 text-secondary-content font-display text-xl font-normal tracking-wide px-5 whitespace-nowrap"
 					href={slackUrl}
-					role="button"
+					target="_blank"
+					rel="noopener noreferrer"
 					aria-label="Join Our Slack"
 				>
 					Join Our Slack
@@ -161,12 +158,13 @@ const slackUrl =
 		</div>
 
 		<!-- Mobile Menu Trigger -->
-		<div class="header-right-mobile">
+		<div class="lg:hidden">
 			<button
 				type="button"
-				class="mobile-menu-trigger"
+				class="btn btn-ghost btn-square text-primary-content"
 				id="mobile-menu-open"
 				aria-expanded="false"
+				aria-controls="mobile-drawer"
 				aria-label="Main menu toggle"
 			>
 				<svg
@@ -174,6 +172,7 @@ const slackUrl =
 					width="24"
 					height="28"
 					viewBox="0 0 24 28"
+					aria-hidden="true"
 				>
 					<path d="M24 21v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1zM24 13v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1zM24 5v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1z"></path>
 				</svg>
@@ -182,36 +181,49 @@ const slackUrl =
 	</div>
 
 	<!-- Mobile Off-Canvas Drawer -->
-	<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
-		<div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
-		<div class="mobile-drawer-inner">
-			<div class="mobile-drawer-header">
+	<div
+		class="fixed inset-0 z-50 hidden"
+		id="mobile-drawer"
+		aria-hidden="true"
+	>
+		<div
+			class="fixed inset-0 bg-neutral/50 backdrop-blur-xs"
+			id="mobile-drawer-overlay"
+		></div>
+		<div class="fixed top-0 right-0 bottom-0 w-80 max-w-xs bg-base-100 text-neutral shadow-2xl flex flex-col overflow-y-auto z-10">
+			<div class="flex items-center justify-between px-5 py-4 border-b border-base-300">
+				<span class="font-display text-xl font-bold text-neutral">
+					Menu
+				</span>
 				<button
 					type="button"
 					id="mobile-menu-close"
-					class="mobile-menu-close"
+					class="btn btn-ghost btn-sm btn-circle text-neutral"
 					aria-label="Close menu"
 				>
 					<svg
 						fill="currentColor"
-						width="24"
-						height="24"
+						width="20"
+						height="20"
 						viewBox="0 0 24 24"
+						aria-hidden="true"
 					>
 						<path d="M5.293 6.707l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5.293-5.293 5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"></path>
 					</svg>
 				</button>
 			</div>
-			<nav class="mobile-navigation" aria-label="Mobile Site Navigation">
-				<ul class="mobile-menu-list">
+			<nav class="p-4 flex-1" aria-label="Mobile Site Navigation">
+				<ul class="list-none p-0 m-0 divide-y divide-base-300">
 					{navItems.map((item) => (
-						<li class="mobile-menu-item">
-							<div class="mobile-menu-row">
+						<li class="mobile-menu-item py-1">
+							<div class="flex items-center justify-between">
 								<a
 									href={item.href}
 									class:list={[
-										"mobile-menu-link",
-										{ active: item.active },
+										"py-2.5 px-2 font-semibold text-base no-underline flex-1",
+										item.active
+											? "text-primary"
+											: "text-secondary hover:text-accent",
 									]}
 								>
 									{item.label}
@@ -219,13 +231,15 @@ const slackUrl =
 								{item.children && (
 									<button
 										type="button"
-										class="mobile-submenu-toggle"
+										class="mobile-submenu-toggle btn btn-ghost btn-xs"
+										aria-expanded="false"
 										aria-label={`Toggle ${item.label} submenu`}
 									>
 										<svg
 											viewBox="57 35.171 26 16.043"
 											width="14"
 											height="14"
+											aria-hidden="true"
 										>
 											<path
 												d="M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z"
@@ -236,15 +250,15 @@ const slackUrl =
 								)}
 							</div>
 							{item.children && (
-								<ul class="mobile-sub-menu">
+								<ul class="mobile-sub-menu hidden list-none pl-4 pb-2 m-0 space-y-1">
 									{item.children.map((sub) => (
 										<li>
 											<a
 												href={sub.href}
-												class="mobile-sub-link"
+												class="flex items-center gap-1.5 py-1.5 px-2 text-sm text-secondary hover:text-accent no-underline"
 											>
 												<span
-													class="sub-arrow"
+													class="text-primary"
 													aria-hidden="true"
 												>
 													›
@@ -258,8 +272,13 @@ const slackUrl =
 						</li>
 					))}
 				</ul>
-				<div class="mobile-cta-wrap">
-					<a class="header-cta-button" href={slackUrl}>
+				<div class="pt-6">
+					<a
+						class="btn btn-secondary hover:btn-accent rounded-full border-0 text-secondary-content font-display text-xl font-normal w-full"
+						href={slackUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						Join Our Slack
 					</a>
 				</div>
@@ -276,340 +295,38 @@ const slackUrl =
 
 	function setDrawer(open: boolean) {
 		if (!drawer || !openBtn) return;
-		drawer.classList.toggle("active", open);
+		drawer.classList.toggle("hidden", !open);
 		drawer.setAttribute("aria-hidden", String(!open));
 		openBtn.setAttribute("aria-expanded", String(open));
 		document.body.style.overflow = open ? "hidden" : "";
+		if (open) {
+			closeBtn?.focus();
+		} else {
+			openBtn.focus();
+		}
 	}
 
 	openBtn?.addEventListener("click", () => setDrawer(true));
 	closeBtn?.addEventListener("click", () => setDrawer(false));
 	overlay?.addEventListener("click", () => setDrawer(false));
+	document.addEventListener("keydown", (e) => {
+		if (
+			e.key === "Escape" &&
+			drawer &&
+			!drawer.classList.contains("hidden")
+		) {
+			setDrawer(false);
+		}
+	});
 
 	document.querySelectorAll(".mobile-submenu-toggle").forEach((btn) => {
 		btn.addEventListener("click", () => {
 			const parent = btn.closest(".mobile-menu-item");
-			parent?.classList.toggle("open");
+			const subMenu = parent?.querySelector(".mobile-sub-menu");
+			if (!subMenu) return;
+			const willOpen = subMenu.classList.contains("hidden");
+			subMenu.classList.toggle("hidden", !willOpen);
+			btn.setAttribute("aria-expanded", String(willOpen));
 		});
 	});
 </script>
-
-<style>
-	.site-header {
-		background-color: var(--ast-global-color-0);
-		border-bottom: 1px solid var(--ast-global-color-0);
-		position: relative;
-		z-index: 100;
-	}
-
-	@media (min-width: 922px) {
-		.site-header.is-transparent {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			background: transparent;
-			border-bottom: none;
-		}
-	}
-
-	.header-container {
-		max-width: 1240px;
-		margin: 0 auto;
-		padding: 0 20px;
-		min-height: 70px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.site-branding {
-		display: flex;
-		align-items: center;
-		padding: 5px 0;
-	}
-
-	.custom-logo {
-		width: 120px;
-		max-width: 120px;
-		height: auto;
-		display: block;
-		transition: all 0.2s linear;
-	}
-
-	@media (max-width: 544px) {
-		.custom-logo {
-			width: 75px;
-			max-width: 75px;
-		}
-	}
-
-	.header-right-desktop {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-	}
-
-	.main-header-menu {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		align-items: center;
-	}
-
-	.menu-item {
-		position: relative;
-	}
-
-	.menu-link {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-		padding: 0 1em;
-		line-height: 70px;
-		color: #ffffff;
-		text-decoration: none;
-		font-family: "Open Sans", sans-serif;
-		font-size: 1rem;
-		font-weight: 400;
-		transition: color 0.2s ease;
-	}
-
-	.menu-item:hover > .menu-link,
-	.menu-item.current-menu-item > .menu-link {
-		color: #f5f5f5;
-	}
-
-	.dropdown-arrow {
-		display: inline-flex;
-		align-items: center;
-	}
-
-	.sub-menu {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		min-width: 240px;
-		background-color: var(--ast-global-color-4);
-		border-top: 5px solid var(--ast-global-color-0);
-		box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.1);
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		opacity: 0;
-		visibility: hidden;
-		transform: translateY(-5px);
-		transition:
-			opacity 0.2s ease,
-			transform 0.2s ease,
-			visibility 0.2s;
-		z-index: 999;
-	}
-
-	.menu-item:hover > .sub-menu,
-	.menu-item:focus-within > .sub-menu {
-		opacity: 1;
-		visibility: visible;
-		transform: translateY(0);
-	}
-
-	.sub-menu-link {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		padding: 0.9em 1em;
-		color: var(--ast-global-color-3);
-		text-decoration: none;
-		font-size: 0.95rem;
-		line-height: 1.45;
-		transition: color 0.2s ease;
-	}
-
-	.sub-menu-link:hover,
-	.sub-menu-link:focus {
-		color: var(--ast-global-color-1);
-	}
-
-	.sub-arrow svg {
-		transform: rotate(-90deg);
-		color: var(--ast-global-color-3);
-	}
-
-	.header-cta-wrap {
-		margin-left: 10px;
-	}
-
-	.header-cta-button {
-		display: inline-block;
-		background-color: var(--ast-global-color-3);
-		color: var(--ast-global-color-4);
-		font-family: "Cormorant Garamond", serif;
-		font-size: 1.25rem;
-		font-weight: 400;
-		line-height: 1em;
-		letter-spacing: 1px;
-		padding: 10px 20px;
-		border-radius: 30px;
-		text-decoration: none;
-		transition:
-			background-color 0.2s ease,
-			color 0.2s ease;
-	}
-
-	.header-cta-button:hover {
-		background-color: var(--ast-global-color-8);
-		color: var(--ast-global-color-4);
-	}
-
-	.header-right-mobile {
-		display: none;
-	}
-
-	.mobile-menu-trigger {
-		background: transparent;
-		border: none;
-		color: var(--ast-global-color-5);
-		cursor: pointer;
-		padding: 8px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	@media (max-width: 921px) {
-		.header-right-desktop {
-			display: none;
-		}
-		.header-right-mobile {
-			display: flex;
-		}
-	}
-
-	/* Mobile Drawer */
-	.mobile-drawer {
-		position: fixed;
-		inset: 0;
-		z-index: 100000;
-		visibility: hidden;
-		opacity: 0;
-		transition:
-			opacity 0.25s ease,
-			visibility 0.25s;
-	}
-
-	.mobile-drawer.active {
-		visibility: visible;
-		opacity: 1;
-	}
-
-	.mobile-drawer-overlay {
-		position: absolute;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.4);
-	}
-
-	.mobile-drawer-inner {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		width: 90%;
-		max-width: 400px;
-		background: #ffffff;
-		color: var(--ast-global-color-3);
-		box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.1);
-		transform: translateX(100%);
-		transition: transform 0.2s ease-in;
-		display: flex;
-		flex-direction: column;
-		overflow-y: auto;
-	}
-
-	.mobile-drawer.active .mobile-drawer-inner {
-		transform: translateX(0);
-	}
-
-	.mobile-drawer-header {
-		display: flex;
-		justify-content: flex-end;
-		padding: 10px 15px;
-	}
-
-	.mobile-menu-close {
-		background: transparent;
-		border: none;
-		color: #3a3a3a;
-		cursor: pointer;
-		padding: 8px;
-	}
-
-	.mobile-menu-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		border-top: 1px solid #eaeaea;
-	}
-
-	.mobile-menu-item {
-		border-bottom: 1px solid #eaeaea;
-	}
-
-	.mobile-menu-row {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.mobile-menu-link {
-		display: block;
-		flex-grow: 1;
-		padding: 12px 30px;
-		color: var(--ast-global-color-3);
-		text-decoration: none;
-		font-size: 1rem;
-	}
-
-	.mobile-menu-link.active,
-	.mobile-menu-link:hover {
-		color: var(--ast-global-color-1);
-		background-color: var(--ast-global-color-5);
-	}
-
-	.mobile-submenu-toggle {
-		background: transparent;
-		border: none;
-		color: var(--ast-global-color-3);
-		padding: 12px 24px;
-		cursor: pointer;
-	}
-
-	.mobile-sub-menu {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: none;
-		background-color: #fcfcfc;
-	}
-
-	.mobile-menu-item.open .mobile-sub-menu {
-		display: block;
-	}
-
-	.mobile-sub-link {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		padding: 10px 30px 10px 45px;
-		color: var(--ast-global-color-3);
-		text-decoration: none;
-		border-top: 1px solid #eaeaea;
-		font-size: 0.95rem;
-	}
-
-	.mobile-cta-wrap {
-		padding: 20px 30px;
-		display: flex;
-		justify-content: flex-end;
-	}
-</style>

@@ -14,57 +14,59 @@ const mapConfig: MapConfig | null = rawConfig ? { ...rawConfig, accessToken: map
 
 {mapConfig && (
   <div
-    class="neu-map-wrapper"
+    class="neu-map-wrapper relative w-full my-6 rounded-box border border-neutral overflow-hidden shadow-md bg-base-200"
     style={`height: ${mapConfig.height || '550px'}; min-height: 420px;`}
     role="region"
     aria-label={mapConfig.title ? `${mapConfig.title} interactive map` : 'Interactive community map'}
   >
     {mapConfig.categoryFilter && mapConfig.categories && mapConfig.categories.length > 0 && (
-      <div
-        class="neu-map-filter card bg-base-100/95 backdrop-blur-md border border-base-300 shadow-lg"
+      <details
+        open
+        class="card bg-base-100/95 backdrop-blur-md border border-neutral shadow-lg absolute top-3.5 left-3.5 z-10 p-4 min-w-56 max-w-72 max-h-[calc(100%-28px)] overflow-y-auto text-sm"
         id={`map-filter-${mapId}`}
         role="group"
         aria-label="Map layer filters"
       >
-        <div class="neu-map-filter-header">
-          <span class="neu-map-filter-title">Map Layers</span>
-          <div class="neu-map-filter-actions">
-            <button
-              type="button"
-              class="btn btn-xs btn-outline btn-secondary"
-              data-action="all"
-              aria-label="Show all map layers"
-            >
-              All
-            </button>
-            <button
-              type="button"
-              class="btn btn-xs btn-outline btn-secondary"
-              data-action="none"
-              aria-label="Hide all map layers"
-            >
-              None
-            </button>
-          </div>
+        <summary class="flex justify-between items-center mb-2.5 pb-2 border-b-2 border-primary cursor-pointer list-none">
+          <span class="font-display text-xl font-bold text-neutral leading-tight">Map Layers</span>
+          <span class="text-xs font-semibold text-secondary/70 sm:hidden" aria-hidden="true">Toggle</span>
+        </summary>
+        <div class="flex gap-1.5 mb-2">
+          <button
+            type="button"
+            class="btn btn-xs btn-outline btn-secondary"
+            data-action="all"
+            aria-label="Show all map layers"
+          >
+            All
+          </button>
+          <button
+            type="button"
+            class="btn btn-xs btn-outline btn-secondary"
+            data-action="none"
+            aria-label="Hide all map layers"
+          >
+            None
+          </button>
         </div>
-        <div class="neu-map-filter-list">
+        <div class="flex flex-col gap-1.5">
           {mapConfig.categories.map((cat, idx) => (
-            <label class="neu-map-filter-item">
+            <label class="flex items-center gap-2 px-1 py-0.5 rounded cursor-pointer text-neutral font-semibold leading-snug hover:bg-base-200 transition-colors">
               <input
                 type="checkbox"
                 class="checkbox checkbox-xs checkbox-primary"
                 value={cat.slug}
                 checked={idx < 2}
               />
-              <span class="neu-map-filter-label">{cat.name}</span>
+              <span>{cat.name}</span>
             </label>
           ))}
         </div>
-      </div>
+      </details>
     )}
     <div
       id={`mapbox-container-${mapId}`}
-      class="neu-mapbox-canvas"
+      class="neu-mapbox-canvas w-full h-full"
       data-map-config={JSON.stringify(mapConfig)}
     ></div>
   </div>
@@ -276,6 +278,9 @@ const mapConfig: MapConfig | null = rawConfig ? { ...rawConfig, accessToken: map
         // 4. Hook up Category Filter if enabled
         const filterEl = document.getElementById(`map-filter-${cfg.id}`);
         if (filterEl) {
+          if (window.innerWidth < 640 && filterEl instanceof HTMLDetailsElement) {
+            filterEl.open = false;
+          }
           const applyFilter = () => {
             const checked = Array.from(
               filterEl.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:checked')
@@ -322,334 +327,3 @@ const mapConfig: MapConfig | null = rawConfig ? { ...rawConfig, accessToken: map
     initMaps();
   }
 </script>
-
-<style is:global>
-  /* Map Container & Filter Card */
-  .neu-map-wrapper {
-    position: relative;
-    width: 100%;
-    margin: 24px 0;
-    border-radius: 10px;
-    border: 1px solid var(--ast-global-color-6);
-    overflow: hidden;
-    box-shadow: 0 4px 18px rgba(35, 31, 32, 0.08);
-    background: var(--ast-global-color-4);
-  }
-
-  .neu-mapbox-canvas {
-    width: 100%;
-    height: 100%;
-  }
-
-  .neu-map-filter {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--ast-global-color-6);
-    border-radius: 8px;
-    padding: 14px 16px;
-    box-shadow: 0 6px 20px rgba(35, 31, 32, 0.14);
-    max-height: calc(100% - 28px);
-    overflow-y: auto;
-    min-width: 225px;
-    max-width: 285px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 13.5px;
-  }
-
-  .neu-map-filter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--ast-global-color-0);
-  }
-
-  .neu-map-filter-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--ast-global-color-2);
-    line-height: 1.1;
-  }
-
-  .neu-map-filter-actions {
-    display: flex;
-    gap: 6px;
-  }
-
-  .neu-map-filter-actions button {
-    background: var(--ast-global-color-4);
-    border: 1px solid #cbd5e1;
-    border-radius: 5px;
-    padding: 3px 9px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 11.5px;
-    font-weight: 600;
-    cursor: pointer;
-    color: var(--ast-global-color-3);
-    transition: all 0.15s ease;
-  }
-
-  .neu-map-filter-actions button:hover {
-    background: var(--ast-global-color-0);
-    color: #ffffff;
-    border-color: var(--ast-global-color-0);
-  }
-
-  .neu-map-filter-actions button:focus-visible {
-    outline: 2px solid var(--ast-global-color-3);
-    outline-offset: 2px;
-  }
-
-  .neu-map-filter-list {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-
-  .neu-map-filter-item {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 3px 4px;
-    border-radius: 4px;
-    cursor: pointer;
-    color: var(--ast-global-color-2);
-    font-weight: 600;
-    line-height: 1.3;
-    transition: background-color 0.12s ease;
-  }
-
-  .neu-map-filter-item:hover {
-    background-color: var(--ast-global-color-4);
-  }
-
-  .neu-map-filter-item input {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--ast-global-color-0);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  .neu-map-filter-item input:focus-visible {
-    outline: 2px solid var(--ast-global-color-3);
-    outline-offset: 2px;
-  }
-
-  /* -------------------------------------------------------------------------
-     Unified Accessible Mapbox Popup Design System (.neu-mapbox-popup)
-     ------------------------------------------------------------------------- */
-  .mapboxgl-popup.neu-mapbox-popup {
-    z-index: 30;
-  }
-
-  .mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-content {
-    padding: 0;
-    background: #ffffff;
-    border-radius: 10px;
-    border: 1px solid var(--ast-global-color-6);
-    box-shadow:
-      0 14px 34px rgba(35, 31, 32, 0.18),
-      0 3px 10px rgba(35, 31, 32, 0.08);
-    overflow: hidden;
-    font-family: 'Open Sans', sans-serif;
-    color: var(--ast-global-color-3);
-  }
-
-  .mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button {
-    top: 12px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: var(--ast-global-color-4);
-    border: 1px solid #d1d5db;
-    color: var(--ast-global-color-2);
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 28px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition:
-      background-color 0.15s ease,
-      color 0.15s ease,
-      border-color 0.15s ease;
-    z-index: 5;
-  }
-
-  .mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button:hover {
-    background: var(--ast-global-color-0);
-    border-color: var(--ast-global-color-0);
-    color: #ffffff;
-  }
-
-  .mapboxgl-popup.neu-mapbox-popup .mapboxgl-popup-close-button:focus-visible {
-    outline: 2px solid var(--ast-global-color-3);
-    outline-offset: 2px;
-  }
-
-  .neu-popup-card {
-    display: flex;
-    flex-direction: column;
-    min-width: 240px;
-  }
-
-  .neu-popup-accent {
-    height: 5px;
-    width: 100%;
-    background: var(--ast-global-color-0);
-  }
-
-  .neu-popup-inner {
-    padding: 16px 18px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .neu-popup-badge {
-    align-self: flex-start;
-    font-size: 10.5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--ast-global-color-3);
-    background: var(--ast-global-color-4);
-    border: 1px solid #cbd5e1;
-    padding: 2px 8px;
-    border-radius: 999px;
-    margin-right: 32px;
-  }
-
-  .neu-popup-title {
-    margin: 0;
-    padding-right: 32px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--ast-global-color-0);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.45rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--ast-global-color-2);
-  }
-
-  .neu-popup-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    font-size: 13.5px;
-    line-height: 1.45;
-    color: var(--ast-global-color-3);
-  }
-
-  .neu-popup-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .neu-popup-row.neu-popup-lead {
-    color: var(--ast-global-color-2);
-    font-size: 14px;
-  }
-
-  .neu-popup-row.neu-popup-address {
-    color: var(--ast-global-color-3);
-  }
-
-  .neu-popup-icon {
-    color: var(--ast-global-color-0);
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .neu-popup-link,
-  .neu-popup-inline-link {
-    color: var(--ast-global-color-3);
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    word-break: break-word;
-    transition: color 0.15s ease;
-  }
-
-  .neu-popup-link:hover,
-  .neu-popup-inline-link:hover {
-    color: var(--ast-global-color-0);
-  }
-
-  .neu-popup-link:focus-visible,
-  .neu-popup-inline-link:focus-visible {
-    outline: 2px solid var(--ast-global-color-3);
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-
-  .neu-popup-text {
-    color: var(--ast-global-color-3);
-    font-size: 13.5px;
-    line-height: 1.5;
-  }
-
-  .neu-popup-text p {
-    margin: 0 0 6px 0;
-  }
-
-  .neu-popup-text p:last-child {
-    margin-bottom: 0;
-  }
-
-  .neu-popup-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
-    padding-top: 8px;
-    border-top: 1px solid #e2e8f0;
-  }
-
-  .neu-popup-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: 100%;
-    padding: 8px 14px;
-    background-color: var(--ast-global-color-3);
-    color: #ffffff !important;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 6px;
-    text-decoration: none !important;
-    transition: background-color 0.15s ease;
-  }
-
-  .neu-popup-cta-btn:hover {
-    background-color: var(--ast-global-color-0);
-    color: #ffffff !important;
-  }
-
-  .neu-popup-cta-btn:focus-visible {
-    outline: 2px solid var(--ast-global-color-2);
-    outline-offset: 2px;
-  }
-
-  /* Mapbox Control Button Accessibility Enhancements */
-  .neu-map-wrapper .mapboxgl-ctrl-group button:focus-visible,
-  .cs-map-pane .mapboxgl-ctrl-group button:focus-visible {
-    outline: 2px solid var(--ast-global-color-0);
-    outline-offset: -2px;
-  }
-</style>

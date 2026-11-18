@@ -3,6 +3,9 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import MapboxMap from '../../components/MapboxMap.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import ResourceGrid from '../../components/ui/ResourceGrid.astro';
+import DirectoryCard from '../../components/ui/DirectoryCard.astro';
 
 const blockClubsByWard = [
 	{
@@ -108,69 +111,61 @@ const blockClubsByWard = [
 	<Header transparent={false} />
 
 	<main id="content" class="site-main">
-		<section class="resource-subpage-hero">
-			<div class="resource-subpage-inner">
-				<div class="resource-header-grid">
-					<div class="resource-header-text">
-						<p class="eyebrow">Edgewater &amp; Uptown</p>
-						<h1>Block Clubs</h1>
-						<p>
-							Community starts on your block. Block clubs are where neighbors share info, organize events, solve problems together, and turn casual hellos into real relationships.
-						</p>
-						<p>View the map of Block Clubs or use the links below to find more information.</p>
-						<a
-							href="https://www.google.com/maps/d/u/2/edit?mid=1aO4CthkejJeIhdTUlOBH_UuZOkiNxQw&usp=sharing"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="map-external-btn"
-						>
-							Block Club Map
-						</a>
-					</div>
-					<div class="resource-header-map">
-						<MapboxMap mapId="block-clubs" />
-					</div>
-				</div>
+		<PageHero eyebrow="Edgewater & Uptown" title="Block Clubs">
+			<p>
+				Community starts on your block. Block clubs are where neighbors share info, organize events, solve problems together, and turn casual hellos into real relationships.
+			</p>
+			<p>View the map of Block Clubs or use the links below to find more information.</p>
+			<div class="pt-2">
+				<a
+					href="https://www.google.com/maps/d/u/2/edit?mid=1aO4CthkejJeIhdTUlOBH_UuZOkiNxQw&usp=sharing"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="btn btn-primary hover:bg-accent border-0 rounded-full text-primary-content px-6"
+				>
+					Block Club Map <span aria-hidden="true">↗</span>
+				</a>
 			</div>
-		</section>
+			<MapboxMap slot="media" mapId="block-clubs" />
+		</PageHero>
 
-		<section class="directory-section">
-			<div class="directory-grid">
-				{
-					blockClubsByWard.map((group) => (
-						<div class="directory-card">
-							<h3>{group.ward}</h3>
-							<ul class="club-list">
-								{group.clubs.map((club) => (
-									<li>
-										<a href={club.href} target="_blank" rel="noopener noreferrer">
-											<strong>{club.name}</strong>
-											<span class="ext-arrow" aria-hidden="true">
-												↗
-											</span>
-										</a>
-									</li>
-								))}
-							</ul>
-						</div>
-					))
-				}
-			</div>
-		</section>
+		<ResourceGrid columns={2}>
+			{blockClubsByWard.map((group) => (
+				<DirectoryCard title={group.ward}>
+					<ul class="list-none p-0 m-0 space-y-2.5">
+						{group.clubs.map((club) => (
+							<li>
+								<a
+									href={club.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center gap-1.5 font-semibold text-secondary hover:text-primary no-underline transition-colors"
+								>
+									<span>{club.name}</span>
+									<span class="badge badge-xs badge-ghost font-mono" aria-hidden="true">↗</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</DirectoryCard>
+			))}
+		</ResourceGrid>
 
-		<section class="submit-club-cta">
-			<div class="submit-club-inner">
-				<h2>Have a Block Club to Add?</h2>
-				<p>
+		<section class="bg-base-200 border-t border-neutral/20 py-16 px-6 text-center">
+			<div class="max-w-2xl mx-auto">
+				<h2 class="font-display text-3xl md:text-4xl font-semibold text-neutral mb-3">
+					Have a Block Club to Add?
+				</h2>
+				<p class="text-base md:text-lg text-base-content mb-6">
 					This is a non-exhaustive list of Block Clubs and their resources. Please use the form link to submit an additional Block Club to be added to our list.
 				</p>
 				<a
 					href="https://forms.gle/dv4LfBnUhkuL7tgy9"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="submit-club-btn"
+					class="btn btn-primary hover:bg-accent border-0 rounded-full text-primary-content px-7"
 				>
-					Fill out the form
+					Fill out the form <span aria-hidden="true">↗</span>
 				</a>
 			</div>
 		</section>
@@ -178,165 +173,3 @@ const blockClubsByWard = [
 
 	<Footer />
 </Layout>
-
-<style>
-	.resource-subpage-hero {
-		background-color: var(--ast-global-color-4);
-		padding: 64px 24px;
-		border-bottom: 1px solid var(--ast-global-color-6);
-	}
-
-	.resource-subpage-inner {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-
-	.resource-header-grid {
-		display: grid;
-		grid-template-columns: 1fr 1.25fr;
-		gap: 48px;
-		align-items: center;
-	}
-
-	@media (max-width: 920px) {
-		.resource-header-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.eyebrow {
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		font-size: 13px;
-		font-weight: 700;
-		color: var(--ast-global-color-0);
-		margin: 0 0 8px 0;
-	}
-
-	.resource-header-text h1 {
-		margin: 0 0 16px 0;
-	}
-
-	.resource-header-text p {
-		font-size: 17px;
-		line-height: 1.65;
-		margin: 0 0 16px 0;
-	}
-
-	.map-external-btn {
-		display: inline-block;
-		margin-top: 8px;
-		padding: 12px 26px;
-		background-color: var(--ast-global-color-0);
-		color: #fff;
-		border-radius: 30px;
-		font-weight: 600;
-		text-decoration: none;
-		transition: background 0.2s ease;
-	}
-
-	.map-external-btn:hover {
-		background-color: var(--ast-global-color-1);
-		color: #fff;
-	}
-
-	.directory-section {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 64px 24px;
-	}
-
-	.directory-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 32px;
-	}
-
-	@media (max-width: 780px) {
-		.directory-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.directory-card {
-		background: #fff;
-		border: 1px solid var(--ast-global-color-6);
-		border-radius: 8px;
-		padding: 32px;
-	}
-
-	.directory-card h3 {
-		margin: 0 0 20px 0;
-		padding-bottom: 12px;
-		border-bottom: 2px solid var(--ast-global-color-0);
-		color: var(--ast-global-color-2);
-	}
-
-	.club-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 14px;
-	}
-
-	.club-list a {
-		color: var(--ast-global-color-0);
-		text-decoration: none;
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-	}
-
-	.club-list a:hover {
-		color: var(--ast-global-color-1);
-		text-decoration: underline;
-	}
-
-	.ext-arrow {
-		font-family: monospace;
-		font-size: 14px;
-		background: var(--ast-global-color-4);
-		padding: 1px 5px;
-		border-radius: 4px;
-		color: var(--ast-global-color-3);
-	}
-
-	.submit-club-cta {
-		background-color: var(--ast-global-color-4);
-		border-top: 1px solid var(--ast-global-color-6);
-		padding: 64px 24px;
-		text-align: center;
-	}
-
-	.submit-club-inner {
-		max-width: 720px;
-		margin: 0 auto;
-	}
-
-	.submit-club-inner h2 {
-		margin: 0 0 12px 0;
-	}
-
-	.submit-club-inner p {
-		font-size: 17px;
-		margin: 0 0 24px 0;
-	}
-
-	.submit-club-btn {
-		display: inline-block;
-		padding: 12px 28px;
-		background-color: var(--ast-global-color-0);
-		color: #fff;
-		border-radius: 30px;
-		font-weight: 600;
-		text-decoration: none;
-	}
-
-	.submit-club-btn:hover {
-		background-color: var(--ast-global-color-1);
-		color: #fff;
-	}
-</style>
-

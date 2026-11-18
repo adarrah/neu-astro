@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import PageBanner from '../../components/ui/PageBanner.astro';
 
 const projects = [
 	{
@@ -21,25 +22,35 @@ const projects = [
 	<Header transparent={false} />
 
 	<main id="content" class="site-main">
-		<div class="page-banner">
-			<h1>Projects</h1>
-		</div>
+		<PageBanner title="Projects" />
 
-		<section class="projects-container">
-			<div class="projects-grid">
+		<section class="max-w-5xl mx-auto py-16 px-6 pb-24">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
 				{
 					projects.map((proj) => (
-						<article class="project-card">
-							<a href={proj.href} class="project-img-link">
-								<img src={proj.image} alt={proj.alt} loading="lazy" />
-							</a>
-							<div class="project-body">
-								<h3>
-									<a href={proj.href}>{proj.title}</a>
+						<article class="card bg-base-100 border border-neutral/20 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden w-full max-w-md text-center">
+							<figure class="aspect-3/2 overflow-hidden bg-base-200">
+								<a href={proj.href} class="block w-full h-full">
+									<img
+										src={proj.image}
+										alt={proj.alt}
+										loading="lazy"
+										class="w-full h-full object-cover"
+									/>
+								</a>
+							</figure>
+							<div class="card-body items-center p-7 gap-2.5">
+								<h3 class="font-display text-3xl font-semibold m-0">
+									<a
+										href={proj.href}
+										class="text-secondary hover:text-primary no-underline transition-colors"
+									>
+										{proj.title}
+									</a>
 								</h3>
-								<time class="project-date">{proj.date}</time>
-								<div class="project-cta">
-									<a href={proj.href} class="project-btn">
+								<time class="text-sm text-accent font-semibold">{proj.date}</time>
+								<div class="card-actions pt-3">
+									<a href={proj.href} class="btn btn-primary text-primary-content">
 										Read More
 									</a>
 								</div>
@@ -53,98 +64,3 @@ const projects = [
 
 	<Footer />
 </Layout>
-
-<style>
-	.page-banner {
-		background-color: var(--ast-global-color-0);
-		padding: 36px 20px;
-		text-align: center;
-	}
-
-	.page-banner h1 {
-		margin: 0;
-		color: var(--ast-global-color-5);
-	}
-
-	.projects-container {
-		max-width: 1000px;
-		margin: 0 auto;
-		padding: 64px 24px 96px;
-	}
-
-	.projects-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(320px, 420px));
-		justify-content: center;
-		gap: 32px;
-	}
-
-	.project-card {
-		background: #fff;
-		border: 1px solid var(--ast-global-color-6);
-		border-radius: 8px;
-		overflow: hidden;
-		text-align: center;
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
-	}
-
-	.project-card:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-	}
-
-	.project-img-link img {
-		width: 100%;
-		aspect-ratio: 3 / 2;
-		object-fit: cover;
-		display: block;
-	}
-
-	.project-body {
-		padding: 28px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 10px;
-	}
-
-	.project-body h3 {
-		margin: 0;
-		font-size: 28px;
-	}
-
-	.project-body h3 a {
-		color: var(--ast-global-color-3);
-		text-decoration: none;
-	}
-
-	.project-body h3 a:hover {
-		color: var(--ast-global-color-0);
-	}
-
-	.project-date {
-		font-size: 14px;
-		color: var(--ast-global-color-1);
-	}
-
-	.project-cta {
-		margin-top: 12px;
-	}
-
-	.project-btn {
-		display: inline-block;
-		padding: 10px 26px;
-		background-color: var(--ast-global-color-0);
-		color: var(--ast-global-color-5);
-		border-radius: 4px;
-		font-weight: 600;
-		text-decoration: none;
-		transition: background 0.2s ease;
-	}
-
-	.project-btn:hover {
-		background-color: var(--ast-global-color-1);
-		color: #fff;
-	}
-</style>
-

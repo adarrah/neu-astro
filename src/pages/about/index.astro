@@ -38,95 +38,112 @@ const communityConnections = [
 	<Header transparent={false} />
 
 	<main id="content" class="site-main">
-		<div class="about-container">
+		<div class="max-w-6xl mx-auto py-16 px-6 flex flex-col gap-16">
 			<!-- About Us Intro -->
-			<section class="about-intro">
-				<div class="about-intro-text">
-					<h1>About Us</h1>
-					<div class="title-separator"></div>
-					<p>
+			<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+				<div class="lg:col-span-7">
+					<h1 class="font-display text-5xl font-semibold text-neutral m-0">
+						About Us
+					</h1>
+					<div class="w-20 h-1 bg-primary mt-3 mb-6"></div>
+					<p class="text-lg leading-relaxed text-base-content mb-5">
 						We’re a grassroots group of neighbors who kept running into each other at ward meetings, abundant housing meetups, Red &amp; Purple Modernization events, and every urbanist gathering in between. Over time, we realized we shared the same vision for Edgewater and Uptown—and that our neighborhoods deserved a group big enough and coordinated enough to turn that vision into action.
 					</p>
-					<p>
+					<p class="text-lg leading-relaxed text-base-content m-0">
 						So in March 2025, a small group of founders came together to build something new: a community-wide block club that spans both Edgewater and Uptown. These two areas share history, transit, density, and energy, and we believe organizing across this shared fabric makes us stronger. Our goal is to bridge the gap between city and state-level advocacy groups and the hyper-local voices of block clubs, chambers of commerce, and our alders.
 					</p>
 				</div>
-				<div class="about-intro-image">
-					<figure>
+				<div class="lg:col-span-5 flex justify-center">
+					<figure class="m-0">
 						<img
 							src="/wp-content/uploads/2025/11/Screenshot-2025-11-18-120755.png"
 							alt="Alderwoman Leni Manaa-Hoppenworth taking a selfie in front of NEU members holding signs demanding the state fund transit."
 							width="457"
 							height="610"
 							loading="lazy"
+							class="max-w-full h-auto rounded-lg shadow-md"
 						/>
 					</figure>
 				</div>
 			</section>
 
 			<!-- Mission Statement Blockquote -->
-			<section class="mission-section">
-				<blockquote class="mission-quote">
-					<p>
+			<section class="bg-base-200 border-l-4 border-primary py-9 px-10 rounded-r-lg">
+				<blockquote class="m-0">
+					<p class="font-display text-3xl leading-snug italic text-neutral mb-3">
 						Creating community, empowering everyone and acting as a resource for the Edgewater and Uptown Community Area neighbors.
 					</p>
 					<footer>
-						<cite>NEU's Mission Statement</cite>
+						<cite class="not-italic text-base font-bold uppercase tracking-wider text-primary">
+							NEU's Mission Statement
+						</cite>
 					</footer>
 				</blockquote>
 			</section>
 
 			<!-- Our Strategy -->
-			<section class="strategy-section">
-				<div class="strategy-header">
-					<h2>Our Strategy</h2>
-					<div class="title-separator center"></div>
+			<section>
+				<div class="text-center mb-9">
+					<h2 class="font-display text-5xl font-semibold text-neutral m-0">
+						Our Strategy
+					</h2>
+					<div class="w-20 h-1 bg-primary mt-3 mb-6 mx-auto"></div>
 				</div>
-				<div class="strategy-grid">
-					{
-						strategies.map((item) => (
-							<div class="strategy-card">
-								<h3>{item.title}</h3>
-								<p>{item.description}</p>
-							</div>
-						))
-					}
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-9">
+					{strategies.map((item) => (
+						<article class="card bg-base-100 border border-neutral p-7">
+							<h3 class="font-display text-3xl font-semibold text-primary m-0 mb-3">
+								{item.title}
+							</h3>
+							<p class="m-0 leading-relaxed text-base-content">
+								{item.description}
+							</p>
+						</article>
+					))}
 				</div>
-				<figure class="strategy-banner">
+				<figure class="m-0 mx-auto text-center">
 					<img
 						src="/wp-content/uploads/2025/11/Minimalistic-Creative-Agency-Business-Banner-3-1024x272.png"
 						alt="Graphic showing lead from within plus structural change equals the future we want and deserve."
 						loading="lazy"
+						class="max-w-full h-auto inline-block"
 					/>
 				</figure>
 			</section>
 
 			<!-- Why Community Areas? -->
-			<section class="community-areas-section">
-				<div class="community-areas-text">
-					<h2>Why Community Areas?</h2>
-					<div class="title-separator"></div>
-					<p>
+			<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+				<div class="lg:col-span-7">
+					<h2 class="font-display text-5xl font-semibold text-neutral m-0">
+						Why Community Areas?
+					</h2>
+					<div class="w-20 h-1 bg-primary mt-3 mb-6"></div>
+					<p class="text-lg leading-relaxed text-base-content mb-4">
 						Chicago’s 77 community areas were created in the 1920s as fixed geographic zones for planning and long-term data analysis. Unlike neighborhoods, which shift and overlap, community areas stay the same, making them a reliable framework for understanding long-term trends and planning.
 					</p>
-					<p>
+					<p class="text-lg leading-relaxed text-base-content mb-3">
 						Originally, Edgewater was part of Uptown when community areas were first drawn. It wasn’t until 1980 that Edgewater officially became its own 77th community area. Despite that split, the two areas still function as one connected urban environment:
 					</p>
-					<ul class="community-list">
+					<ul class="text-lg leading-relaxed pl-6 mt-3 list-disc space-y-1.5 text-base-content">
 						{communityConnections.map((item) => <li>{item}</li>)}
 					</ul>
 				</div>
-				<div class="community-areas-map">
+				<div class="lg:col-span-5">
 					<MapboxMap mapId="community-areas" />
 				</div>
 			</section>
 		</div>
 
 		<!-- Bottom CTA Banner -->
-		<section class="about-cta-banner">
-			<div class="about-cta-inner">
-				<h2>Join NEU and help build a better Edgewater and Uptown!</h2>
-				<a href="/newsletter-signup/" class="about-cta-btn">
+		<section class="bg-base-200 border-t border-neutral py-16 px-6 text-center">
+			<div class="max-w-3xl mx-auto flex flex-col items-center gap-6">
+				<h2 class="font-display text-4xl font-semibold text-neutral m-0">
+					Join NEU and help build a better Edgewater and Uptown!
+				</h2>
+				<a
+					href="/newsletter-signup/"
+					class="btn btn-primary rounded-full hover:btn-accent border-0 text-primary-content font-semibold px-8"
+				>
 					Sign Up For Our Newsletter
 				</a>
 			</div>
@@ -135,214 +152,3 @@ const communityConnections = [
 
 	<Footer />
 </Layout>
-
-<style>
-	.about-container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 64px 24px;
-		display: flex;
-		flex-direction: column;
-		gap: 72px;
-	}
-
-	.title-separator {
-		width: 80px;
-		height: 3px;
-		background-color: var(--ast-global-color-0);
-		margin: 12px 0 24px;
-	}
-
-	.title-separator.center {
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.about-intro {
-		display: grid;
-		grid-template-columns: 1.15fr 0.85fr;
-		gap: 48px;
-		align-items: center;
-	}
-
-	.about-intro-text h1 {
-		margin: 0;
-		color: var(--ast-global-color-2);
-	}
-
-	.about-intro-text p {
-		font-size: 18px;
-		line-height: 1.7;
-		margin-bottom: 1.2em;
-	}
-
-	.about-intro-image figure {
-		margin: 0;
-		display: flex;
-		justify-content: center;
-	}
-
-	.about-intro-image img {
-		max-width: 100%;
-		height: auto;
-		border-radius: 8px;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	}
-
-	@media (max-width: 860px) {
-		.about-intro {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.mission-section {
-		background-color: var(--ast-global-color-4);
-		border-left: 5px solid var(--ast-global-color-0);
-		padding: 36px 42px;
-		border-radius: 0 8px 8px 0;
-	}
-
-	.mission-quote {
-		margin: 0;
-	}
-
-	.mission-quote p {
-		font-family: var(--heading-font);
-		font-size: 32px;
-		line-height: 1.35;
-		color: var(--ast-global-color-2);
-		margin: 0 0 12px 0;
-		font-style: italic;
-	}
-
-	.mission-quote cite {
-		font-size: 16px;
-		font-weight: 700;
-		color: var(--ast-global-color-0);
-		font-style: normal;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	.strategy-header {
-		text-align: center;
-		margin-bottom: 36px;
-	}
-
-	.strategy-header h2 {
-		font-size: 48px;
-		margin: 0;
-	}
-
-	.strategy-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 32px;
-		margin-bottom: 36px;
-	}
-
-	@media (max-width: 860px) {
-		.strategy-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.strategy-card {
-		background: #fff;
-		border: 1px solid var(--ast-global-color-6);
-		border-radius: 8px;
-		padding: 28px;
-	}
-
-	.strategy-card h3 {
-		margin: 0 0 12px 0;
-		color: var(--ast-global-color-0);
-	}
-
-	.strategy-card p {
-		margin: 0;
-		line-height: 1.65;
-	}
-
-	.strategy-banner {
-		margin: 0 auto;
-		text-align: center;
-	}
-
-	.strategy-banner img {
-		max-width: 100%;
-		height: auto;
-	}
-
-	.community-areas-section {
-		display: grid;
-		grid-template-columns: 1.5fr 1fr;
-		gap: 48px;
-		align-items: center;
-	}
-
-	@media (max-width: 920px) {
-		.community-areas-section {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.community-areas-text h2 {
-		font-size: 48px;
-		margin: 0;
-	}
-
-	.community-areas-text p {
-		font-size: 18px;
-		line-height: 1.7;
-		margin-bottom: 1.1em;
-	}
-
-	.community-list {
-		font-size: 18px;
-		line-height: 1.7;
-		padding-left: 24px;
-		margin: 12px 0 0;
-	}
-
-	.community-list li {
-		margin-bottom: 6px;
-	}
-
-	.about-cta-banner {
-		background-color: var(--ast-global-color-4);
-		border-top: 1px solid var(--ast-global-color-6);
-		padding: 64px 24px;
-		text-align: center;
-	}
-
-	.about-cta-inner {
-		max-width: 800px;
-		margin: 0 auto;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 24px;
-	}
-
-	.about-cta-inner h2 {
-		margin: 0;
-	}
-
-	.about-cta-btn {
-		display: inline-block;
-		padding: 14px 32px;
-		background-color: var(--ast-global-color-0);
-		color: #fff;
-		font-weight: 600;
-		border-radius: 30px;
-		text-decoration: none;
-		transition: background 0.2s ease;
-	}
-
-	.about-cta-btn:hover {
-		background-color: var(--ast-global-color-1);
-		color: #fff;
-	}
-</style>
-

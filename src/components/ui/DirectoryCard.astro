@@ -1,0 +1,82 @@
+---
+interface Props {
+	title: string;
+	subtitle?: string;
+	badge?: string;
+	address?: string;
+	phone?: string;
+	email?: string;
+	website?: string;
+	websiteLabel?: string;
+}
+
+const {
+	title,
+	subtitle,
+	badge,
+	address,
+	phone,
+	email,
+	website,
+	websiteLabel = 'Visit Website',
+} = Astro.props;
+
+const phoneDigits = phone ? phone.replace(/\D/g, '') : '';
+---
+
+<article class="card bg-base-100 border border-neutral/20 shadow-sm hover:shadow-md transition-shadow">
+	<div class="card-body p-6 md:p-8 gap-4">
+		<div class="flex items-start justify-between gap-3 border-b-2 border-primary pb-3">
+			<h3 class="font-display text-2xl font-bold text-neutral m-0 leading-snug">
+				{title}
+			</h3>
+			{badge && (
+				<span class="badge badge-outline badge-sm font-semibold text-secondary shrink-0">
+					{badge}
+				</span>
+			)}
+		</div>
+
+		<div class="space-y-2 text-sm md:text-base text-base-content">
+			{subtitle && <p class="font-semibold text-neutral m-0">{subtitle}</p>}
+			{address && <p class="italic m-0">{address}</p>}
+			{phone && (
+				<p class="m-0">
+					<a
+						href={`tel:${phoneDigits}`}
+						class="link link-secondary font-semibold no-underline hover:underline"
+					>
+						{phone}
+					</a>
+				</p>
+			)}
+			{email && (
+				<p class="m-0">
+					<a
+						href={`mailto:${email}`}
+						class="link link-secondary font-semibold no-underline hover:underline break-all"
+					>
+						{email}
+					</a>
+				</p>
+			)}
+		</div>
+
+		<slot />
+
+		{website && (
+			<div class="card-actions pt-2 mt-auto">
+				<a
+					href={website}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="btn btn-sm btn-secondary text-secondary-content w-full sm:w-auto"
+				>
+					<span>{websiteLabel}</span>
+					<span aria-hidden="true">↗</span>
+				</a>
+			</div>
+		)}
+	</div>
+</article>
+

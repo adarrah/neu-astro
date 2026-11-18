@@ -13,42 +13,63 @@ interface Props {
 const { slides, aspectRatio = '16 / 9' } = Astro.props;
 ---
 
-<div class="neu-slideshow" style={`--slideshow-aspect: ${aspectRatio};`}>
-	<div class="neu-slideshow-track">
-		{
-			slides.map((slide, idx) => (
-				<div class:list={['neu-slide', { 'is-active': idx === 0 }]}>
-					<figure>
-						<img src={slide.src} alt={slide.alt} loading={idx === 0 ? 'eager' : 'lazy'} />
-						{slide.caption && <figcaption>{slide.caption}</figcaption>}
-					</figure>
-				</div>
-			))
-		}
+<div class="neu-slideshow relative w-full max-w-4xl mx-auto rounded-lg overflow-hidden bg-neutral shadow-md">
+	<div class="relative w-full" style={`aspect-ratio: ${aspectRatio};`}>
+		{slides.map((slide, idx) => (
+			<div
+				class:list={[
+					'neu-slide absolute inset-0 transition-opacity duration-500',
+					idx === 0 ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none z-0',
+				]}
+			>
+				<figure class="relative w-full h-full m-0">
+					<img
+						src={slide.src}
+						alt={slide.alt}
+						loading={idx === 0 ? 'eager' : 'lazy'}
+						class="w-full h-full object-cover"
+					/>
+					{slide.caption && (
+						<figcaption class="absolute bottom-0 inset-x-0 bg-black/65 text-white text-xs px-4 py-2">
+							{slide.caption}
+						</figcaption>
+					)}
+				</figure>
+			</div>
+		))}
 	</div>
 
-	{
-		slides.length > 1 && (
-			<>
-				<button type="button" class="neu-slideshow-btn prev" aria-label="Previous slide">
-					&#8249;
-				</button>
-				<button type="button" class="neu-slideshow-btn next" aria-label="Next slide">
-					&#8250;
-				</button>
-				<div class="neu-slideshow-dots">
-					{slides.map((_, idx) => (
-						<button
-							type="button"
-							class:list={['neu-slideshow-dot', { 'is-active': idx === 0 }]}
-							aria-label={`Go to slide ${idx + 1}`}
-							data-index={idx}
-						/>
-					))}
-				</div>
-			</>
-		)
-	}
+	{slides.length > 1 && (
+		<>
+			<button
+				type="button"
+				class="neu-slideshow-btn prev btn btn-circle btn-sm bg-black/60 hover:bg-black/80 border-0 text-white absolute left-3 top-1/2 -translate-y-1/2 z-20"
+				aria-label="Previous slide"
+			>
+				&#8249;
+			</button>
+			<button
+				type="button"
+				class="neu-slideshow-btn next btn btn-circle btn-sm bg-black/60 hover:bg-black/80 border-0 text-white absolute right-3 top-1/2 -translate-y-1/2 z-20"
+				aria-label="Next slide"
+			>
+				&#8250;
+			</button>
+			<div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+				{slides.map((_, idx) => (
+					<button
+						type="button"
+						class:list={[
+							'neu-slideshow-dot w-2.5 h-2.5 rounded-full border-0 cursor-pointer transition-colors',
+							idx === 0 ? 'bg-primary' : 'bg-white/60 hover:bg-white',
+						]}
+						aria-label={`Go to slide ${idx + 1}`}
+						data-index={idx}
+					/>
+				))}
+			</div>
+		</>
+	)}
 </div>
 
 <script>
@@ -63,8 +84,19 @@ const { slides, aspectRatio = '16 / 9' } = Astro.props;
 
 		function goTo(index: number) {
 			current = (index + slides.length) % slides.length;
-			slides.forEach((s, idx) => s.classList.toggle('is-active', idx === current));
-			dots.forEach((d, idx) => d.classList.toggle('is-active', idx === current));
+			slides.forEach((s, idx) => {
+				const active = idx === current;
+				s.classList.toggle('opacity-100', active);
+				s.classList.toggle('z-10', active);
+				s.classList.toggle('opacity-0', !active);
+				s.classList.toggle('pointer-events-none', !active);
+				s.classList.toggle('z-0', !active);
+			});
+			dots.forEach((d, idx) => {
+				const active = idx === current;
+				d.classList.toggle('bg-primary', active);
+				d.classList.toggle('bg-white/60', !active);
+			});
 		}
 
 		prevBtn?.addEventListener('click', () => goTo(current - 1));
@@ -80,125 +112,3 @@ const { slides, aspectRatio = '16 / 9' } = Astro.props;
 		}, 5000);
 	});
 </script>
-
-<style>
-	.neu-slideshow {
-		position: relative;
-		width: 100%;
-		max-width: 900px;
-		margin: 0 auto;
-		border-radius: 8px;
-		overflow: hidden;
-		background: #111;
-		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-	}
-
-	.neu-slideshow-track {
-		position: relative;
-		width: 100%;
-		aspect-ratio: var(--slideshow-aspect, 16 / 9);
-	}
-
-	.neu-slide {
-		position: absolute;
-		inset: 0;
-		opacity: 0;
-		pointer-events: none;
-		transition: opacity 0.45s ease;
-	}
-
-	.neu-slide.is-active {
-		opacity: 1;
-		pointer-events: auto;
-		z-index: 1;
-	}
-
-	.neu-slide figure {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.neu-slide img {
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-		background: #111;
-	}
-
-	.neu-slide figcaption {
-		position: absolute;
-		bottom: 36px;
-		left: 0;
-		right: 0;
-		background: rgba(0, 0, 0, 0.65);
-		color: #fff;
-		padding: 6px 14px;
-		font-size: 13px;
-		text-align: center;
-	}
-
-	.neu-slideshow-btn {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: 5;
-		width: 42px;
-		height: 42px;
-		border-radius: 50%;
-		border: none;
-		background: rgba(0, 0, 0, 0.55);
-		color: #fff;
-		font-size: 26px;
-		line-height: 1;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: background 0.2s ease;
-	}
-
-	.neu-slideshow-btn:hover {
-		background: rgba(0, 0, 0, 0.8);
-	}
-
-	.neu-slideshow-btn.prev {
-		left: 14px;
-	}
-
-	.neu-slideshow-btn.next {
-		right: 14px;
-	}
-
-	.neu-slideshow-dots {
-		position: absolute;
-		bottom: 12px;
-		left: 0;
-		right: 0;
-		z-index: 5;
-		display: flex;
-		justify-content: center;
-		gap: 8px;
-	}
-
-	.neu-slideshow-dot {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		border: none;
-		background: rgba(255, 255, 255, 0.5);
-		cursor: pointer;
-		padding: 0;
-		transition: transform 0.2s ease, background 0.2s ease;
-	}
-
-	.neu-slideshow-dot.is-active {
-		background: #fff;
-		transform: scale(1.2);
-	}
-</style>
-
